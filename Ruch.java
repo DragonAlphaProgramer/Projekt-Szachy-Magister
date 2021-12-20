@@ -118,7 +118,7 @@ public class Ruch implements Comparable<Ruch> {
     rzad start2, koniec2;
     figura kolejnosc, promowana = null;
     final sortowanie sposob;
-    int wspolczynnik_bicia = 0;
+    Integer wspolczynnik_bicia;
     int wartosc_promocji = 0;
     figura korzystnosc_bicia;
 
@@ -414,7 +414,7 @@ public class Ruch implements Comparable<Ruch> {
             case pierwszy_szach:
                 if (szach == (obiekt.szach)) {
                     if (roszada == (obiekt.roszada)) {
-                        if (obiekt.wspolczynnik_bicia == (wspolczynnik_bicia)) {
+                        if (wspolczynnik_bicia.compareTo(obiekt.wspolczynnik_bicia)==0) {
                             //  if (kolejnosc == obiekt.kolejnosc) {
                             if (start2.compareTo(obiekt.start2) == 0) {
                                 if (start1.compareTo(obiekt.start1) == 0) {
@@ -427,7 +427,7 @@ public class Ruch implements Comparable<Ruch> {
                                     return start1.compareTo(obiekt.start1) * (czybialy == true ? 1 : 1);
                                 }
                             } else {
-                                return start2.compareTo(obiekt.start2) * (czybialy == true ? -1 : 1);
+                                return start2.compareTo(obiekt.start2) * (czybialy == true ? 1 : -1);
                             }
                             /*  } else {
                                 switch (kolejnosc) {
@@ -518,9 +518,7 @@ public class Ruch implements Comparable<Ruch> {
                                 }
                             }*/
                         } else {
-                            return (obiekt.korzystnosc_bicia != figura.Pustka && korzystnosc_bicia != figura.Pustka)
-                                    ? ((obiekt.wspolczynnik_bicia > wspolczynnik_bicia) ? 1 : -1)
-                                    : ((obiekt.wspolczynnik_bicia > wspolczynnik_bicia) ? 1 : -1);
+                            return (wspolczynnik_bicia.compareTo(obiekt.wspolczynnik_bicia))*-1;
 
                         }
 
@@ -541,7 +539,7 @@ public class Ruch implements Comparable<Ruch> {
 
             case pierwsze_bicie:
                 if (roszada == (obiekt.roszada)) {
-                    if (wspolczynnik_bicia == (obiekt.wspolczynnik_bicia)) {
+                    if (wspolczynnik_bicia.compareTo(obiekt.wspolczynnik_bicia)==0) {
                         //if (kolejnosc == obiekt.kolejnosc) {
                         if (start2.compareTo(obiekt.start2) == 0) {
                             if (start1.compareTo(obiekt.start1) == 0) {
@@ -554,7 +552,7 @@ public class Ruch implements Comparable<Ruch> {
                                 return start1.compareTo(obiekt.start1) * (czybialy == true ? 1 : 1);
                             }
                         } else {
-                            return start2.compareTo(obiekt.start2) * (czybialy == true ? -1 : 1);
+                            return start2.compareTo(obiekt.start2) * (czybialy == true ? 1 : -1);
                         }
                         /* } else {
                             switch (kolejnosc) {
@@ -645,9 +643,7 @@ public class Ruch implements Comparable<Ruch> {
                             }
                         }*/
                     } else {
-                        return (obiekt.korzystnosc_bicia != figura.Pustka && korzystnosc_bicia != figura.Pustka)
-                                ? ((obiekt.wspolczynnik_bicia > wspolczynnik_bicia) ? 1 : -1)
-                                : ((obiekt.wspolczynnik_bicia > wspolczynnik_bicia) ? 1 : -1);
+                        return (wspolczynnik_bicia.compareTo(obiekt.wspolczynnik_bicia))*-1;
 
                     }
                 } else {

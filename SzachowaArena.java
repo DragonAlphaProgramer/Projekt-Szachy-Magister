@@ -6,8 +6,11 @@
 package szachy;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FileDialog;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.io.BufferedReader;
@@ -107,6 +110,7 @@ public class SzachowaArena extends javax.swing.JFrame {
     byte sztuczny_rywal; // do SI
     public Lock blokada; // gra na czas
     boolean SI_wyk = false; // do SI
+    private Cursor mysz;
     public Thread whitetime, blacktime; //gra na czas
     public static ServerSocket server; // gra online
     public boolean odwrot = false; // gra z SI i online
@@ -130,7 +134,7 @@ public class SzachowaArena extends javax.swing.JFrame {
     public String msgwe = "", msgwy = "", ruch = "";// gra online
     public boolean polestart, prze, gra, dokonanoEP, kon;// baza
     public boolean roch, wyk, przelot, przelotcan, zmien; // baza
-    private Icon Cursor;//baza
+    private Icon cursor;//baza
     public char promo, pomoci1, symbol, pomoci2, znak_promocji = ' ';//baza
     public String pomocs, pomoce, koncowe, czarne, biale, start, stop;//baza
     public String pomoci, kap, nazwapola;//baza
@@ -1490,6 +1494,490 @@ public class SzachowaArena extends javax.swing.JFrame {
         pionC = 8;
     }
 
+    private void dobierz_kursor(char symbole) {
+        
+        if (tryb == 3) {
+            Image ikonka = null;
+            switch (symbole) {
+                case ' ':
+                    setCursor(Cursor.DEFAULT_CURSOR);
+                    break;
+                case 'P':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Wpawn001.png")).getImage(),
+                            new Point(0, 0), "custom cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn001.png")).getImage();
+                    break;
+                case 'N':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage(),
+                            new Point(0, 0), "custom cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage();;
+                    break;
+                case 'B':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage(),
+                            new Point(0, 0), "custom cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage();;
+                    break;
+                case 'R':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage(),
+                            new Point(0, 0), "custom cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage();;
+                    break;
+                case 'Q':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage(),
+                            new Point(0, 0), "custom cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage();;
+                    break;
+                case 'K':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Wking001.png")).getImage(),
+                            new Point(0, 0), "custom cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Wking001.png")).getImage();;
+                    break;
+                case 'p':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage(),
+                            new Point(0, 0), "custom Cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage();;
+                    break;
+                case 'n':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage(),
+                            new Point(0, 0), "custom Cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage();;
+                    break;
+                case 'b':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage(),
+                            new Point(0, 0), "custom Cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage();;
+                    break;
+                case 'r':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Brook001.png")).getImage(),
+                            new Point(0, 0), "custom Cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Brook001.png")).getImage();;
+                    break;
+                case 'q':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage(),
+                            new Point(0, 0), "custom Cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage();;
+                    break;
+                case 'k':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Bking001.png")).getImage(),
+                            new Point(0, 0), "custom Cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Bking001.png")).getImage();;
+                    break;
+            }
+             dobierz_kursor_na_przycisku(symbole, ikonka);
+        } else {
+            Image ikonka = null;
+            switch (kroj_zestaw) {
+                case 1:
+                    switch (kolor_zestaw) {
+                        case 1:
+                            switch (symbole) {
+                                case ' ':
+                                    setCursor(Cursor.DEFAULT_CURSOR);
+                                    break;
+                                case 'P':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wpawn001.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn001.png")).getImage();;
+                                    break;
+                                case 'N':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage();;
+                                    break;
+                                case 'B':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage();;
+                                    break;
+                                case 'R':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage();;
+                                    break;
+                                case 'Q':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage();;
+                                    break;
+                                case 'K':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wking001.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wking001.png")).getImage();;
+                                    break;
+                                case 'p':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage();;
+                                    break;
+                                case 'n':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage();;
+                                    break;
+                                case 'b':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage();;
+                                    break;
+                                case 'r':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Brook001.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Brook001.png")).getImage();;
+                                    break;
+                                case 'q':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage();;
+                                    break;
+                                case 'k':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bking001.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bking001.png")).getImage();;
+                                    break;
+                            }
+                            break;
+                        case 2:
+                            switch (symbole) {
+                                case ' ':
+                                    setCursor(Cursor.DEFAULT_CURSOR);
+                                    break;
+                                case 'P':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wpawn002.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn002.png")).getImage();;
+                                    break;
+                                case 'N':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wknight2.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight2.png")).getImage();;
+                                    break;
+                                case 'B':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wbishop2.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop2.png")).getImage();;
+                                    break;
+                                case 'R':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wrook002.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook002.png")).getImage();;
+                                    break;
+                                case 'Q':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wqueen02.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen02.png")).getImage();;
+                                    break;
+                                case 'K':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wking002.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wking002.png")).getImage();;
+                                    break;
+                                case 'p':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bpawn002.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn002.png")).getImage();;
+                                    break;
+                                case 'n':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bknight2.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight2.png")).getImage();;
+                                    break;
+                                case 'b':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bbishop2.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop2.png")).getImage();;
+                                    break;
+                                case 'r':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Brook002.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Brook002.png")).getImage();;
+                                    break;
+                                case 'q':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bqueen02.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen02.png")).getImage();;
+                                    break;
+                                case 'k':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bking002.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bking002.png")).getImage();;
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (kolor_zestaw) {
+                        case 1:
+                            switch (symbole) {
+                                case ' ':
+                                    setCursor(Cursor.DEFAULT_CURSOR);
+                                    break;
+                                case 'P':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wpawn004.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn004.png")).getImage();;
+                                    break;
+                                case 'N':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wknight4.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight4.png")).getImage();;
+                                    break;
+                                case 'B':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wbishop4.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop4.png")).getImage();;
+                                    break;
+                                case 'R':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wrook004.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook004.png")).getImage();;
+                                    break;
+                                case 'Q':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wqueen04.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen04.png")).getImage();;
+                                    break;
+                                case 'K':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wking004.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wking004.png")).getImage();;
+                                    break;
+                                case 'p':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bpawn004.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn004.png")).getImage();;
+                                    break;
+                                case 'n':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bknight4.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight4.png")).getImage();;
+                                    break;
+                                case 'b':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bbishop4.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop4.png")).getImage();;
+                                    break;
+                                case 'r':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Brook004.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Brook004.png")).getImage();;
+                                    break;
+                                case 'q':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bqueen04.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen04.png")).getImage();;
+                                    break;
+                                case 'k':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bking004.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bking004.png")).getImage();;
+                                    break;
+                            }
+                            break;
+                        case 2:
+                            switch (symbole) {
+                                case ' ':
+                                    setCursor(Cursor.DEFAULT_CURSOR);
+                                    break;
+                                case 'P':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wpawn003.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn003.png")).getImage();;
+                                    break;
+                                case 'N':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wknight3.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight3.png")).getImage();;
+                                    break;
+                                case 'B':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wbishop3.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop3.png")).getImage();;
+                                    break;
+                                case 'R':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wrook003.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook003.png")).getImage();;
+                                    break;
+                                case 'Q':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wqueen03.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen03.png")).getImage();;
+                                    break;
+                                case 'K':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wking003.png")).getImage(),
+                                            new Point(0, 0), "custom cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wking003.png")).getImage();;
+                                    break;
+                                case 'p':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bpawn003.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn003.png")).getImage();;
+                                    break;
+                                case 'n':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bknight3.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight3.png")).getImage();;
+                                    break;
+                                case 'b':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bbishop3.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop3.png")).getImage();;
+                                    break;
+                                case 'r':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Brook003.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Brook003.png")).getImage();;
+                                    break;
+                                case 'q':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bqueen03.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen03.png")).getImage();;
+                                    break;
+                                case 'k':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bking003.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bking003.png")).getImage();
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+            }
+             dobierz_kursor_na_przycisku(symbole, ikonka);
+        }
+       
+    }
+
+    private void dobierz_kursor_na_przycisku(char symbole, Image img) {
+        mysz = symbole != ' ' ? Toolkit.getDefaultToolkit().createCustomCursor(img,new Point(0, 0), "custom Cursor")
+                : Cursor.getDefaultCursor();
+        A1.setCursor(mysz);
+        A2.setCursor(mysz);
+        A3.setCursor(mysz);
+        A4.setCursor(mysz);
+        A5.setCursor(mysz);
+        A6.setCursor(mysz);
+        A7.setCursor(mysz);
+        A8.setCursor(mysz);
+        B1.setCursor(mysz);
+        B2.setCursor(mysz);
+        B3.setCursor(mysz);
+        B4.setCursor(mysz);
+        B5.setCursor(mysz);
+        B6.setCursor(mysz);
+        B7.setCursor(mysz);
+        B8.setCursor(mysz);
+        C1.setCursor(mysz);
+        C2.setCursor(mysz);
+        C3.setCursor(mysz);
+        C4.setCursor(mysz);
+        C5.setCursor(mysz);
+        C6.setCursor(mysz);
+        C7.setCursor(mysz);
+        C8.setCursor(mysz);
+        D1.setCursor(mysz);
+        D2.setCursor(mysz);
+        D3.setCursor(mysz);
+        D4.setCursor(mysz);
+        D5.setCursor(mysz);
+        D6.setCursor(mysz);
+        D7.setCursor(mysz);
+        D8.setCursor(mysz);
+        E1.setCursor(mysz);
+        E2.setCursor(mysz);
+        E3.setCursor(mysz);
+        E4.setCursor(mysz);
+        E5.setCursor(mysz);
+        E6.setCursor(mysz);
+        E7.setCursor(mysz);
+        E8.setCursor(mysz);
+        F1.setCursor(mysz);
+        F2.setCursor(mysz);
+        F3.setCursor(mysz);
+        F4.setCursor(mysz);
+        F5.setCursor(mysz);
+        F6.setCursor(mysz);
+        F7.setCursor(mysz);
+        F8.setCursor(mysz);
+        G1.setCursor(mysz);
+        G2.setCursor(mysz);
+        G3.setCursor(mysz);
+        G4.setCursor(mysz);
+        G5.setCursor(mysz);
+        G6.setCursor(mysz);
+        G7.setCursor(mysz);
+        G8.setCursor(mysz);
+        H1.setCursor(mysz);
+        H2.setCursor(mysz);
+        H3.setCursor(mysz);
+        H4.setCursor(mysz);
+        H5.setCursor(mysz);
+        H6.setCursor(mysz);
+        H7.setCursor(mysz);
+        H8.setCursor(mysz);
+    }
+
     /**
      * Odpowiada za działanie w tle programu SI
      *
@@ -1497,28 +1985,28 @@ public class SzachowaArena extends javax.swing.JFrame {
     public class Progres_postep extends SwingWorker<Object, Object> {
 
         @Override
-        protected Object doInBackground(){
-            try{
-            String oponet = "";
-            char[][] backup = new char[8][8];
-            jProgressBar1.setMinimum(0);
-            SI_wyk = false;
-            for (int x = 0; x < 8; x++) {
-                System.arraycopy(ust[x], 0, backup[x], 0, 8);
-            }
-            int elem = 0, dlugosc = Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
-                    bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size();
-            System.out.println(dlugosc + "elem");
-            jProgressBar1.setMaximum(dlugosc);
-            jProgressBar1.setValue(0);
-            int najlepszy = tura_rywala ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-            int najwieksza = Integer.MIN_VALUE;
-            int najmniejsza = Integer.MAX_VALUE;
-            int pula_pozycji = 0;
-            int pula_sprawdzona = 0;
-            String ostatni = "";
-            long czas_start = System.currentTimeMillis();
-            /*ExecutorService exec = Executors.newCachedThreadPool();
+        protected Object doInBackground() {
+            try {
+                String oponet = "";
+                char[][] backup = new char[8][8];
+                jProgressBar1.setMinimum(0);
+                SI_wyk = false;
+                for (int x = 0; x < 8; x++) {
+                    System.arraycopy(ust[x], 0, backup[x], 0, 8);
+                }
+                int elem = 0, dlugosc = Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
+                        bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size();
+                System.out.println(dlugosc + "elem");
+                jProgressBar1.setMaximum(dlugosc);
+                jProgressBar1.setValue(0);
+                int najlepszy = tura_rywala ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+                int najwieksza = Integer.MIN_VALUE;
+                int najmniejsza = Integer.MAX_VALUE;
+                int pula_pozycji = 0;
+                int pula_sprawdzona = 0;
+                String ostatni = "";
+                long czas_start = System.currentTimeMillis();
+                /*ExecutorService exec = Executors.newCachedThreadPool();
             ArrayList<Future<wyniki>> rezultaty = new ArrayList<>();
             wyniki[] w = new wyniki[9];
             
@@ -1560,189 +2048,190 @@ public class SzachowaArena extends javax.swing.JFrame {
                 }
             }*/
 
-            int licznik = 0;
-            for (Ruch move : Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
-                    bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false)) {
-                if(Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
-                    bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size()>1) {
-            
-                elem++;
-                jProgressBar1.setValue(elem);
-                setProgress((int) (elem * 1f / dlugosc * 100.0f));
-                SI_MIN_MAX_Alfa_Beta ai = new SI_MIN_MAX_Alfa_Beta(backup.clone(), ruchB, przelotcan,
-                        bleft, bright, wleft, wright, kingrochB, kingrochC, dokonano_RB, dokonano_RC, kol, odwrot, licznik, glebiaSI);
-                jProgressBar1.setString("Rozpatrywane:" + (move.toString()) + "| bieżacy wybór:" + oponet);
-                System.out.println((move.toString()) + " mysle");
-                if (!move.roszada || !RuchZagrozenie_kontrola.szach(backup.clone(), ruchB)) {
-                    System.out.println(najmniejsza + "#" + najwieksza + "   ");
-                    int wynik = ai.wykonaj(glebiaSI, move, najwieksza, najmniejsza);
-                    pula_pozycji = pula_pozycji + ai.all_position;
-                    pula_sprawdzona = pula_sprawdzona + ai.pozycje;
-                    System.out.println(ai.licznik);
-                    licznik = ai.licznik;
-                    System.out.println(najmniejsza + "|" + najwieksza + "   " + wynik);
-                    if (!ai.isZakaz()) {
-                        ostatni = (move.toString());
-                        if (ruchB == true && wynik > najwieksza) {
-                            najwieksza = wynik;
-                            oponet = (move.toString());
-                            najlepszy = wynik;
-                        } else if (ruchB == false && wynik < najmniejsza) {
-                            najmniejsza = wynik;
-                            oponet = (move.toString());
-                            najlepszy = wynik;
+                int licznik = 0;
+                for (Ruch move : Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
+                        bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false)) {
+                    if (Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
+                            bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size() > 1) {
+
+                        elem++;
+                        jProgressBar1.setValue(elem);
+                        setProgress((int) (elem * 1f / dlugosc * 100.0f));
+                        SI_MIN_MAX_Alfa_Beta ai = new SI_MIN_MAX_Alfa_Beta(backup.clone(), ruchB, przelotcan,
+                                bleft, bright, wleft, wright, kingrochB, kingrochC, dokonano_RB, dokonano_RC, kol, odwrot, licznik, glebiaSI);
+                        jProgressBar1.setString("Rozpatrywane:" + (move.toString()) + "| bieżacy wybór:" + oponet);
+                        System.out.println((move.toString()) + " mysle");
+                        if (!move.roszada || !RuchZagrozenie_kontrola.szach(backup.clone(), ruchB)) {
+                            System.out.println(najmniejsza + "#" + najwieksza + "   ");
+                            int wynik = ai.wykonaj(glebiaSI, move, najwieksza, najmniejsza);
+                            pula_pozycji = pula_pozycji + ai.all_position;
+                            pula_sprawdzona = pula_sprawdzona + ai.pozycje;
+                            System.out.println(ai.licznik);
+                            licznik = ai.licznik;
+                            System.out.println(najmniejsza + "|" + najwieksza + "   " + wynik);
+                            if (!ai.isZakaz()) {
+                                ostatni = (move.toString());
+                                if (ruchB == true && wynik > najwieksza) {
+                                    najwieksza = wynik;
+                                    oponet = (move.toString());
+                                    najlepszy = wynik;
+                                } else if (ruchB == false && wynik < najmniejsza) {
+                                    najmniejsza = wynik;
+                                    oponet = (move.toString());
+                                    najlepszy = wynik;
+                                }
+                                //System.out.println("wynik "+wynik);
+                            } else {
+                                System.out.println("cofka");
+                            }
+                            System.out.println((move.toString()) + " wynik(" + najlepszy + ")");
+
+                        } else {
+                            System.out.println("error castling");
                         }
-                        //System.out.println("wynik "+wynik);
+                        jProgressBar1.setString("Rozpatrywane:" + move.toString() + "| bieżacy wybór:" + oponet);
+                        if (ai.isPrzerwa()) {
+                            System.out.println("przerwa");
+                            break;
+                        }
                     } else {
-                        System.out.println("cofka");
+                        pula_pozycji = 1;
+                        pula_sprawdzona = 1;
+                        oponet = move.toString();
+                        najlepszy = tura_rywala ? Integer.MAX_VALUE : Integer.MIN_VALUE;
                     }
-                    System.out.println((move.toString()) + " wynik(" + najlepszy + ")");
-
-                } else {
-                    System.out.println("error castling");
                 }
-                jProgressBar1.setString("Rozpatrywane:" + move.toString() + "| bieżacy wybór:" + oponet);
-                if (ai.isPrzerwa()) {
-                    System.out.println("przerwa");
-                    break;
+                long czas_stop = System.currentTimeMillis();
+                long czas = (czas_stop - czas_start) / 1000;
+                System.out.println("wszystkich kombinacji: " + pula_pozycji);
+                System.out.println("zaanalizowano kombinacji: " + pula_sprawdzona);
+                System.out.printf("procent analizowanych kombinacji: %.2f %n", (float) (pula_sprawdzona) / (float) (pula_pozycji) * 100f);
+                if ("".equals(oponet)) {
+                    oponet = ostatni;
                 }
-                }else{
-                    pula_pozycji=1;
-                    pula_sprawdzona=1;
-                    oponet=move.toString();
-                    najlepszy=tura_rywala?Integer.MAX_VALUE:Integer.MIN_VALUE;
-                }
-            }
-            long czas_stop = System.currentTimeMillis();
-            long czas = (czas_stop - czas_start) / 1000;
-            System.out.println("wszystkich kombinacji: " + pula_pozycji);
-            System.out.println("zaanalizowano kombinacji: " + pula_sprawdzona);
-            System.out.printf("procent analizowanych kombinacji: %.2f %n", (float) (pula_sprawdzona) / (float) (pula_pozycji) * 100f);
-            if ("".equals(oponet)) {
-                oponet = ostatni;
-            }
-            System.out.println("Ruch SI:" + oponet + "(" + najlepszy + ")");
-            System.out.println("Czas SI:" + czas + "s");
-            float procent = (Math.round(pula_sprawdzona * 10000.0f / pula_pozycji)) / 100.0f;
-            System.out.println("Czas w min: " + czas / 60 + " min, " + czas % 60 + " s");
-            jTextArea2.setVisible(true);
-            laczny_czas = laczny_czas + czas;
-            jTextArea2.append("Ruch SI:" + oponet + "(" + najlepszy + ") \n");
-            jTextArea2.append("Czas SI:" + czas + "s" + " \n");
-            jTextArea2.append("Czas w min: " + czas / 60 + " min, " + czas % 60 + " s" + " \n");
-            jTextArea2.append("Czas łączny: " + laczny_czas + " \n");
-            jTextArea2.append("wszystkich kombinacji: " + pula_pozycji + " \n");
-            jTextArea2.append("zaanalizowano kombinacji: " + pula_sprawdzona + " \n");
-            jTextArea2.append("procent analizowanych kombinacji:" + procent + " \n \n");
-            jTextArea2.setCaretPosition(jTextArea2.getDocument().getLength());
-            SI_wyk = true;
-            A1.setEnabled(true);
-            A2.setEnabled(true);
-            A3.setEnabled(true);
-            A4.setEnabled(true);
-            A5.setEnabled(true);
-            A6.setEnabled(true);
-            A7.setEnabled(true);
-            A8.setEnabled(true);
-            B1.setEnabled(true);
-            B2.setEnabled(true);
-            B3.setEnabled(true);
-            B4.setEnabled(true);
-            B5.setEnabled(true);
-            B6.setEnabled(true);
-            B7.setEnabled(true);
-            B8.setEnabled(true);
-            C1.setEnabled(true);
-            C2.setEnabled(true);
-            C3.setEnabled(true);
-            C4.setEnabled(true);
-            C5.setEnabled(true);
-            C6.setEnabled(true);
-            C7.setEnabled(true);
-            C8.setEnabled(true);
-            D1.setEnabled(true);
-            D2.setEnabled(true);
-            D3.setEnabled(true);
-            D4.setEnabled(true);
-            D5.setEnabled(true);
-            D6.setEnabled(true);
-            D7.setEnabled(true);
-            D8.setEnabled(true);
-            E1.setEnabled(true);
-            E2.setEnabled(true);
-            E3.setEnabled(true);
-            E4.setEnabled(true);
-            E5.setEnabled(true);
-            E6.setEnabled(true);
-            E7.setEnabled(true);
-            E8.setEnabled(true);
-            F1.setEnabled(true);
-            F2.setEnabled(true);
-            F3.setEnabled(true);
-            F4.setEnabled(true);
-            F5.setEnabled(true);
-            F6.setEnabled(true);
-            F7.setEnabled(true);
-            F8.setEnabled(true);
-            G1.setEnabled(true);
-            G2.setEnabled(true);
-            G3.setEnabled(true);
-            G4.setEnabled(true);
-            G5.setEnabled(true);
-            G6.setEnabled(true);
-            G7.setEnabled(true);
-            G8.setEnabled(true);
-            H1.setEnabled(true);
-            H2.setEnabled(true);
-            H3.setEnabled(true);
-            H4.setEnabled(true);
-            H5.setEnabled(true);
-            H6.setEnabled(true);
-            H7.setEnabled(true);
-            H8.setEnabled(true);
+                System.out.println("Ruch SI:" + oponet + "(" + najlepszy + ")");
+                System.out.println("Czas SI:" + czas + "s");
+                float procent = (Math.round(pula_sprawdzona * 10000.0f / pula_pozycji)) / 100.0f;
+                System.out.println("Czas w min: " + czas / 60 + " min, " + czas % 60 + " s");
+                jTextArea2.setVisible(true);
+                laczny_czas = laczny_czas + czas;
+                jTextArea2.append("Ruch SI:" + oponet + "(" + najlepszy + ") \n");
+                jTextArea2.append("Czas SI:" + czas + "s" + " \n");
+                jTextArea2.append("Czas w min: " + czas / 60 + " min, " + czas % 60 + " s" + " \n");
+                jTextArea2.append("Czas łączny: " + laczny_czas + " \n");
+                jTextArea2.append("wszystkich kombinacji: " + pula_pozycji + " \n");
+                jTextArea2.append("zaanalizowano kombinacji: " + pula_sprawdzona + " \n");
+                jTextArea2.append("procent analizowanych kombinacji:" + procent + " \n \n");
+                jTextArea2.setCaretPosition(jTextArea2.getDocument().getLength());
+                SI_wyk = true;
+                A1.setEnabled(true);
+                A2.setEnabled(true);
+                A3.setEnabled(true);
+                A4.setEnabled(true);
+                A5.setEnabled(true);
+                A6.setEnabled(true);
+                A7.setEnabled(true);
+                A8.setEnabled(true);
+                B1.setEnabled(true);
+                B2.setEnabled(true);
+                B3.setEnabled(true);
+                B4.setEnabled(true);
+                B5.setEnabled(true);
+                B6.setEnabled(true);
+                B7.setEnabled(true);
+                B8.setEnabled(true);
+                C1.setEnabled(true);
+                C2.setEnabled(true);
+                C3.setEnabled(true);
+                C4.setEnabled(true);
+                C5.setEnabled(true);
+                C6.setEnabled(true);
+                C7.setEnabled(true);
+                C8.setEnabled(true);
+                D1.setEnabled(true);
+                D2.setEnabled(true);
+                D3.setEnabled(true);
+                D4.setEnabled(true);
+                D5.setEnabled(true);
+                D6.setEnabled(true);
+                D7.setEnabled(true);
+                D8.setEnabled(true);
+                E1.setEnabled(true);
+                E2.setEnabled(true);
+                E3.setEnabled(true);
+                E4.setEnabled(true);
+                E5.setEnabled(true);
+                E6.setEnabled(true);
+                E7.setEnabled(true);
+                E8.setEnabled(true);
+                F1.setEnabled(true);
+                F2.setEnabled(true);
+                F3.setEnabled(true);
+                F4.setEnabled(true);
+                F5.setEnabled(true);
+                F6.setEnabled(true);
+                F7.setEnabled(true);
+                F8.setEnabled(true);
+                G1.setEnabled(true);
+                G2.setEnabled(true);
+                G3.setEnabled(true);
+                G4.setEnabled(true);
+                G5.setEnabled(true);
+                G6.setEnabled(true);
+                G7.setEnabled(true);
+                G8.setEnabled(true);
+                H1.setEnabled(true);
+                H2.setEnabled(true);
+                H3.setEnabled(true);
+                H4.setEnabled(true);
+                H5.setEnabled(true);
+                H6.setEnabled(true);
+                H7.setEnabled(true);
+                H8.setEnabled(true);
 
-            if (SI_wyk) {
+                if (SI_wyk) {
 
-                if (!"O-O".equals(oponet.substring(0, 3))) {
-                    start = oponet.substring(1, 3);
-                    stop = oponet.substring(4, 6);
-                    if (oponet.charAt(6) == '=') {
-                        znak_promocji = oponet.charAt(7);
+                    if (!"O-O".equals(oponet.substring(0, 3))) {
+                        start = oponet.substring(1, 3);
+                        stop = oponet.substring(4, 6);
+                        if (oponet.charAt(6) == '=') {
+                            znak_promocji = oponet.charAt(7);
 
-                    }
-                    aktywuj(odwrot, start);
-                    aktywuj(odwrot, stop);
-                } else {
-                    if ("O-O".equals(oponet)) {
-                        if (ruchB) {
-                            aktywuj(odwrot, "E1");
-                            aktywuj(odwrot, "G1");
-                        } else {
-                            aktywuj(odwrot, "E8");
-                            aktywuj(odwrot, "G8");
+                        }
+                        aktywuj(odwrot, start);
+                        aktywuj(odwrot, stop);
+                    } else {
+                        if ("O-O".equals(oponet)) {
+                            if (ruchB) {
+                                aktywuj(odwrot, "E1");
+                                aktywuj(odwrot, "G1");
+                            } else {
+                                aktywuj(odwrot, "E8");
+                                aktywuj(odwrot, "G8");
+                            }
+                        }
+                        if ("O-O-O".equals(oponet)) {
+                            if (ruchB) {
+                                aktywuj(odwrot, "E1");
+                                aktywuj(odwrot, "C1");
+                            } else {
+                                aktywuj(odwrot, "E8");
+                                aktywuj(odwrot, "C8");
+                            }
                         }
                     }
-                    if ("O-O-O".equals(oponet)) {
-                        if (ruchB) {
-                            aktywuj(odwrot, "E1");
-                            aktywuj(odwrot, "C1");
-                        } else {
-                            aktywuj(odwrot, "E8");
-                            aktywuj(odwrot, "C8");
-                        }
-                    }
+
                 }
+                SI_wyk = false;
+
+            } catch (Exception xg) {
+                xg.printStackTrace();
 
             }
-            SI_wyk = false;
+            return null;
+        }
+    }
 
-            
-        }catch(Exception xg){
-        xg.printStackTrace();
-        
-    }return null;
-    }
-    }
     private SI_MIN_MAX_Alfa_Beta.figury[][] konwert(char[][] ustawienie) {
         SI_MIN_MAX_Alfa_Beta.figury[][] pozycja = new SI_MIN_MAX_Alfa_Beta.figury[8][8];
         for (int i = 0; i < 8; i++) {
@@ -2859,7 +3348,7 @@ public class SzachowaArena extends javax.swing.JFrame {
             public void run() {
                 lina = lina + 1;
                 if (lina % 2 == 0) {
-                    przycisk.setIcon(Cursor);
+                    przycisk.setIcon(cursor);
                 } else {
                     switch (tulis) {
                         case ' ':
@@ -2904,7 +3393,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                     }
                     if (polestart == false) {
                         if (lokalS[0] == lokalK[0] && lokalS[1] == lokalK[1]) {
-                            przycisk.setIcon(Cursor);
+                            przycisk.setIcon(cursor);
                         } else {
                             switch (tulis) {
                                 case ' ':
@@ -2982,12 +3471,12 @@ public class SzachowaArena extends javax.swing.JFrame {
             public void run() {
                 lina = lina + 1;
                 if (lina % 2 == 0) {
-                    przycisk.setIcon(Cursor);
+                    przycisk.setIcon(cursor);
                 } else {
                     przycisk.setIcon(null);
                     if (!polestart) {
                         if (lokalS[0] == lokalK[0] && lokalS[1] == lokalK[1]) {
-                            przycisk.setIcon(Cursor);
+                            przycisk.setIcon(cursor);
                         } else {
                             przycisk.setIcon(null);
                         }
@@ -3565,12 +4054,13 @@ public class SzachowaArena extends javax.swing.JFrame {
             }
             lokalS[0] = (byte) pomx;
             lokalS[1] = (byte) pomy;
-            Cursor = BUTTON.getIcon();
+            cursor = BUTTON.getIcon();
             symbole[0] = szachownica_pokoj[lokalS[1] - 1][lokalS[0] - 1][0];
             symbole[1] = szachownica_pokoj[lokalS[1] - 1][lokalS[0] - 1][1];
             symbol = ruchB == true ? symbole[0] : symbole[1];
+            dobierz_kursor(symbol);
             BUTTON.setIcon(null);
-            jLabel12.setIcon(Cursor);
+            jLabel12.setIcon(cursor);
             jLabel12.setText(BUTTON.getName());
             if (szachownica_pokoj[lokalS[1] - 1][lokalS[0] - 1][ruchB == true ? 0 : 1] != ' ') {
                 start = BUTTON.getName();
@@ -3642,13 +4132,15 @@ public class SzachowaArena extends javax.swing.JFrame {
             lokalK[0] = pomx;
             lokalK[1] = pomy;
             if (BUTTON.getIcon() == null) {
+                setCursor(Cursor.DEFAULT_CURSOR);
+                dobierz_kursor_na_przycisku(' ', null);
                 if (lokalK[0] == lokalS[0] && lokalK[1] == lokalS[1]) {
                     BUTTON.setBorder(null);
                     if (liczba_usciskow == 0) {
                         zmien = false;
                         promo = ' ';
                         koniecanimacji = true;
-                        BUTTON.setIcon(Cursor);
+                        BUTTON.setIcon(cursor);
                         polestart = false;
                         wyk = false;
                         szachownica_pokoj[lokalK[1] - 1][lokalK[0] - 1][0] = symbole[0];
@@ -3817,7 +4309,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                         }
                         czysc_rame();
                         ruchB = ruchB != true;
-                        Cursor = null;
+                        cursor = null;
 
                     } else {
                         boolean dozwolony = Ruch_pokoj.ruch(lokalS, lokalK, symbol, szachownica_pokoj, ruchB, przelotcan, kol, ruchB == true ? symbole[1] : symbole[0]);
@@ -3829,7 +4321,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                 stop = BUTTON.getName();
                                 koniecanimacji = true;
                                 zmien = false;
-                                BUTTON.setIcon(Cursor);
+                                BUTTON.setIcon(cursor);
                                 polestart = false;
                                 wyk = false;
                             } else {
@@ -3990,7 +4482,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                             if (ruchB == false) {
                                                 movenr = movenr + 1;
                                             }
-                                            Cursor = null;
+                                            cursor = null;
                                             szachownica_pokoj[lokalS[1] - 1][lokalS[0] - 1][ruchB == true ? 0 : 1] = ' ';
                                             szachownica_pokoj[lokalK[1] - 1][lokalK[0] - 1][ruchB == true ? 0 : 1] = ruchB == true ? symbole[0] : symbole[1];
                                             styl(1, 1, kolor_plansza);
@@ -4016,7 +4508,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                 movenr = movenr + 1;
                             }
                             czysc_rame();
-                            Cursor = null;
+                            cursor = null;
                             szachownica_pokoj[lokalS[1] - 1][lokalS[0] - 1][ruchB == true ? 0 : 1] = ' ';
                             szachownica_pokoj[lokalS[1] - 1][lokalS[0] - 1][ruchB == true ? 1 : 0] = ' ';
                             szachownica_pokoj[lokalK[1] - 1][lokalK[0] - 1][ruchB == true ? 0 : 1] = ruchB == true ? symbole[0] : symbole[1];
@@ -4039,10 +4531,12 @@ public class SzachowaArena extends javax.swing.JFrame {
             } else {
                 if (lokalK[0] == lokalS[0] && lokalK[1] == lokalS[1]) {
                     if (liczba_usciskow == 0) {
+                        setCursor(Cursor.DEFAULT_CURSOR);
+                        dobierz_kursor_na_przycisku(' ', null);
                         zmien = false;
                         promo = ' ';
                         koniecanimacji = true;
-                        BUTTON.setIcon(Cursor);
+                        BUTTON.setIcon(cursor);
                         polestart = false;
                         wyk = false;
                         BUTTON.setBorder(null);
@@ -4061,47 +4555,48 @@ public class SzachowaArena extends javax.swing.JFrame {
                         stop = "";
                         switch (hug_list.get(hug_list.size() - 1).charAt(0)) {
                             case 'p':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bpawn001.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bpawn001.png")));
                                 break;
                             case 'n':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bknight1.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bknight1.png")));
                                 break;
                             case 'b':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bbishop1.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bbishop1.png")));
                                 break;
                             case 'r':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Brook001.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Brook001.png")));
                                 break;
                             case 'q':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bqueen01.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bqueen01.png")));
                                 break;
                             case 'k':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bking001.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bking001.png")));
                                 break;
                             case 'P':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bpawn001.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bpawn001.png")));
                                 break;
                             case 'N':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bknight1.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bknight1.png")));
                                 break;
                             case 'B':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bbishop1.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bbishop1.png")));
                                 break;
                             case 'R':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Brook001.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Brook001.png")));
                                 break;
                             case 'Q':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bqueen01.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bqueen01.png")));
                                 break;
                             case 'K':
-                                Cursor = (new ImageIcon(this.getClass().getResource("Bking001.png")));
+                                cursor = (new ImageIcon(this.getClass().getResource("Bking001.png")));
                                 break;
                         }
-                        jLabel12.setIcon(Cursor);
+                        jLabel12.setIcon(cursor);
                         dobierzprzycisk(start, false).setBorder(null);
                         char temp = szachownica_pokoj[lokalS[1] - 1][lokalS[0] - 1][ruchB == true ? 0 : 1];
                         szachownica_pokoj[lokalS[1] - 1][lokalS[0] - 1][ruchB == true ? 0 : 1] = symbol;
                         symbol = temp;
+                        dobierz_kursor(symbol);
                         polestart = true;
                         start = hug_list.get(hug_list.size() - 1).substring(1, 3);
                         liczba_usciskow = liczba_usciskow - 1;
@@ -4186,7 +4681,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                             czysc_rame();
                             styl(1, 1, kolor_plansza);
                             liczba_usciskow = 0;
-                            Cursor = null;
+                            cursor = null;
                             ruchB = ruchB != true;
                             if (szachownica_pokoj[lokalK[1] - 1][lokalK[0] - 1][ruchB == true ? 0 : 1] == (ruchB == true ? 'K' : 'k')) {
                                 JOptionPane.showMessageDialog(rootPane, "KRÓL ZOSTAŁ PRZYTULONY");
@@ -4213,7 +4708,8 @@ public class SzachowaArena extends javax.swing.JFrame {
                             lokalK[0] = 0;
                             lokalK[1] = 0;
                             czysc_rame();
-                            Cursor = BUTTON.getIcon();
+                            cursor = BUTTON.getIcon();
+                            dobierz_kursor(symbol);
                             switch (symbol) {
                                 case 'K':
                                     jLabel12.setIcon(new ImageIcon(this.getClass().getResource("Wking001.png")));
@@ -4419,7 +4915,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     zmien = false;
                                     nazwapola = BUTTON.getName();
                                     pomoc5 = BUTTON.getIcon();
-                                    Cursor = BUTTON.getIcon();
+                                    cursor = BUTTON.getIcon();
                                     pomoc2 = pomocs.charAt(0);
                                     start = pomocs;
                                     BUTTON.setIcon(null);
@@ -4537,6 +5033,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     if ((symbol == 'P' && lokalS[1] == 7) || (symbol == 'p' && lokalS[1] == 2)) {
                                         promo = ' ';
                                     }
+                                    dobierz_kursor(symbol);
                                     ust[lokalS[1] - 1][lokalS[0] - 1] = ' ';
                                     polestart = true;
                                     koniecanimacji = false;
@@ -4818,7 +5315,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                 polestart = false;
                                                 wyk = false;
                                                 zmien = true;
-                                                BUTTON.setIcon(Cursor);
+                                                BUTTON.setIcon(cursor);
                                                 if (ruchB == true) {
                                                     kon = true;
                                                     ust[0][4] = ' ';
@@ -4826,26 +5323,26 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         ust[0][5] = 'R';
                                                         ust[0][7] = ' ';
                                                         if (odwrot == false) {
-                                                            Cursor = H1.getIcon();
+                                                            cursor = H1.getIcon();
                                                             H1.setIcon(null);
-                                                            F1.setIcon(Cursor);
+                                                            F1.setIcon(cursor);
                                                         } else {
-                                                            Cursor = A8.getIcon();
+                                                            cursor = A8.getIcon();
                                                             A8.setIcon(null);
-                                                            C8.setIcon(Cursor);
+                                                            C8.setIcon(cursor);
                                                         }
                                                         ust[0][6] = 'K';
                                                     } else {
                                                         ust[0][3] = 'R';
                                                         ust[0][0] = ' ';
                                                         if (odwrot == false) {
-                                                            Cursor = A1.getIcon();
+                                                            cursor = A1.getIcon();
                                                             A1.setIcon(null);
-                                                            D1.setIcon(Cursor);
+                                                            D1.setIcon(cursor);
                                                         } else {
-                                                            Cursor = H8.getIcon();
+                                                            cursor = H8.getIcon();
                                                             H8.setIcon(null);
-                                                            F8.setIcon(Cursor);
+                                                            F8.setIcon(cursor);
                                                         }
                                                         ust[0][2] = 'K';
                                                     }
@@ -4863,26 +5360,26 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         ust[7][5] = 'r';
                                                         ust[7][7] = ' ';
                                                         if (odwrot == false) {
-                                                            Cursor = H8.getIcon();
+                                                            cursor = H8.getIcon();
                                                             H8.setIcon(null);
-                                                            F8.setIcon(Cursor);
+                                                            F8.setIcon(cursor);
                                                         } else {
-                                                            Cursor = A1.getIcon();
+                                                            cursor = A1.getIcon();
                                                             A1.setIcon(null);
-                                                            C1.setIcon(Cursor);
+                                                            C1.setIcon(cursor);
                                                         }
                                                         ust[7][6] = 'k';
                                                     } else {
                                                         ust[7][3] = 'r';
                                                         ust[7][0] = ' ';
                                                         if (odwrot == false) {
-                                                            Cursor = A8.getIcon();
+                                                            cursor = A8.getIcon();
                                                             A8.setIcon(null);
-                                                            C8.setIcon(Cursor);
+                                                            C8.setIcon(cursor);
                                                         } else {
-                                                            Cursor = H1.getIcon();
+                                                            cursor = H1.getIcon();
                                                             H1.setIcon(null);
-                                                            F1.setIcon(Cursor);
+                                                            F1.setIcon(cursor);
                                                         }
                                                         ust[7][2] = 'k';
                                                     }
@@ -4995,7 +5492,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                         } else {
                                             if (lokalK[0] == lokalS[0] && lokalS[1] == lokalK[1]) {
                                                 koniecanimacji = true;
-                                                BUTTON.setIcon(Cursor);
+                                                BUTTON.setIcon(cursor);
                                                 zmien = false;
                                                 promo = ' ';
                                                 polestart = false;
@@ -5025,7 +5522,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                             } else {
                                                                 kingrochC = false;
                                                             }
-                                                            BUTTON.setIcon(Cursor);
+                                                            BUTTON.setIcon(cursor);
                                                             ust[lokalK[1] - 1][lokalK[0] - 1] = symbol;
                                                             wyk = true;
                                                             pomoc5 = null;
@@ -5046,38 +5543,38 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                         case 'K':
                                                                         case 'k':
                                                                             JOptionPane.showMessageDialog(rootPane, "Król może na dowolne nie zagrożone biciem sąsiadujące z każdej strony pole", "szachowe prawidła król",
-                                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                             break;
                                                                         case 'Q':
                                                                         case 'q':
                                                                             JOptionPane.showMessageDialog(rootPane, "Hetman może po każdej przekątnej i każdej prostej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła hetman",
-                                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                             break;
                                                                         case 'R':
                                                                         case 'r':
                                                                             JOptionPane.showMessageDialog(rootPane, "Wieża może poruszać się tylko po prostej o ile chce chyba że coś stoi na drodze", "szachowe prawidła wieża",
-                                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                             break;
                                                                         case 'B':
                                                                         case 'b':
                                                                             JOptionPane.showMessageDialog(rootPane, "Goniec może poruszać się tylko po przekątnej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła goniec",
-                                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                             break;
                                                                         case 'N':
                                                                         case 'n':
                                                                             JOptionPane.showMessageDialog(rootPane, "Skoczek może jako jedyny przeskakiwać figury. Tylko docelowe pole nie może być zajęte przez sprzymierzoną figurę.\n"
                                                                                     + " Konie skaczą o 2 pola po prostej i 1 w bok .Przypomina to literę ’L’", "szachowe prawidła skoczek",
-                                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                             break;
                                                                         case 'P':
                                                                         case 'p':
                                                                             JOptionPane.showMessageDialog(rootPane, "Piony mogą się poruszać się tylko po prostej na przód o 1 pole i nigdy nie idą inaczej. Bije tylko 1 pole po przekątnej do przodu. \n"
                                                                                     + "Jeśli wciąż stoi na swojej linii (białe 2 linia czarne 7 linia) to ma prawo ruszyć się o 2 pola na przód.)", "szachowe prawidła: pionek",
-                                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                             JOptionPane.showMessageDialog(rootPane, "Jeśli pion przeciwny ruszył o 2 pola i stanie obok twego piona, twój pion może go bić w przelocie.\n"
                                                                                     + " Czyli rusza się za piona co ruszył o 2 pola na przód i bije go.\n"
                                                                                     + " Można go wykonać tylko bezpośrednio po tym ruchu i tylko pion piona tak może. Jeśli nie bijesz w przelocie, nie będziesz mógł go bić w przelocie później", "szachowe prawidła, bicie w przelocie",
-                                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                             break;
                                                                     }
                                                                 }
@@ -5227,7 +5724,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                     kon = true;
                                                                     przelot = false;
                                                                     dokonanoEP = true;
-                                                                    BUTTON.setIcon(Cursor);
+                                                                    BUTTON.setIcon(cursor);
                                                                     ust[lokalK[1] - 1][lokalK[0] - 1] = symbol;
                                                                     if (ruchB == false) {
                                                                         pionB = (byte) (pionB - 1);
@@ -5338,38 +5835,38 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                             case 'K':
                                                                             case 'k':
                                                                                 JOptionPane.showMessageDialog(rootPane, "Król może na dowolne nie zagrożone biciem sąsiadujące z każdej strony pole", "szachowe prawidła król",
-                                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                                 break;
                                                                             case 'Q':
                                                                             case 'q':
                                                                                 JOptionPane.showMessageDialog(rootPane, "Hetman może po każdej przekątnej i każdej prostej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła hetman",
-                                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                                 break;
                                                                             case 'R':
                                                                             case 'r':
                                                                                 JOptionPane.showMessageDialog(rootPane, "Wieża może poruszać się tylko po prostej o ile chce chyba że coś stoi na drodze", "szachowe prawidła wieża",
-                                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                                 break;
                                                                             case 'B':
                                                                             case 'b':
                                                                                 JOptionPane.showMessageDialog(rootPane, "Goniec może poruszać się tylko po przekątnej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła goniec",
-                                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                                 break;
                                                                             case 'N':
                                                                             case 'n':
                                                                                 JOptionPane.showMessageDialog(rootPane, "Skoczek może jako jedyny przeskakiwać figury. Tylko docelowe pole nie może być zajęte przez sprzymierzoną figurę.\n"
                                                                                         + " Konie skaczą o 2 pola po prostej i 1 w bok .Przypomina to literę ’L’", "szachowe prawidła skoczek",
-                                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                                 break;
                                                                             case 'P':
                                                                             case 'p':
                                                                                 JOptionPane.showMessageDialog(rootPane, "Piony mogą się poruszać się tylko po prostej na przód o 1 pole i nigdy nie idą inaczej. Bije tylko 1 pole po przekątnej do przodu. \n"
                                                                                         + "Jeśli wciąż stoi na swojej linii (białe 2 linia czarne 7 linia) to ma prawo ruszyć się o 2 pola na przód.)", "szachowe prawidła: pionek",
-                                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                                 JOptionPane.showMessageDialog(rootPane, "Jeśli pion przeciwny ruszył o 2 pola i stanie obok twego piona, twój pion może go bić w przelocie.\n"
                                                                                         + " Czyli rusza się za piona co ruszył o 2 pola na przód i bije go.\n"
                                                                                         + " Można go wykonać tylko bezpośrednio po tym ruchu i tylko pion piona tak może. Jeśli nie bijesz w przelocie, nie będziesz mógł go bić w przelocie później", "szachowe prawidła, bicie w przelocie",
-                                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                                 break;
                                                                         }
                                                                     }
@@ -5399,38 +5896,38 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                     case 'K':
                                                                     case 'k':
                                                                         JOptionPane.showMessageDialog(rootPane, "Król może na dowolne nie zagrożone biciem sąsiadujące z każdej strony pole", "szachowe prawidła król",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'Q':
                                                                     case 'q':
                                                                         JOptionPane.showMessageDialog(rootPane, "Hetman może po każdej przekątnej i każdej prostej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła hetman",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'R':
                                                                     case 'r':
                                                                         JOptionPane.showMessageDialog(rootPane, "Wieża może poruszać się tylko po prostej o ile chce chyba że coś stoi na drodze", "szachowe prawidła wieża",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'B':
                                                                     case 'b':
                                                                         JOptionPane.showMessageDialog(rootPane, "Goniec może poruszać się tylko po przekątnej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła goniec",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'N':
                                                                     case 'n':
                                                                         JOptionPane.showMessageDialog(rootPane, "Skoczek może jako jedyny przeskakiwać figury. Tylko docelowe pole nie może być zajęte przez sprzymierzoną figurę.\n"
                                                                                 + " Konie skaczą o 2 pola po prostej i 1 w bok .Przypomina to literę ’L’", "szachowe prawidła skoczek",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'P':
                                                                     case 'p':
                                                                         JOptionPane.showMessageDialog(rootPane, "Piony mogą się poruszać się tylko po prostej na przód o 1 pole i nigdy nie idą inaczej. Bije tylko 1 pole po przekątnej do przodu. \n"
                                                                                 + "Jeśli wciąż stoi na swojej linii (białe 2 linia czarne 7 linia) to ma prawo ruszyć się o 2 pola na przód.)", "szachowe prawidła: pionek",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         JOptionPane.showMessageDialog(rootPane, "Jeśli pion przeciwny ruszył o 2 pola i stanie obok twego piona, twój pion może go bić w przelocie.\n"
                                                                                 + " Czyli rusza się za piona co ruszył o 2 pola na przód i bije go.\n"
                                                                                 + " Można go wykonać tylko bezpośrednio po tym ruchu i tylko pion piona tak może. Jeśli nie bijesz w przelocie, nie będziesz mógł go bić w przelocie później", "szachowe prawidła, bicie w przelocie",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                 }
                                                             }
@@ -5461,38 +5958,38 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                     case 'K':
                                                                     case 'k':
                                                                         JOptionPane.showMessageDialog(rootPane, "Król może na dowolne nie zagrożone biciem sąsiadujące z każdej strony pole", "szachowe prawidła król",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'Q':
                                                                     case 'q':
                                                                         JOptionPane.showMessageDialog(rootPane, "Hetman może po każdej przekątnej i każdej prostej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła hetman",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'R':
                                                                     case 'r':
                                                                         JOptionPane.showMessageDialog(rootPane, "Wieża może poruszać się tylko po prostej o ile chce chyba że coś stoi na drodze", "szachowe prawidła wieża",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'B':
                                                                     case 'b':
                                                                         JOptionPane.showMessageDialog(rootPane, "Goniec może poruszać się tylko po przekątnej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła goniec",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'N':
                                                                     case 'n':
                                                                         JOptionPane.showMessageDialog(rootPane, "Skoczek może jako jedyny przeskakiwać figury. Tylko docelowe pole nie może być zajęte przez sprzymierzoną figurę.\n"
                                                                                 + " Konie skaczą o 2 pola po prostej i 1 w bok .Przypomina to literę ’L’", "szachowe prawidła skoczek",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                     case 'P':
                                                                     case 'p':
                                                                         JOptionPane.showMessageDialog(rootPane, "Piony mogą się poruszać się tylko po prostej na przód o 1 pole i nigdy nie idą inaczej. Bije tylko 1 pole po przekątnej do przodu. \n"
                                                                                 + "Jeśli wciąż stoi na swojej linii (białe 2 linia czarne 7 linia) to ma prawo ruszyć się o 2 pola na przód.)", "szachowe prawidła: pionek",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         JOptionPane.showMessageDialog(rootPane, "Jeśli pion przeciwny ruszył o 2 pola i stanie obok twego piona, twój pion może go bić w przelocie.\n"
                                                                                 + " Czyli rusza się za piona co ruszył o 2 pola na przód i bije go.\n"
                                                                                 + " Można go wykonać tylko bezpośrednio po tym ruchu i tylko pion piona tak może. Jeśli nie bijesz w przelocie, nie będziesz mógł go bić w przelocie później", "szachowe prawidła, bicie w przelocie",
-                                                                                JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                                JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                         break;
                                                                 }
                                                             }
@@ -5520,27 +6017,27 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                         case 0:
                                                                             symbol = 'Q';
                                                                             ciezkieB = (byte) (ciezkieB + 1);
-                                                                            Cursor = b1;
+                                                                            cursor = b1;
                                                                             break;
                                                                         case 1:
                                                                             symbol = 'R';
                                                                             ciezkieB = (byte) (ciezkieB + 1);
-                                                                            Cursor = b2;
+                                                                            cursor = b2;
                                                                             break;
                                                                         case 2:
                                                                             symbol = 'B';
                                                                             lekkieB = (byte) (lekkieB + 1);
-                                                                            Cursor = b3;
+                                                                            cursor = b3;
                                                                             break;
                                                                         case 3:
                                                                             symbol = 'N';
                                                                             lekkieB = (byte) (lekkieB + 1);
-                                                                            Cursor = b4;
+                                                                            cursor = b4;
                                                                             break;
                                                                         default:
                                                                             symbol = 'Q';
                                                                             ciezkieB = (byte) (ciezkieB + 1);
-                                                                            Cursor = b1;
+                                                                            cursor = b1;
                                                                             break;
                                                                     }
                                                                 } else {
@@ -5570,27 +6067,27 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                         case 0:
                                                                             symbol = 'q';
                                                                             ciezkieC = (byte) (ciezkieC + 1);
-                                                                            Cursor = c1;
+                                                                            cursor = c1;
                                                                             break;
                                                                         case 1:
                                                                             symbol = 'r';
                                                                             ciezkieC = (byte) (ciezkieC + 1);
-                                                                            Cursor = c2;
+                                                                            cursor = c2;
                                                                             break;
                                                                         case 2:
                                                                             symbol = 'b';
                                                                             lekkieC = (byte) (lekkieC + 1);
-                                                                            Cursor = c3;
+                                                                            cursor = c3;
                                                                             break;
                                                                         case 3:
                                                                             symbol = 'n';
                                                                             lekkieC = (byte) (lekkieC + 1);
-                                                                            Cursor = c4;
+                                                                            cursor = c4;
                                                                             break;
                                                                         default:
                                                                             symbol = 'q';
                                                                             ciezkieC = (byte) (ciezkieC + 1);
-                                                                            Cursor = c1;
+                                                                            cursor = c1;
                                                                             break;
                                                                     }
                                                                 } else {
@@ -5614,7 +6111,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                             }
                                                         }
                                                         if (znak_promocji == ' ') {
-                                                            BUTTON.setIcon(Cursor);
+                                                            BUTTON.setIcon(cursor);
                                                         } else {
                                                             switch (znak_promocji) {
                                                                 case 'Q':
@@ -5747,7 +6244,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                         zmien = false;
                                         promo = ' ';
                                         koniecanimacji = true;
-                                        BUTTON.setIcon(Cursor);
+                                        BUTTON.setIcon(cursor);
                                         polestart = false;
                                         wyk = false;
                                         ust[lokalK[1] - 1][lokalK[0] - 1] = symbol;
@@ -5878,7 +6375,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                             koniecanimacji = true;
                                             zmien = false;
                                             promo = ' ';
-                                            BUTTON.setIcon(Cursor);
+                                            BUTTON.setIcon(cursor);
                                             polestart = false;
                                             wyk = false;
                                             ust[lokalK[1] - 1][lokalK[0] - 1] = symbol;
@@ -5981,27 +6478,27 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                 case 0:
                                                                     symbol = 'Q';
                                                                     ciezkieB = (byte) (ciezkieB + 1);
-                                                                    Cursor = b1;
+                                                                    cursor = b1;
                                                                     break;
                                                                 case 1:
                                                                     symbol = 'R';
                                                                     ciezkieB = (byte) (ciezkieB + 1);
-                                                                    Cursor = b2;
+                                                                    cursor = b2;
                                                                     break;
                                                                 case 2:
                                                                     symbol = 'B';
                                                                     lekkieB = (byte) (lekkieB + 1);
-                                                                    Cursor = b3;
+                                                                    cursor = b3;
                                                                     break;
                                                                 case 3:
                                                                     symbol = 'N';
                                                                     lekkieB = (byte) (lekkieB + 1);
-                                                                    Cursor = b4;
+                                                                    cursor = b4;
                                                                     break;
                                                                 default:
                                                                     symbol = 'Q';
                                                                     ciezkieB = (byte) (ciezkieB + 1);
-                                                                    Cursor = b1;
+                                                                    cursor = b1;
                                                                     break;
                                                             }
                                                         } else {
@@ -6031,27 +6528,27 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                 case 0:
                                                                     symbol = 'q';
                                                                     ciezkieC = (byte) (ciezkieC + 1);
-                                                                    Cursor = c1;
+                                                                    cursor = c1;
                                                                     break;
                                                                 case 1:
                                                                     symbol = 'r';
                                                                     ciezkieC = (byte) (ciezkieC + 1);
-                                                                    Cursor = c2;
+                                                                    cursor = c2;
                                                                     break;
                                                                 case 2:
                                                                     symbol = 'b';
                                                                     lekkieC = (byte) (lekkieC + 1);
-                                                                    Cursor = c3;
+                                                                    cursor = c3;
                                                                     break;
                                                                 case 3:
                                                                     symbol = 'n';
                                                                     lekkieC = (byte) (lekkieC + 1);
-                                                                    Cursor = c4;
+                                                                    cursor = c4;
                                                                     break;
                                                                 default:
                                                                     symbol = 'q';
                                                                     ciezkieC = (byte) (ciezkieC + 1);
-                                                                    Cursor = c1;
+                                                                    cursor = c1;
                                                                     break;
                                                             }
                                                         } else {
@@ -6075,7 +6572,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                     }
                                                 }
                                                 if (znak_promocji == ' ') {
-                                                    BUTTON.setIcon(Cursor);
+                                                    BUTTON.setIcon(cursor);
                                                 } else {
                                                     switch (znak_promocji) {
                                                         case 'Q':
@@ -6130,38 +6627,38 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                             case 'K':
                                                             case 'k':
                                                                 JOptionPane.showMessageDialog(rootPane, "Król może na dowolne nie zagrożone biciem sąsiadujące z każdej strony pole", "szachowe prawidła król",
-                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                 break;
                                                             case 'Q':
                                                             case 'q':
                                                                 JOptionPane.showMessageDialog(rootPane, "Hetman może po każdej przekątnej i każdej prostej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła hetman",
-                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                 break;
                                                             case 'R':
                                                             case 'r':
                                                                 JOptionPane.showMessageDialog(rootPane, "Wieża może poruszać się tylko po prostej o ile chce chyba że coś stoi na drodze", "szachowe prawidła wieża",
-                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                 break;
                                                             case 'B':
                                                             case 'b':
                                                                 JOptionPane.showMessageDialog(rootPane, "Goniec może poruszać się tylko po przekątnej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła goniec",
-                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                 break;
                                                             case 'N':
                                                             case 'n':
                                                                 JOptionPane.showMessageDialog(rootPane, "Skoczek może jako jedyny przeskakiwać figury. Tylko docelowe pole nie może być zajęte przez sprzymierzoną figurę.\n"
                                                                         + " Konie skaczą o 2 pola po prostej i 1 w bok .Przypomina to literę ’L’", "szachowe prawidła skoczek",
-                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                 break;
                                                             case 'P':
                                                             case 'p':
                                                                 JOptionPane.showMessageDialog(rootPane, "Piony mogą się poruszać się tylko po prostej na przód o 1 pole i nigdy nie idą inaczej. Bije tylko 1 pole po przekątnej do przodu. \n"
                                                                         + "Jeśli wciąż stoi na swojej linii (białe 2 linia czarne 7 linia) to ma prawo ruszyć się o 2 pola na przód.)", "szachowe prawidła: pionek",
-                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                 JOptionPane.showMessageDialog(rootPane, "Jeśli pion przeciwny ruszył o 2 pola i stanie obok twego piona, twój pion może go bić w przelocie.\n"
                                                                         + " Czyli rusza się za piona co ruszył o 2 pola na przód i bije go.\n"
                                                                         + " Można go wykonać tylko bezpośrednio po tym ruchu i tylko pion piona tak może. Jeśli nie bijesz w przelocie, nie będziesz mógł go bić w przelocie później", "szachowe prawidła, bicie w przelocie",
-                                                                        JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                        JOptionPane.INFORMATION_MESSAGE, cursor);
                                                                 break;
                                                         }
                                                     }
@@ -6267,7 +6764,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                     }
                                                 } else {
                                                     koniecanimacji = true;
-                                                    BUTTON.setIcon(Cursor);
+                                                    BUTTON.setIcon(cursor);
                                                 }
                                             }
                                         }
@@ -6278,7 +6775,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                             koniecanimacji = true;
                                             zmien = false;
                                             promo = ' ';
-                                            BUTTON.setIcon(Cursor);
+                                            BUTTON.setIcon(cursor);
                                             polestart = false;
                                             wyk = false;
                                             ust[lokalK[1] - 1][lokalK[0] - 1] = symbol;
@@ -6295,38 +6792,38 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         case 'K':
                                                         case 'k':
                                                             JOptionPane.showMessageDialog(rootPane, "Król może na dowolne nie zagrożone biciem sąsiadujące z każdej strony pole", "szachowe prawidła król",
-                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                             break;
                                                         case 'Q':
                                                         case 'q':
                                                             JOptionPane.showMessageDialog(rootPane, "Hetman może po każdej przekątnej i każdej prostej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła hetman",
-                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                             break;
                                                         case 'R':
                                                         case 'r':
                                                             JOptionPane.showMessageDialog(rootPane, "Wieża może poruszać się tylko po prostej o ile chce chyba że coś stoi na drodze", "szachowe prawidła wieża",
-                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                             break;
                                                         case 'B':
                                                         case 'b':
                                                             JOptionPane.showMessageDialog(rootPane, "Goniec może poruszać się tylko po przekątnej o ile chce, chyba że coś stoi na drodze", "szachowe prawidła goniec",
-                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                             break;
                                                         case 'N':
                                                         case 'n':
                                                             JOptionPane.showMessageDialog(rootPane, "Skoczek może jako jedyny przeskakiwać figury. Tylko docelowe pole nie może być zajęte przez sprzymierzoną figurę.\n"
                                                                     + " Konie skaczą o 2 pola po prostej i 1 w bok .Przypomina to literę ’L’", "szachowe prawidła skoczek",
-                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                             break;
                                                         case 'P':
                                                         case 'p':
                                                             JOptionPane.showMessageDialog(rootPane, "Piony mogą się poruszać się tylko po prostej na przód o 1 pole i nigdy nie idą inaczej. Bije tylko 1 pole po przekątnej do przodu. \n"
                                                                     + "Jeśli wciąż stoi na swojej linii (białe 2 linia czarne 7 linia) to ma prawo ruszyć się o 2 pola na przód.)", "szachowe prawidła: pionek",
-                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                             JOptionPane.showMessageDialog(rootPane, "Jeśli pion przeciwny ruszył o 2 pola i stanie obok twego piona, twój pion może go bić w przelocie.\n"
                                                                     + " Czyli rusza się za piona co ruszył o 2 pola na przód i bije go.\n"
                                                                     + " Można go wykonać tylko bezpośrednio po tym ruchu i tylko pion piona tak może. Jeśli nie bijesz w przelocie, nie będziesz mógł go bić w przelocie później", "szachowe prawidła, bicie w przelocie",
-                                                                    JOptionPane.INFORMATION_MESSAGE, Cursor);
+                                                                    JOptionPane.INFORMATION_MESSAGE, cursor);
                                                             break;
                                                     }
                                                 }
@@ -6772,6 +7269,9 @@ public class SzachowaArena extends javax.swing.JFrame {
                                 promocja = false;
                                 roch = false;
                                 dokonanoEP = false;
+                                dobierz_kursor_na_przycisku(' ', null);
+                                setCursor(Cursor.DEFAULT_CURSOR);
+                                dobierz_kursor_na_przycisku(' ', null);
                             }
                         }
                     }
@@ -6827,7 +7327,7 @@ public class SzachowaArena extends javax.swing.JFrame {
             pomoc_ruch = ruchB ? Color.blue : Color.red;
             styl(kolor_zestaw, kroj_zestaw, kolor_plansza);
         } else {
-            BUTTON.setIcon(Cursor);
+            BUTTON.setIcon(cursor);
             pomocs = BUTTON.getName();
             pomoc2 = pomocs.charAt(0);
             switch (pomoc2) {
@@ -10861,62 +11361,62 @@ public class SzachowaArena extends javax.swing.JFrame {
 
     private void ustawWPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawWPActionPerformed
         symbol = 'P';
-        Cursor = ustawWP.getSelectedIcon();
+        cursor = ustawWP.getSelectedIcon();
     }//GEN-LAST:event_ustawWPActionPerformed
 
     private void ustawWNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawWNActionPerformed
         symbol = 'N';
-        Cursor = ustawWN.getSelectedIcon();
+        cursor = ustawWN.getSelectedIcon();
     }//GEN-LAST:event_ustawWNActionPerformed
 
     private void ustawWBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawWBActionPerformed
         symbol = 'B';
-        Cursor = ustawWB.getSelectedIcon();
+        cursor = ustawWB.getSelectedIcon();
     }//GEN-LAST:event_ustawWBActionPerformed
 
     private void ustawWRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawWRActionPerformed
         symbol = 'R';
-        Cursor = ustawWR.getSelectedIcon();
+        cursor = ustawWR.getSelectedIcon();
     }//GEN-LAST:event_ustawWRActionPerformed
 
     private void ustawWQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawWQActionPerformed
         symbol = 'Q';
-        Cursor = ustawWQ.getSelectedIcon();
+        cursor = ustawWQ.getSelectedIcon();
     }//GEN-LAST:event_ustawWQActionPerformed
 
     private void ustawWKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawWKActionPerformed
         symbol = 'K';
-        Cursor = ustawWK.getSelectedIcon();
+        cursor = ustawWK.getSelectedIcon();
     }//GEN-LAST:event_ustawWKActionPerformed
 
     private void ustawBPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawBPActionPerformed
         symbol = 'p';
-        Cursor = ustawBP.getSelectedIcon();
+        cursor = ustawBP.getSelectedIcon();
     }//GEN-LAST:event_ustawBPActionPerformed
 
     private void ustawBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawBNActionPerformed
         symbol = 'n';
-        Cursor = ustawBN.getSelectedIcon();
+        cursor = ustawBN.getSelectedIcon();
     }//GEN-LAST:event_ustawBNActionPerformed
 
     private void ustawBBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawBBActionPerformed
         symbol = 'b';
-        Cursor = ustawBB.getSelectedIcon();
+        cursor = ustawBB.getSelectedIcon();
     }//GEN-LAST:event_ustawBBActionPerformed
 
     private void ustawBRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawBRActionPerformed
         symbol = 'r';
-        Cursor = ustawBR.getSelectedIcon();
+        cursor = ustawBR.getSelectedIcon();
     }//GEN-LAST:event_ustawBRActionPerformed
 
     private void ustawBQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawBQActionPerformed
         symbol = 'q';
-        Cursor = ustawBQ.getSelectedIcon();
+        cursor = ustawBQ.getSelectedIcon();
     }//GEN-LAST:event_ustawBQActionPerformed
 
     private void ustawBKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ustawBKActionPerformed
         symbol = 'k';
-        Cursor = ustawBK.getSelectedIcon();
+        cursor = ustawBK.getSelectedIcon();
     }//GEN-LAST:event_ustawBKActionPerformed
 
     private void bialeRuchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bialeRuchActionPerformed
@@ -11098,7 +11598,7 @@ public class SzachowaArena extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton71ActionPerformed
 
     private void jRadioButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton11ActionPerformed
-        Cursor = null;
+        cursor = null;
         symbol = ' ';
     }//GEN-LAST:event_jRadioButton11ActionPerformed
 
@@ -11421,10 +11921,10 @@ public class SzachowaArena extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
         JOptionPane.showMessageDialog(rootPane, ("wynik pozycji:" + new KalkulatorPozycji().
-                zliczacz(konwert(ust),tura_rywala,przelotcan,
-                    bleft,bright,wleft,wright,kingrochB,kingrochC,dokonano_RB,dokonano_RC,0,kolumna)));
+                zliczacz(konwert(ust), tura_rywala, przelotcan,
+                        bleft, bright, wleft, wright, kingrochB, kingrochC, dokonano_RB, dokonano_RC, 0, kolumna)));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void obrotowyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obrotowyActionPerformed
@@ -11439,6 +11939,15 @@ public class SzachowaArena extends javax.swing.JFrame {
             }
         } else {
             obrotowy.setText("Obrót WŁ");
+            if(!ruchB){
+                odwrot=true;
+                 styl(kolor_zestaw, kroj_zestaw, kolor_plansza);
+                try {
+                ustawrame();
+            } catch (NullPointerException ignored) {
+
+            }
+            }
         }
     }//GEN-LAST:event_obrotowyActionPerformed
 
@@ -11610,42 +12119,42 @@ public class SzachowaArena extends javax.swing.JFrame {
     }//GEN-LAST:event_podpowiedz1ActionPerformed
 
     private void partia_odlozonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_partia_odlozonaActionPerformed
-       JFileChooser wyborP = new JFileChooser();
+        JFileChooser wyborP = new JFileChooser();
         wyborP.setDialogType(JFileChooser.SAVE_DIALOG);
-        wyborP.setFileFilter(new FileNameExtensionFilter("txt file","txt"));
-        if(wyborP.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+        wyborP.setFileFilter(new FileNameExtensionFilter("txt file", "txt"));
+        if (wyborP.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file;
-            
-                
-                
-                   file = wyborP.getSelectedFile();
-               if (!file.getName().endsWith(".txt")) {
-    file = new File(file.toString() + ".txt"); 
-               }
-            
-try ( PrintWriter fileWriter = new PrintWriter(file.getPath())) {
-    fileWriter.flush();
-    for(int i=0;i<8;i++){
-        for(int j=0;j<8;j++){
-        fileWriter.write(ust[i][j]);
-        }fileWriter.write("\n");}
-    fileWriter.print(ruchB+"|"+przelotcan+"|"+kingrochB+"|"+kingrochC+"|"+dokonano_RB+"|"+dokonano_RC
-    +"|"+dolicz+"|");
-    fileWriter.println();
-    fileWriter.print(zasada50+"+"+kol+"+"+movenr);  
-    fileWriter.println();
-    historia.forEach((s) -> {
-        fileWriter.println(s);
-                }); 
-    fileWriter.println("----");
-    fileWriter.println(jTextArea3.getText());
-fileWriter.close();
 
-}catch(IOException e){
-    
-}
-}
-        
+            file = wyborP.getSelectedFile();
+            if (!file.getName().endsWith(".txt")) {
+                file = new File(file.toString() + ".txt");
+            }
+
+            try (PrintWriter fileWriter = new PrintWriter(file.getPath())) {
+                fileWriter.flush();
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        fileWriter.write(ust[i][j]);
+                    }
+                    fileWriter.write("\n");
+                }
+                fileWriter.print(ruchB + "|" + przelotcan + "|" + kingrochB + "|" + kingrochC + "|" + dokonano_RB + "|" + dokonano_RC
+                        + "|" + dolicz + "|");
+                fileWriter.println();
+                fileWriter.print(zasada50 + "+" + kol + "+" + movenr);
+                fileWriter.println();
+                historia.forEach((s) -> {
+                    fileWriter.println(s);
+                });
+                fileWriter.println("----");
+                fileWriter.println(jTextArea3.getText());
+                fileWriter.close();
+
+            } catch (IOException e) {
+
+            }
+        }
+
     }//GEN-LAST:event_partia_odlozonaActionPerformed
 
     private void partia_wznowionaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_partia_wznowionaActionPerformed
@@ -11653,143 +12162,155 @@ fileWriter.close();
         plikw.setVisible(true);
         String katalog = plikw.getDirectory();
         String nazwa = plikw.getFile();
-        if(plikw.getFile()!=null){
+        if (plikw.getFile() != null) {
             try {
                 jTextArea3.setText("");
                 String workingDirectory = System.getProperty(katalog) + File.separator;
-                System.out.println(katalog+nazwa);
+                System.out.println(katalog + nazwa);
                 File plik = new File(katalog, nazwa);
-                
+
                 Scanner inP;
                 inP = new Scanner(plik);
-                for(int i=0;i<8;i++){
-                    
+                for (int i = 0; i < 8; i++) {
+
                     String zdanie = inP.nextLine();
-                    for(int j=0;j<8;j++){
-                        ust[i][j]=zdanie.charAt(j);
-                        switch(zdanie.charAt(j)){
-                            case 'P': pionB++; break;
-                            case 'p': pionC++; break;
+                    for (int j = 0; j < 8; j++) {
+                        ust[i][j] = zdanie.charAt(j);
+                        switch (zdanie.charAt(j)) {
+                            case 'P':
+                                pionB++;
+                                break;
+                            case 'p':
+                                pionC++;
+                                break;
                             case 'N':
-                            case 'B': lekkieB++; break;
+                            case 'B':
+                                lekkieB++;
+                                break;
                             case 'n':
-                            case 'b': lekkieC++; break;
+                            case 'b':
+                                lekkieC++;
+                                break;
                             case 'Q':
-                            case 'R': ciezkieB++; break;
+                            case 'R':
+                                ciezkieB++;
+                                break;
                             case 'r':
-                            case 'q': ciezkieC++; break;
-                            
+                            case 'q':
+                                ciezkieC++;
+                                break;
+
                         }
                     }
                 }
                 String zdanie = inP.nextLine();
-                StringTokenizer st = new StringTokenizer(zdanie,"|");
-                ruchB=Boolean.valueOf(st.nextToken());
-                przelotcan=Boolean.valueOf(st.nextToken());
-                kingrochB=Boolean.valueOf(st.nextToken());
-                kingrochC=Boolean.valueOf(st.nextToken());
-                dokonano_RB=Boolean.valueOf(st.nextToken());
-                dokonano_RC=Boolean.valueOf(st.nextToken());
-                dolicz=Boolean.valueOf(st.nextToken());
+                StringTokenizer st = new StringTokenizer(zdanie, "|");
+                ruchB = Boolean.valueOf(st.nextToken());
+                przelotcan = Boolean.valueOf(st.nextToken());
+                kingrochB = Boolean.valueOf(st.nextToken());
+                kingrochC = Boolean.valueOf(st.nextToken());
+                dokonano_RB = Boolean.valueOf(st.nextToken());
+                dokonano_RC = Boolean.valueOf(st.nextToken());
+                dolicz = Boolean.valueOf(st.nextToken());
                 zdanie = inP.nextLine();
                 st = new StringTokenizer(zdanie);
-                zasada50=Byte.parseByte(st.nextToken("+"));
-                kol=Byte.parseByte(st.nextToken("+"));
+                zasada50 = Byte.parseByte(st.nextToken("+"));
+                kol = Byte.parseByte(st.nextToken("+"));
                 movenr = Integer.parseInt(st.nextToken("+"));
-                zdanie=inP.nextLine();
-                while(!"----".equals(zdanie)){
-                    zdanie=inP.nextLine();
+                zdanie = inP.nextLine();
+                while (!"----".equals(zdanie)) {
+                    zdanie = inP.nextLine();
                     historia.add(zdanie);
                 }
-                zdanie=inP.nextLine();
-                while(inP.hasNextLine()||!zdanie.equals("")){
+                zdanie = inP.nextLine();
+                while (inP.hasNextLine() || !zdanie.equals("")) {
                     System.out.println(zdanie);
-                    jTextArea3.append(zdanie+"\n");
-                     if(inP.hasNextLine()){zdanie=inP.nextLine();}
-                     else{
-                         break;
-                     }
+                    jTextArea3.append(zdanie + "\n");
+                    if (inP.hasNextLine()) {
+                        zdanie = inP.nextLine();
+                    } else {
+                        break;
+                    }
                 }
-                JOptionPane.showMessageDialog(rootPane, "Ruch mają "+(ruchB ? "białe" : "czarne")+"." );
+                JOptionPane.showMessageDialog(rootPane, "Ruch mają " + (ruchB ? "białe" : "czarne") + ".");
                 jButton67.setVisible(false);
-        jButton65.setVisible(false);
-        jButton82.setVisible(false);
-        ustawka = false;
-        A8.setEnabled(true);
-        B8.setEnabled(true);
-        D8.setEnabled(true);
-        C8.setEnabled(true);
-        E8.setEnabled(true);
-        E7.setEnabled(true);
-        D7.setEnabled(true);
-        C7.setEnabled(true);
-        B7.setEnabled(true);
-        A7.setEnabled(true);
-        H8.setEnabled(true);
-        G8.setEnabled(true);
-        F8.setEnabled(true);
-        F7.setEnabled(true);
-        G7.setEnabled(true);
-        H7.setEnabled(true);
-        H6.setEnabled(true);
-        G6.setEnabled(true);
-        F6.setEnabled(true);
-        E6.setEnabled(true);
-        D6.setEnabled(true);
-        C6.setEnabled(true);
-        B6.setEnabled(true);
-        A6.setEnabled(true);
-        A5.setEnabled(true);
-        B5.setEnabled(true);
-        C5.setEnabled(true);
-        D5.setEnabled(true);
-        E5.setEnabled(true);
-        F5.setEnabled(true);
-        G5.setEnabled(true);
-        H5.setEnabled(true);
-        H4.setEnabled(true);
-        G4.setEnabled(true);
-        F4.setEnabled(true);
-        E4.setEnabled(true);
-        D4.setEnabled(true);
-        C4.setEnabled(true);
-        B4.setEnabled(true);
-        A4.setEnabled(true);
-        A3.setEnabled(true);
-        B3.setEnabled(true);
-        C3.setEnabled(true);
-        D3.setEnabled(true);
-        E3.setEnabled(true);
-        F3.setEnabled(true);
-        G3.setEnabled(true);
-        H3.setEnabled(true);
-        H2.setEnabled(true);
-        G2.setEnabled(true);
-        F2.setEnabled(true);
-        E2.setEnabled(true);
-        D2.setEnabled(true);
-        C2.setEnabled(true);
-        B2.setEnabled(true);
-        A2.setEnabled(true);
-        A1.setEnabled(true);
-        B1.setEnabled(true);
-        C1.setEnabled(true);
-        D1.setEnabled(true);
-        E1.setEnabled(true);
-        F1.setEnabled(true);
-        G1.setEnabled(true);
-        H1.setEnabled(true);
-        styl(kolor_zestaw, kroj_zestaw, kolor_plansza);
-        jButton66.setEnabled(true);
-        jButton68.setEnabled(true);
-        jButton71.setVisible(false);
-        
-        gra = true;
+                jButton65.setVisible(false);
+                jButton82.setVisible(false);
+                ustawka = false;
+                A8.setEnabled(true);
+                B8.setEnabled(true);
+                D8.setEnabled(true);
+                C8.setEnabled(true);
+                E8.setEnabled(true);
+                E7.setEnabled(true);
+                D7.setEnabled(true);
+                C7.setEnabled(true);
+                B7.setEnabled(true);
+                A7.setEnabled(true);
+                H8.setEnabled(true);
+                G8.setEnabled(true);
+                F8.setEnabled(true);
+                F7.setEnabled(true);
+                G7.setEnabled(true);
+                H7.setEnabled(true);
+                H6.setEnabled(true);
+                G6.setEnabled(true);
+                F6.setEnabled(true);
+                E6.setEnabled(true);
+                D6.setEnabled(true);
+                C6.setEnabled(true);
+                B6.setEnabled(true);
+                A6.setEnabled(true);
+                A5.setEnabled(true);
+                B5.setEnabled(true);
+                C5.setEnabled(true);
+                D5.setEnabled(true);
+                E5.setEnabled(true);
+                F5.setEnabled(true);
+                G5.setEnabled(true);
+                H5.setEnabled(true);
+                H4.setEnabled(true);
+                G4.setEnabled(true);
+                F4.setEnabled(true);
+                E4.setEnabled(true);
+                D4.setEnabled(true);
+                C4.setEnabled(true);
+                B4.setEnabled(true);
+                A4.setEnabled(true);
+                A3.setEnabled(true);
+                B3.setEnabled(true);
+                C3.setEnabled(true);
+                D3.setEnabled(true);
+                E3.setEnabled(true);
+                F3.setEnabled(true);
+                G3.setEnabled(true);
+                H3.setEnabled(true);
+                H2.setEnabled(true);
+                G2.setEnabled(true);
+                F2.setEnabled(true);
+                E2.setEnabled(true);
+                D2.setEnabled(true);
+                C2.setEnabled(true);
+                B2.setEnabled(true);
+                A2.setEnabled(true);
+                A1.setEnabled(true);
+                B1.setEnabled(true);
+                C1.setEnabled(true);
+                D1.setEnabled(true);
+                E1.setEnabled(true);
+                F1.setEnabled(true);
+                G1.setEnabled(true);
+                H1.setEnabled(true);
+                styl(kolor_zestaw, kroj_zestaw, kolor_plansza);
+                jButton66.setEnabled(true);
+                jButton68.setEnabled(true);
+                jButton71.setVisible(false);
+
+                gra = true;
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(SzachowaArena.class.getName()).log(Level.SEVERE, null, ex);
             }
- 
-        
+
         }
     }//GEN-LAST:event_partia_wznowionaActionPerformed
     public static void main(String args[]) {
