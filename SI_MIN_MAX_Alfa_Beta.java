@@ -14,7 +14,6 @@ import java.util.Observable;
  */
 public class SI_MIN_MAX_Alfa_Beta extends Observable {
 
-    ArrayList<Ruch> historia = new ArrayList<>();
     int pozycje = 0;
     int all_position = 0;
     int licznik, maxglebia;
@@ -27,10 +26,8 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
     boolean przerwa;
     boolean zakaz;
     int najlepszy;
-    boolean[] roznica = new boolean[2];
-    ArrayList<Boolean> bicia1 = new ArrayList<>();
     private final boolean wyjsciowa_tura;
-private final Kalkulator wynikowa;
+    private final Kalkulator wynikowa;
 
     synchronized private boolean kontrola_pat(char[][] ustawienie, boolean strona, boolean przelotcan) {
         for (int i = 0; i < 8; i++) {
@@ -169,7 +166,7 @@ private final Kalkulator wynikowa;
                         pozycja[i][j] = figury.CKrol;
                         break;
                 }
-                pozycja_wyjsciowa[i][j]=pozycja[i][j];
+                pozycja_wyjsciowa[i][j] = pozycja[i][j];
             }
         }
         this.tura_rywala = tura_rywala;
@@ -189,7 +186,6 @@ private final Kalkulator wynikowa;
     }
 
     synchronized public int wykonaj(int glebia, Ruch move, int najwieksza, int najmniejsza) {
-        System.out.println("licznik Before "+licznik);
         int biezaca_ogolna;
         all_position = all_position + 1;
         byte Nkolumna;
@@ -200,30 +196,26 @@ private final Kalkulator wynikowa;
             Nkolumna = 0;
             this.przelotcan = false;
         }
-        historia.add(move);
-        bicia1.add(move.korzystnosc_bicia != Ruch.figura.Pustka);
         try {
 
             if (RuchZagrozenie_kontrola.szach(konwert(move.chessboard_after), this.tura_rywala) == false
-                    &&obecnosc(this.pozycja)==true) {
+                    && obecnosc(this.pozycja) == true) {
                 aktualizacja_parametrow(move);
-                //System.out.println(move.toString()+" "+move.wspolczynnik_bicia);
                 this.tura_rywala = this.tura_rywala != true;
-                //System.out.println("wyjsciowe "+wyjsciowa_tura);
                 biezaca_ogolna = (wyjsciowa_tura == true)
-                        ? minimum((glebia - 1), Nkolumna, najwieksza, najmniejsza,move.chessboard_after)
-                        : maximum((glebia - 1), Nkolumna, najwieksza, najmniejsza,move.chessboard_after);
+                        ? minimum((glebia - 1), Nkolumna, najwieksza, najmniejsza, move.chessboard_after)
+                        : maximum((glebia - 1), Nkolumna, najwieksza, najmniejsza, move.chessboard_after);
                 this.tura_rywala = this.tura_rywala == false;
                 if (wyjsciowa_tura == true) {
                     setPrzerwa(kontrola_mat(konwert(move.chessboard_after), false, Nkolumna, przelotcan));
                 } else {
                     setPrzerwa(kontrola_mat(konwert(move.chessboard_after), true, Nkolumna, przelotcan));
                 }
-               
+
                 przywroc_parametry(move);
                 setZakaz(false);
-                System.out.println("biezaca ogolna: "+biezaca_ogolna);
-                System.out.println("licznik After "+licznik);
+                System.out.println("biezaca ogolna: " + biezaca_ogolna);
+                System.out.println("licznik After " + licznik);
                 return biezaca_ogolna;
             } else {
                 setZakaz(true);
@@ -232,19 +224,6 @@ private final Kalkulator wynikowa;
                 return wyjsciowa_tura == true ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
         } catch (Exception e) {
-            figury[][] odtworz = wykonajruch1(move,pozycja_wyjsciowa);
-            for(Ruch h :historia){
-                odtworz=wykonajruch1(h, odtworz);
-                System.out.println(h.toString()+"|"+h.korzystnosc_bicia);
-                for (int i = 7; i > -1; i--) {
-                for (int j = 0; j < 8; j++) {
-
-                    System.out.print("[" + konwert(odtworz)[i][j] + "]");
-                }
-                System.out.println("");
-            }
-            
-            }
             System.out.println("ERROR POSITION");
             for (int i = 7; i > -1; i--) {
                 for (int j = 0; j < 8; j++) {
@@ -268,46 +247,23 @@ private final Kalkulator wynikowa;
         this.zakaz = zakaz;
     }
 
-    synchronized private int maximum(final int glebia, byte kolumna, int alfa, int beta,figury[][] chessboard) {
-      //  System.out.println("max");
-        int[] temp1 = {0,0};
+    synchronized private int maximum(final int glebia, byte kolumna, int biggest, int samllest, figury[][] chessboard) {
+        int[] temp1 = {0, 0};
         if (glebia == 0 || koniec(konwert(chessboard), this.tura_rywala, this.przelotcan, kolumna) == true
                 || Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
-                        this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna,false,' ',temp1,false).isEmpty()) {
+                        this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false).isEmpty()) {
             pozycje = pozycje + 1;
-            
-            /* for (int x = 7; x > -1; x--) {
-            for (int y = 0; y < 8; y++) {
-            System.out.print("["+konwert(pozycja)[x][y]+"]");
-            }System.out.println("");
-            }
-            System.out.println("----------");*/
-         /*   historia.forEach((h) -> {
-                System.out.println(h.toString());
-            });
-             for (int x = 7; x > -1; x--) {
-            for (int y = 0; y < 8; y++) {
-                System.out.print("<"+konwert(chessboard)[x][y]+">");
-            }System.out.println();
-            }*/
-            /*System.out.println(kalk.zliczacz());
-            System.out.println();
-            System.out.println();*/
-            return this.wynikowa.zliczacz(chessboard,tura_rywala,przelotcan,
-                    bleft,bright,wleft,wright,kingrochB,kingrochC,didRochB,didRochC,glebia,kolumna);
+            return this.wynikowa.zliczacz(chessboard, tura_rywala, przelotcan,
+                    bleft, bright, wleft, wright, kingrochB, kingrochC, didRochB, didRochC, glebia, kolumna);
         }
-int temp = alfa;
+        int temp = biggest;
         all_position = all_position + Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
-                this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna,false,' ',temp1,false).size();
-        
+                this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false).size();
         for (Ruch move : Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
-                this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna,false,' ',temp1,false)) {
-//            System.out.print(glebia+"|"+move.toString());
-              //  System.out.println(move.toString()+"-"+move.wspolczynnik_bicia+"|"+glebia);
+                this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false)) {
             if (RuchZagrozenie_kontrola.szach(konwert(move.chessboard_after), this.tura_rywala) == false
-                    &&obecnosc(move.chessboard_after)==true) {
-                //      System.out.println(" DONE");
-                historia.add(move);
+                    && obecnosc(move.chessboard_after) == true) {
+                 //System.out.println(move.toString()+ "|"+glebia);
                 byte Nkolumna;
                 if (move.kolejnosc == Ruch.figura.Pion && (Math.abs(pozyskajkordkolumna(move.koniec2) - pozyskajkordkolumna(move.start2)) == 2)) {
                     Nkolumna = (byte) (pozyskajkordrzad(move.start1));
@@ -316,113 +272,58 @@ int temp = alfa;
                     Nkolumna = 0;
                     this.przelotcan = false;
                 }
-
-                /* if (tura_rywala != wyjsciowa_tura) {
-                    roznica[0] = move.korzystnosc_bicia != Ruch.figura.Pustka;
-                } else {
-                    roznica[1] = move.korzystnosc_bicia != Ruch.figura.Pustka;
-                }*/
-                bicia1.add(move.korzystnosc_bicia != Ruch.figura.Pustka);
                 aktualizacja_parametrow(move);
                 this.tura_rywala = this.tura_rywala != true;
-                //System.out.println(move.toString()+" "+move.wspolczynnik_bicia);
-                temp = Math.max(temp, minimum((zrekalkuluj_glebie(glebia)), Nkolumna,
-                        temp, beta,move.chessboard_after));
+                temp = Math.max(temp, minimum(((glebia - 1)), Nkolumna,
+                        temp, samllest, move.chessboard_after));
                 przywroc_parametry(move);
                 this.tura_rywala = this.tura_rywala == false;
-                bicia1.remove(bicia1.size() - 1);
-                historia.remove(historia.size() - 1);
-                if (temp >= beta) {
-                    //    System.out.println("xxxxxxxxxxxx");
-                    return beta;
+                
+                if (samllest <= temp) {
+                   break;
                 }
             }
         }
-       //  System.out.println("+++++++++++++++++");
         return temp;
     }
 
-    synchronized private int minimum(final int glebia, byte kolumna, int alfa, int beta,figury[][] chessboard) {
-       int[] temp1=new int[2];
-    //   System.out.println("g"+glebia+" empty "+Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
-      //                  this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna,false,' ',temp1,false).isEmpty());
-       
+    synchronized private int minimum(final int glebia, byte kolumna, int biggest, int smallest, figury[][] chessboard) {
+        int[] temp1 = new int[2];
         if (glebia == 0 || koniec(konwert(chessboard),
                 this.tura_rywala, this.przelotcan, kolumna) == true
                 || Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
-                        this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna,false,' ',temp1,false).isEmpty()) {
-           
-            
+                        this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false).isEmpty()) {
             pozycje = pozycje + 1;
-           
-            /* historia.forEach((ruchy) -> {
-            System.out.println(ruchy.toString()+" "+ruchy.czybialy);
-            });
-            System.out.println(kalk.zliczacz());
-            System.out.println();
-            System.out.println();*/
-           /* historia.forEach((h) -> {
-                System.out.println(h.toString());
-            });
-            for (int x = 7; x > -1; x--) {
-            for (int y = 0; y < 8; y++) {
-                System.out.print("<"+konwert(chessboard)[x][y]+">");
-            }System.out.println();
-            }*/
-           return this.wynikowa.zliczacz(chessboard,tura_rywala,przelotcan,
-                    bleft,bright,wleft,wright,kingrochB,kingrochC,didRochB,didRochC,glebia,kolumna);
+            return this.wynikowa.zliczacz(chessboard, tura_rywala, przelotcan,
+                    bleft, bright, wleft, wright, kingrochB, kingrochC, didRochB, didRochC, glebia, kolumna);
         }
-        int temp = beta;
+        int temp = smallest;
         all_position = all_position + Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
-                        this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna,false,' ',temp1,false).size();
-      //  System.out.println("min "+Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
-        //                this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna,false,' ',temp1,false).size());
-        for (Ruch move : Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
-                        this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna,false,' ',temp1,false)) {
-            //  System.out.print(glebia+"|"+move.toString());
-            //    System.out.println(move.toString()+"-"+move.wspolczynnik_bicia+"|"+glebia);
+                this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false).size();
+         for (Ruch move : Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
+                this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false)) {
             if (RuchZagrozenie_kontrola.szach(konwert(move.chessboard_after), this.tura_rywala) == false
-                    &&obecnosc(move.chessboard_after)==true) {
+                    && obecnosc(move.chessboard_after) == true) {
                 byte Nkolumna;
-                historia.add(move);
-                //  System.out.println(" DONE");
-                if (move.kolejnosc == Ruch.figura.Pion && (Math.abs(pozyskajkordkolumna(move.koniec2) - pozyskajkordkolumna(move.start2)) == 2)) {
+               // System.out.println(move.toString()+ "|"+glebia); 
+                 if (move.kolejnosc == Ruch.figura.Pion && (Math.abs(pozyskajkordkolumna(move.koniec2) - pozyskajkordkolumna(move.start2)) == 2)) {
                     Nkolumna = (byte) (pozyskajkordrzad(move.start1));
                     this.przelotcan = true;
                 } else {
                     Nkolumna = 0;
                     this.przelotcan = false;
                 }
-                /* if (tura_rywala != wyjsciowa_tura) {
-                    roznica[0] = move.korzystnosc_bicia != Ruch.figura.Pustka;
-                } else {
-                    roznica[1] = move.korzystnosc_bicia != Ruch.figura.Pustka;
-                }*/
-                bicia1.add(move.korzystnosc_bicia != Ruch.figura.Pustka);
-
                 aktualizacja_parametrow(move);
-
                 this.tura_rywala = this.tura_rywala != true;
-                //System.out.println(move.toString()+" "+move.wspolczynnik_bicia);
-                temp = Math.min(temp, maximum((zrekalkuluj_glebie(glebia)),
-                        Nkolumna, alfa, temp,move.chessboard_after));
+                temp = Math.min(temp, maximum(((glebia - 1)),
+                        Nkolumna, biggest, temp, move.chessboard_after));
                 przywroc_parametry(move);
-
                 this.tura_rywala = this.tura_rywala == false;
-                /* if (tura_rywala != wyjsciowa_tura) {
-                    roznica[0] = !(move.korzystnosc_bicia != Ruch.figura.Pustka);
-                } else {
-                    roznica[1] = !(move.korzystnosc_bicia != Ruch.figura.Pustka);
-                }*/
-                bicia1.remove(bicia1.size() - 1);
-                historia.remove(historia.size() - 1);
-                if (temp <= alfa) {
-                    //         System.out.println("xxxxxxxxxxxx");
-                    return alfa;
+                if (temp <= biggest) {
+                    break;
                 }
             }
         }
-      //    System.out.println("-----------------");
         return temp;
     }
 
@@ -762,10 +663,9 @@ int temp = alfa;
             }*/
         return poza;
     }
-    
-    synchronized private figury[][] wykonajruch1(Ruch move,figury[][] poza) {
-        
-        
+
+    synchronized private figury[][] wykonajruch1(Ruch move, figury[][] poza) {
+
         if (move.roszada == true) {
 
             if (move.roszada == true && move.dlugaroszada == false) {
@@ -824,7 +724,7 @@ int temp = alfa;
         return poza;
     }
 
-    synchronized private figury[][] cofnij_ruch(Ruch move,figury[][] poza) {
+    synchronized private figury[][] cofnij_ruch(Ruch move, figury[][] poza) {
 
         /*for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -998,23 +898,7 @@ int temp = alfa;
     }
 
     synchronized private int zrekalkuluj_glebie(final int glebia) {
-        if (glebia == 1 && this.licznik < 25000) {
-            int aktywne = 0;
-            if (RuchZagrozenie_kontrola.szach(konwert(this.pozycja), tura_rywala)) {
-                aktywne = aktywne + 1;
-            }
-            
-                for (int i = historia.size() - 1; i >= historia.size() - 2; i--) {
-                    if (historia.get(i).korzystnosc_bicia != Ruch.figura.Pustka) {
-                        aktywne = aktywne + 1;
-                    }
-                }
-            
-            if (aktywne >= 2) {
-                this.licznik=this.licznik+1;
-                return 2;
-            }
-        }
+     
 
         return glebia - 1;
     }

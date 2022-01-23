@@ -11,7 +11,7 @@ package szachy;
  */
 public class Ruch implements Comparable<Ruch> {
 
-    private SI_MIN_MAX_Alfa_Beta.figury[][] zmiana(SI_MIN_MAX_Alfa_Beta.figury[][] szachownica,String lista) {
+    private SI_MIN_MAX_Alfa_Beta.figury[][] zmiana(SI_MIN_MAX_Alfa_Beta.figury[][] szachownica, String lista) {
         SI_MIN_MAX_Alfa_Beta.figury[][] wynik = new SI_MIN_MAX_Alfa_Beta.figury[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -52,47 +52,47 @@ public class Ruch implements Comparable<Ruch> {
             }
 
         } else {
-             wynik[(int)(lista.charAt(2)-'1')][(int)(lista.charAt(1)-'A')] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-            if (this.przelot == true&&kolejnosc==figura.Pion) {
-                wynik[this.czybialy == false ? 3 : 4][(int)(lista.charAt(4)-'A')] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
+            wynik[(int) (lista.charAt(2) - '1')][(int) (lista.charAt(1) - 'A')] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
+            if (this.przelot == true && kolejnosc == figura.Pion) {
+                wynik[this.czybialy == false ? 3 : 4][(int) (lista.charAt(4) - 'A')] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
 
             } else if (this.promocja == true) {
-                wynik[(int)(lista.charAt(5)-'1')][(int)(lista.charAt(4)-'A')] = pozyskaj_figure(lista.charAt(7));
+                wynik[(int) (lista.charAt(5) - '1')][(int) (lista.charAt(4) - 'A')] = pozyskaj_figure(lista.charAt(7));
             } else {
-                wynik[(int)(lista.charAt(5)-'1')][(int)(lista.charAt(4)-'A')] = pozyskaj_figure(lista.charAt(0));
+                wynik[(int) (lista.charAt(5) - '1')][(int) (lista.charAt(4) - 'A')] = pozyskaj_figure(lista.charAt(0));
             }
         }
         return wynik;
     }
 
     private SI_MIN_MAX_Alfa_Beta.figury pozyskaj_figure(char znak) {
-    switch (znak) {
-                case 'p':
-                    return SI_MIN_MAX_Alfa_Beta.figury.CPion;
-                case 'P':
-                    return SI_MIN_MAX_Alfa_Beta.figury.BPion;
-                case 'n':
-                    return SI_MIN_MAX_Alfa_Beta.figury.CSkoczek;
-                case 'N':
-                   return SI_MIN_MAX_Alfa_Beta.figury.BSkoczek;
-                case 'b':
-                    return SI_MIN_MAX_Alfa_Beta.figury.CGoniec;
-                case 'B':
-                   return SI_MIN_MAX_Alfa_Beta.figury.BGoniec;
-                case 'r':
-                  return SI_MIN_MAX_Alfa_Beta.figury.CWieza;
-                case 'R':
-                   return SI_MIN_MAX_Alfa_Beta.figury.BWieza;
-                case 'q':
-                    return SI_MIN_MAX_Alfa_Beta.figury.CHetman;
-                case 'Q':
-                    return SI_MIN_MAX_Alfa_Beta.figury.BHetman;
-                case 'k':
-                    return SI_MIN_MAX_Alfa_Beta.figury.CKrol;
-                case 'K':
-                   return SI_MIN_MAX_Alfa_Beta.figury.BKrol;
+        switch (znak) {
+            case 'p':
+                return SI_MIN_MAX_Alfa_Beta.figury.CPion;
+            case 'P':
+                return SI_MIN_MAX_Alfa_Beta.figury.BPion;
+            case 'n':
+                return SI_MIN_MAX_Alfa_Beta.figury.CSkoczek;
+            case 'N':
+                return SI_MIN_MAX_Alfa_Beta.figury.BSkoczek;
+            case 'b':
+                return SI_MIN_MAX_Alfa_Beta.figury.CGoniec;
+            case 'B':
+                return SI_MIN_MAX_Alfa_Beta.figury.BGoniec;
+            case 'r':
+                return SI_MIN_MAX_Alfa_Beta.figury.CWieza;
+            case 'R':
+                return SI_MIN_MAX_Alfa_Beta.figury.BWieza;
+            case 'q':
+                return SI_MIN_MAX_Alfa_Beta.figury.CHetman;
+            case 'Q':
+                return SI_MIN_MAX_Alfa_Beta.figury.BHetman;
+            case 'k':
+                return SI_MIN_MAX_Alfa_Beta.figury.CKrol;
+            case 'K':
+                return SI_MIN_MAX_Alfa_Beta.figury.BKrol;
 
-            }   
+        }
         return SI_MIN_MAX_Alfa_Beta.figury.pustka;
     }
 
@@ -113,12 +113,12 @@ public class Ruch implements Comparable<Ruch> {
     };
     SI_MIN_MAX_Alfa_Beta.figury[][] chessboard_before = new SI_MIN_MAX_Alfa_Beta.figury[8][8];
     SI_MIN_MAX_Alfa_Beta.figury[][] chessboard_after = new SI_MIN_MAX_Alfa_Beta.figury[8][8];
-    boolean szach, roszada, czybialy, przelot, dlugaroszada, promocja;
+    Boolean szach, czy_szach, roszada, czybialy, przelot, dlugaroszada, promocja, atak;
     kolumna start1, koniec1;
     rzad start2, koniec2;
     figura kolejnosc, promowana = null;
     final sortowanie sposob;
-    Integer wspolczynnik_bicia;
+    Integer wspolczynnik_ruchu, wspolczynnik_bitki;
     int wartosc_promocji = 0;
     figura korzystnosc_bicia;
 
@@ -144,34 +144,64 @@ public class Ruch implements Comparable<Ruch> {
 
     }
 
+    private int wartosc(SI_MIN_MAX_Alfa_Beta.figury f) {
+        switch (f) {
+            case BGoniec:
+            case CGoniec:
+                return 350;
+            case BHetman:
+            case CHetman:
+                return 900;
+            case BPion:
+            case CPion:
+                return 100;
+            case pustka:
+                return 0;
+            case CSkoczek:
+            case BSkoczek:
+                return 300;
+            case CWieza:
+            case BWieza:
+                return 500;
+            default:
+                return 0;
+        }
+
+    }
+
     Ruch(String lista, int sposob, SI_MIN_MAX_Alfa_Beta.figury bity, SI_MIN_MAX_Alfa_Beta.figury[][] szachownica) {
-        szach = lista.charAt(lista.length() - 1) == '+';
 
         switch (bity) {
             case BPion:
             case CPion:
                 korzystnosc_bicia = figura.Pion;
+                atak = true;
                 break;
             case BSkoczek:
             case CSkoczek:
                 korzystnosc_bicia = figura.Skoczek;
+                atak = true;
                 break;
             case BGoniec:
             case CGoniec:
                 korzystnosc_bicia = figura.Goniec;
+                atak = true;
                 break;
             case BWieza:
             case CWieza:
                 korzystnosc_bicia = figura.Wieza;
+                atak = true;
                 break;
             case BHetman:
             case CHetman:
                 korzystnosc_bicia = figura.Hetman;
+                atak = true;
                 break;
             default:
                 korzystnosc_bicia = figura.Pustka;
+                atak = false;
         }
-        
+        czy_szach = lista.endsWith("+");
         roszada = lista.substring(1, 4).equals("O-O");
         dlugaroszada = lista.substring(1, 6).equals("O-O-O");
         przelot = lista.charAt(6) == ('E');
@@ -383,19 +413,16 @@ public class Ruch implements Comparable<Ruch> {
             kolejnosc = figura.Krol;
             czybialy = lista.charAt(0) == 'K';
         }
-        if (korzystnosc_bicia == figura.Pustka) {
-            wspolczynnik_bicia = wartosc(figura.Krol) - wartosc(kolejnosc);
-        } else {
-            wspolczynnik_bicia = (wartosc(korzystnosc_bicia) - wartosc(kolejnosc) + wartosc(figura.Krol)) * 100;
-        }
+
+        wspolczynnik_ruchu = wartosc(kolejnosc);
+        wspolczynnik_bitki= wartosc(bity);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 chessboard_before[i][j] = szachownica[i][j];
                 chessboard_after[i][j] = szachownica[i][j];
             }
         }
-        chessboard_after = zmiana(chessboard_before,lista);
-        
+        chessboard_after = zmiana(chessboard_before, lista);
         switch (sposob) {
             case 1:
                 this.sposob = sortowanie.pierwszy_szach;
@@ -410,251 +437,28 @@ public class Ruch implements Comparable<Ruch> {
 
     @Override
     public int compareTo(Ruch obiekt) {
-        switch (this.sposob) {
-            case pierwszy_szach:
-                if (szach == (obiekt.szach)) {
-                    if (roszada == (obiekt.roszada)) {
-                        if (wspolczynnik_bicia.compareTo(obiekt.wspolczynnik_bicia)==0) {
-                            //  if (kolejnosc == obiekt.kolejnosc) {
-                            if (start2.compareTo(obiekt.start2) == 0) {
-                                if (start1.compareTo(obiekt.start1) == 0) {
-                                    if (koniec2.compareTo(obiekt.koniec2) == 0) {
-                                        return (koniec1.compareTo(obiekt.koniec1)) * (czybialy == true ? 1 : 1);
-                                    } else {
-                                        return koniec2.compareTo(obiekt.koniec2) * (czybialy == true ? 1 : -1);
-                                    }
-                                } else {
-                                    return start1.compareTo(obiekt.start1) * (czybialy == true ? 1 : 1);
-                                }
-                            } else {
-                                return start2.compareTo(obiekt.start2) * (czybialy == true ? 1 : -1);
-                            }
-                            /*  } else {
-                                switch (kolejnosc) {
-                                    case Pion:
-                                        switch (obiekt.kolejnosc) {
-                                            case Skoczek:
-                                                return -1;
-                                            case Goniec:
-                                                return -1;
-                                            case Wieza:
-                                                return -1;
-                                            case Hetman:
-                                                return -1;
-                                            case Krol:
-                                                return -1;
-                                        }
-                                        break;
-                                    case Skoczek:
-                                        switch (obiekt.kolejnosc) {
-                                            case Pion:
-                                                return 1;
-                                            case Goniec:
-                                                return -1;
-                                            case Wieza:
-                                                return -1;
-                                            case Hetman:
-                                                return -1;
-                                            case Krol:
-                                                return -1;
-                                        }
-                                        break;
-                                    case Goniec:
-                                        switch (obiekt.kolejnosc) {
-                                            case Pion:
-                                                return 1;
-                                            case Skoczek:
-                                                return 1;
-                                            case Wieza:
-                                                return -1;
-                                            case Hetman:
-                                                return -1;
-                                            case Krol:
-                                                return -1;
-                                        }
-                                        break;
-                                    case Wieza:
-                                        switch (obiekt.kolejnosc) {
-                                            case Pion:
-                                                return 1;
-                                            case Goniec:
-                                                return 1;
-                                            case Skoczek:
-                                                return 1;
-                                            case Hetman:
-                                                return -1;
-                                            case Krol:
-                                                return -1;
-                                        }
-                                        break;
-                                    case Hetman:
-                                        switch (obiekt.kolejnosc) {
-                                            case Pion:
-                                                return 1;
-                                            case Goniec:
-                                                return 1;
-                                            case Wieza:
-                                                return 1;
-                                            case Skoczek:
-                                                return 1;
-                                            case Krol:
-                                                return -1;
-                                        }
-                                        break;
-                                    case Krol:
-                                        switch (obiekt.kolejnosc) {
-                                            case Pion:
-                                                return 1;
-                                            case Goniec:
-                                                return 1;
-                                            case Wieza:
-                                                return 1;
-                                            case Hetman:
-                                                return 1;
-                                            case Skoczek:
-                                                return 1;
-                                        }
-                                        break;
-                                }
-                            }*/
-                        } else {
-                            return (wspolczynnik_bicia.compareTo(obiekt.wspolczynnik_bicia))*-1;
 
-                        }
-
+        if (czy_szach.compareTo(obiekt.czy_szach) == 0) {
+            if (atak.compareTo(obiekt.atak) == 0) {
+                if (roszada.compareTo(obiekt.roszada) == 0) {
+                    if (atak == false) {
+                        return obiekt.wspolczynnik_ruchu.compareTo(wspolczynnik_ruchu) * (1);
                     } else {
-                        if (roszada == true && obiekt.roszada == false) {
-                            return -1;
+                        if (wspolczynnik_bitki.compareTo(obiekt.wspolczynnik_bitki) != 0) {
+                            return wspolczynnik_bitki.compareTo(obiekt.wspolczynnik_bitki)*(-1);
                         } else {
-                            return 1;
+                            return obiekt.wspolczynnik_ruchu.compareTo(wspolczynnik_ruchu) * (1);
                         }
                     }
                 } else {
-                    if (szach == true && obiekt.szach == false) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
+                    return roszada.compareTo(obiekt.roszada) * -1;
                 }
-
-            case pierwsze_bicie:
-                if (roszada == (obiekt.roszada)) {
-                    if (wspolczynnik_bicia.compareTo(obiekt.wspolczynnik_bicia)==0) {
-                        //if (kolejnosc == obiekt.kolejnosc) {
-                        if (start2.compareTo(obiekt.start2) == 0) {
-                            if (start1.compareTo(obiekt.start1) == 0) {
-                                if (koniec2.compareTo(obiekt.koniec2) == 0) {
-                                    return (koniec1.compareTo(obiekt.koniec1)) * (czybialy == true ? 1 : 1);
-                                } else {
-                                    return koniec2.compareTo(obiekt.koniec2) * (czybialy == true ? 1 : -1);
-                                }
-                            } else {
-                                return start1.compareTo(obiekt.start1) * (czybialy == true ? 1 : 1);
-                            }
-                        } else {
-                            return start2.compareTo(obiekt.start2) * (czybialy == true ? 1 : -1);
-                        }
-                        /* } else {
-                            switch (kolejnosc) {
-                                case Pion:
-                                    switch (obiekt.kolejnosc) {
-                                        case Skoczek:
-                                            return -1;
-                                        case Goniec:
-                                            return -1;
-                                        case Wieza:
-                                            return -1;
-                                        case Hetman:
-                                            return -1;
-                                        case Krol:
-                                            return -1;
-                                    }
-                                    break;
-                                case Skoczek:
-                                    switch (obiekt.kolejnosc) {
-                                        case Pion:
-                                            return 1;
-                                        case Goniec:
-                                            return -1;
-                                        case Wieza:
-                                            return -1;
-                                        case Hetman:
-                                            return -1;
-                                        case Krol:
-                                            return -1;
-                                    }
-                                    break;
-                                case Goniec:
-                                    switch (obiekt.kolejnosc) {
-                                        case Pion:
-                                            return 1;
-                                        case Skoczek:
-                                            return 1;
-                                        case Wieza:
-                                            return -1;
-                                        case Hetman:
-                                            return -1;
-                                        case Krol:
-                                            return -1;
-                                    }
-                                    break;
-                                case Wieza:
-                                    switch (obiekt.kolejnosc) {
-                                        case Pion:
-                                            return 1;
-                                        case Goniec:
-                                            return 1;
-                                        case Skoczek:
-                                            return 1;
-                                        case Hetman:
-                                            return -1;
-                                        case Krol:
-                                            return -1;
-                                    }
-                                    break;
-                                case Hetman:
-                                    switch (obiekt.kolejnosc) {
-                                        case Pion:
-                                            return 1;
-                                        case Goniec:
-                                            return 1;
-                                        case Wieza:
-                                            return 1;
-                                        case Skoczek:
-                                            return 1;
-                                        case Krol:
-                                            return -1;
-                                    }
-                                    break;
-                                case Krol:
-                                    switch (obiekt.kolejnosc) {
-                                        case Pion:
-                                            return 1;
-                                        case Goniec:
-                                            return 1;
-                                        case Wieza:
-                                            return 1;
-                                        case Hetman:
-                                            return 1;
-                                        case Skoczek:
-                                            return 1;
-                                    }
-                                    break;
-                            }
-                        }*/
-                    } else {
-                        return (wspolczynnik_bicia.compareTo(obiekt.wspolczynnik_bicia))*-1;
-
-                    }
-                } else {
-                    if (roszada == true && obiekt.roszada == false) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
-                }
+            } else {
+                return atak.compareTo(obiekt.atak) * -1;
+            }
+        } else {
+            return czy_szach.compareTo(obiekt.czy_szach) * -1;
         }
-        return 0;
     }
 
     @Override
@@ -662,7 +466,7 @@ public class Ruch implements Comparable<Ruch> {
         String wynik = "";
         if (roszada == true) {
             wynik = dlugaroszada == true ? "O-O-O" : "O-O";
-            return szach ? wynik + "+" : wynik;
+            return czy_szach ? wynik + "+" : wynik;
         } else {
             switch (kolejnosc) {
                 case Pion:
@@ -810,7 +614,7 @@ public class Ruch implements Comparable<Ruch> {
             } else {
                 wynik = wynik.concat("--");
             }
-            return szach ? wynik + "+" : wynik;
+            return czy_szach ? wynik + "+" : wynik;
         }
 
     }
