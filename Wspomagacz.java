@@ -74,8 +74,8 @@ public class Wspomagacz {
                 }
             }
         }
-        if ((czybiale && (pomocnicza[X - 1][Y] == 'P' || (pomocnicza[X - 2][Y] == 'P' && (X - 2) == 4)))
-                || (!czybiale && (pomocnicza[X + 1][Y] == 'p' || (pomocnicza[X + 2][Y] == 'p' && (X + 2) == 9)))) {
+        if ((czybiale && (pomocnicza[X - 1][Y] == 'P' || (pomocnicza[X - 1][Y] == ' ' && pomocnicza[X - 2][Y] == 'P' && (X - 2) == 4)))
+                || (!czybiale && (pomocnicza[X + 1][Y] == 'p' || (pomocnicza[X + 1][Y] == ' ' && pomocnicza[X + 2][Y] == 'p' && (X + 2) == 9)))) {
             if (czybiale) {
                 figura = 'P';
                 if (pomocnicza[X - 1][Y] == 'P') {

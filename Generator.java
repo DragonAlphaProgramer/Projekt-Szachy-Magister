@@ -1688,7 +1688,7 @@ class Generator {
                                     for (int r = 1; r < 3; r++) {
                                         backup[0][4] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                         backup[0][4 + r] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
-                                        wyniki[r - 1] = true;
+                                        wyniki[r - 1] = !RuchZagrozenie_kontrola.szach(konwert(backup), true);
                                         backup[0][4] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
                                         backup[0][4 + r] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                     }
@@ -1697,7 +1697,7 @@ class Generator {
                                         backup[0][7] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                         backup[0][5] = SI_MIN_MAX_Alfa_Beta.figury.BWieza;
                                         backup[0][6] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
-                                        RuchZagrozenie_kontrola.szach(konwert(backup), !tura_rywala);
+                                        szach=RuchZagrozenie_kontrola.szach(konwert(backup), !tura_rywala);
                                         backup[0][4] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
                                         backup[0][7] = SI_MIN_MAX_Alfa_Beta.figury.BWieza;
                                         backup[0][5] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
@@ -1720,7 +1720,7 @@ class Generator {
                                     for (int r = 1; r <= 2; r++) {
                                         backup[0][4] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                         backup[0][4 - r] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
-                                        wyniki[r - 1] = true;
+                                        wyniki[r - 1] = !RuchZagrozenie_kontrola.szach(konwert(backup), true);
                                         backup[0][4] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
                                         backup[0][4 - r] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                     }
@@ -1729,7 +1729,7 @@ class Generator {
                                         backup[0][0] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                         backup[0][3] = SI_MIN_MAX_Alfa_Beta.figury.BWieza;
                                         backup[0][2] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
-                                        RuchZagrozenie_kontrola.szach(konwert(backup), !tura_rywala);
+                                        szach=RuchZagrozenie_kontrola.szach(konwert(backup), !tura_rywala);
                                         backup[0][4] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
                                         backup[0][0] = SI_MIN_MAX_Alfa_Beta.figury.BWieza;
                                         backup[0][3] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
@@ -1801,7 +1801,7 @@ class Generator {
                                     for (int r = 1; r < 3; r++) {
                                         backup[7][4] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                         backup[7][4 + r] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
-                                        wyniki[r - 1] = true;
+                                        wyniki[r - 1] = !RuchZagrozenie_kontrola.szach(konwert(backup), false);
                                         backup[7][4] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
                                         backup[7][4 + r] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                     }
@@ -1810,7 +1810,7 @@ class Generator {
                                         backup[7][7] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                         backup[7][5] = SI_MIN_MAX_Alfa_Beta.figury.CWieza;
                                         backup[7][6] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
-                                        RuchZagrozenie_kontrola.szach(konwert(backup), !tura_rywala);
+                                        szach=RuchZagrozenie_kontrola.szach(konwert(backup), !tura_rywala);
                                         backup[7][4] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
                                         backup[7][7] = SI_MIN_MAX_Alfa_Beta.figury.CWieza;
                                         backup[7][5] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
@@ -1833,7 +1833,7 @@ class Generator {
                                     for (int r = 1; r <= 2; r++) {
                                         backup[7][4] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                         backup[7][4 - r] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
-                                        wyniki[r - 1] = true;
+                                        wyniki[r - 1] = !RuchZagrozenie_kontrola.szach(konwert(backup), false);
                                         backup[7][4] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
                                         backup[7][4 - r] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
                                     }

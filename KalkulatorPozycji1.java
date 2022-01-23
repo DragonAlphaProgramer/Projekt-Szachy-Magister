@@ -19,11 +19,11 @@ public class KalkulatorPozycji1 {
     private static final int SZACH = 45;
     private static final int MAT = 1000000;
     private static final int BICIA_BONUS = 1;
-    static SI_MIN_MAX_Alfa_Beta1.figury[][] ustawienie;
+    static SI_MIN_MAX_Alfa_Beta.figury[][] ustawienie;
     static boolean tura_rywala, przelotcan, bleft, bright, wleft, wright,
             roszadaB, roszadaC, wykonanaRochB, wykonanaRochC;
     static int glebia;
-    static byte kol;
+    static int kol;
     private static final int[] BONUS_BIALY_PION = {
         0, 0, 0, 0, 0, 0, 0, 0,
         75, 75, 75, 75, 75, 75, 75, 75,
@@ -153,7 +153,7 @@ public class KalkulatorPozycji1 {
         -30, -40, -40, -50, -50, -40, -40, -30
     };
 
-    public KalkulatorPozycji1(SI_MIN_MAX_Alfa_Beta1.figury[][] ustawienie, boolean tura_rywala, boolean przelotcan,
+    public KalkulatorPozycji1(SI_MIN_MAX_Alfa_Beta.figury[][] ustawienie, boolean tura_rywala, boolean przelotcan,
             boolean bleft, boolean bright, boolean wleft, boolean wright,
             boolean roszadaB, boolean roszadaC, boolean wykonanaRochB, boolean wykonanaRochC,
             int glebia, byte kol) {
@@ -288,8 +288,8 @@ public class KalkulatorPozycji1 {
             for (byte i = 0; i < 8; i++) {
                 for (byte j = 0; j < 8; j++) {
 
-                    if ((ustawienie[i][j] == SI_MIN_MAX_Alfa_Beta1.figury.BKrol && strona == true)
-                            || (ustawienie[i][j] == SI_MIN_MAX_Alfa_Beta1.figury.CKrol && strona == false)) {
+                    if ((ustawienie[i][j] == SI_MIN_MAX_Alfa_Beta.figury.BKrol && strona == true)
+                            || (ustawienie[i][j] == SI_MIN_MAX_Alfa_Beta.figury.CKrol && strona == false)) {
                         krol[0] = i;
                         krol[1] = j;
                     }
@@ -340,8 +340,8 @@ public class KalkulatorPozycji1 {
     }
 
     private static int stosunek(boolean b) {
-        float swoje = (Generator1.generuj_posuniecia(ustawienie, b, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol).size() * 10.0f);
-        float wrogie = Generator1.generuj_posuniecia(ustawienie, !b, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol).size();
+        float swoje = (Generator.generuj_posuniecia(ustawienie, b, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol, false, ' ', new int[2], true).size() * 10.0f);
+        float wrogie = Generator.generuj_posuniecia(ustawienie, !b, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol, false, ' ', new int[2], true).size();
         return (int) (swoje / wrogie);
     }
 
@@ -354,12 +354,12 @@ public class KalkulatorPozycji1 {
 
     private static int ruchy_zbijajace(boolean strona) {
         ////System.out.println("Wchodzi7");
-        Collection<Ruch1> lista = Generator1.generuj_posuniecia((ustawienie), strona, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol);
+        Collection<Ruch> lista = Generator.generuj_posuniecia((ustawienie), strona, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol, false, ' ', new int[2], true);
         int licznik_ataku = 0;
 
         if (!lista.isEmpty()) {
-            for (Ruch1 ruch : lista) {
-                if (ruch.korzystnosc_bicia != Ruch1.figura.Pustka) {
+            for (Ruch ruch : lista) {
+                if (ruch.korzystnosc_bicia != Ruch.figura.Pustka) {
                     int wartosc_atakujacego = wartosc(ruch.kolejnosc);
                     int wartosc_atakowanego = wartosc(ruch.korzystnosc_bicia);
                     if (wartosc_atakujacego <= wartosc_atakowanego) {
@@ -373,7 +373,7 @@ public class KalkulatorPozycji1 {
         return (licznik_ataku * BICIA_BONUS);
     }
 
-    private static int wartosc(Ruch1.figura bierka) {
+    private static int wartosc(Ruch.figura bierka) {
         switch (bierka) {
             case Pion:
                 return 100;

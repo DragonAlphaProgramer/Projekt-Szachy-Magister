@@ -671,6 +671,7 @@ public class SzachMatPatKontrola {
                                 //System.out.println("sprawdzone: " + klopot[0] + "," + klopot[1]);      
 
                                 if (zastawa[0] != -1 && zastawa[1] != -1) {
+                                    System.out.println(zastawa[0]+"|"+zastawa[1]);
                                     return true;
                                 } else {
                                     wynik = false;

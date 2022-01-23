@@ -5247,6 +5247,8 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                 kingrochB = false;
                                             }
                                         }
+                                        System.out.println(wright+ " "+wleft);
+                                        System.out.println(bright+ " "+bleft);
                                         atak = krolS;
                                         if ((symbol == 'K' || symbol == 'k') && atak == false && ((ruchB == true && kingrochB == true && (((lokalS[0] - lokalK[0]) == -2 && ust[0][5] == ' ' && ust[0][6] == ' ' && wright == true) || (lokalS[0] - lokalK[0] == 2 && ust[0][3] == ' ' && ust[0][2] == ' ' && ust[0][1] == ' ' && wleft == true)))
                                                 || (ruchB == false && kingrochC == true && (((lokalS[0] - lokalK[0]) == -2 && ust[7][5] == ' ' && ust[7][6] == ' ' && bright == true) || (lokalS[0] - lokalK[0] == 2 && ust[7][3] == ' ' && ust[7][2] == ' ' && ust[7][1] == ' ' && bleft == true))))) {
@@ -6197,7 +6199,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                     protectme = SzachMatPatKontrola.zastaw(backupzapas.clone(), ruchB, Wspomagacz.znajdzklopot(kontrolamat, ruchB), poza_krolewska, przelotcan);
                                                                 }
                                                             }
-                                                            System.out.println("ust");
+                                                            System.out.println("ust2");
                                                             for (int i = 0; i < 8; i++) {
                                                                 System.arraycopy(USTAWIENIE1[i], 0, ust[i], 0, 8);
                                                                 System.out.println();
@@ -6423,48 +6425,9 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         ciezkieC = (byte) (ciezkieC - 1);
                                                         break;
                                                 }
-                                                if (symbol == 'K' || symbol == 'k') {
-                                                    if (symbol == 'k') {
-                                                        kingrochC = false;
-                                                    } else {
-                                                        kingrochB = false;
-                                                    }
-                                                }
+                                               
                                                 zmien = true;
-                                                if (symbol == 'R' || symbol == 'r') {
-                                                    switch (symbol) {
-                                                        case 'R':
-                                                            if (lokalS[1] == 8 && lokalS[0] == 1) {
-                                                                wright = false;
-                                                                if (!wright && !wleft) {
-                                                                    kingrochB = false;
-                                                                }
-                                                            } else {
-                                                                if (lokalS[1] == 1 && lokalS[0] == 1) {
-                                                                    wleft = false;
-                                                                    if (!wright && !wleft) {
-                                                                        kingrochB = false;
-                                                                    }
-                                                                }
-                                                            }
-                                                            break;
-                                                        case 'r':
-                                                            if (lokalS[1] == 8 && lokalS[0] == 8) {
-                                                                bright = false;
-                                                            } else {
-                                                                if (lokalS[1] == 1 && lokalS[0] == 8) {
-                                                                    bleft = false;
-                                                                }
-                                                            }
-                                                            break;
-                                                    }
-                                                    if (!bright && !bleft) {
-                                                        kingrochC = false;
-                                                    }
-                                                    if (!wright && !wleft) {
-                                                        kingrochB = false;
-                                                    }
-                                                }
+                                                
                                                 if ((symbol == 'P' && lokalK[1] == 8) || (symbol == 'p' && lokalK[1] == 1)) {
                                                     promocja = true;
                                                     Object[] opcjeB = {b1, b2, b3, b4};
@@ -6721,7 +6684,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                 protectme = SzachMatPatKontrola.zastaw(backup.clone(), ruchB, Wspomagacz.znajdzklopot(kontrolamat, ruchB), poza_krolewska, przelotcan);
                                                             }
                                                         }
-                                                        System.out.println("ust");
+                                                        System.out.println("ust3");
                                                         for (int i = 0; i < 8; i++) {
                                                             System.arraycopy(USTAWIENIE1[i], 0, ust[i], 0, 8);
                                                             System.out.println();
@@ -7150,13 +7113,13 @@ public class SzachowaArena extends javax.swing.JFrame {
                                             }
                                             if (symbol == 'K') {
                                                 kingrochB = false;
-                                                dokonano_RB = true;
+                                                dokonano_RB = Math.abs(lokalS[0]-lokalS[1])==2;
                                             }
                                             if (symbol == 'k') {
                                                 kingrochC = false;
-                                                dokonano_RC = true;
+                                                dokonano_RC = Math.abs(lokalS[0]-lokalS[1])==2;
                                             }
-                                            if (odwrot == false) {
+                                            if(symbol=='r'||symbol=='R'){
                                                 switch (start) {
                                                     case "A1":
                                                         wleft = false;
@@ -7165,52 +7128,25 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         }
                                                         break;
                                                     case "A8":
-                                                        wleft = false;
+                                                        bleft = false;
                                                         if (!wright && !wleft) {
                                                             kingrochB = false;
-                                                        }
-                                                        break;
-                                                    case "H1":
-                                                        bleft = false;
-                                                        if (!bright && !bleft) {
-                                                            kingrochC = false;
-                                                        }
-                                                        break;
-                                                    case "H8":
-                                                        bright = false;
-                                                        if (!bright && !bleft) {
-                                                            kingrochC = false;
-                                                        }
-                                                        break;
-                                                }
-                                            } else {
-                                                switch (start) {
-                                                    case "A1":
-                                                        bright = false;
-                                                        if (!bright && !bleft) {
-                                                            kingrochC = false;
-                                                        }
-                                                        break;
-                                                    case "A8":
-                                                        bleft = false;
-                                                        if (!bright && !bleft) {
-                                                            kingrochC = false;
                                                         }
                                                         break;
                                                     case "H1":
                                                         wright = false;
-                                                        if (!wright && !wleft) {
-                                                            kingrochB = false;
+                                                        if (!bright && !bleft) {
+                                                            kingrochC = false;
                                                         }
                                                         break;
                                                     case "H8":
-                                                        wleft = false;
-                                                        if (!wright && !wleft) {
-                                                            kingrochB = false;
+                                                        bright = false;
+                                                        if (!bright && !bleft) {
+                                                            kingrochC = false;
                                                         }
                                                         break;
                                                 }
-                                            }
+                                        }
                                         }
                                         if (siec == true) {
                                             try {
@@ -7712,7 +7648,6 @@ public class SzachowaArena extends javax.swing.JFrame {
         Wlasne_kolor_jasne = new javax.swing.JMenuItem();
         Wlasne_kolor_ciemne = new javax.swing.JMenuItem();
         Ramowka = new javax.swing.JMenuItem();
-        podpowiedz = new javax.swing.JMenuItem();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup5 = new javax.swing.ButtonGroup();
@@ -7854,7 +7789,6 @@ public class SzachowaArena extends javax.swing.JFrame {
         alfastyl1 = new javax.swing.JRadioButtonMenuItem();
         klasykstyl1 = new javax.swing.JRadioButtonMenuItem();
         Ramowka1 = new javax.swing.JMenuItem();
-        podpowiedz1 = new javax.swing.JMenuItem();
 
         kroj.setText("zmien styl figur");
 
@@ -7954,14 +7888,6 @@ public class SzachowaArena extends javax.swing.JFrame {
             }
         });
         jPopupMenu1.add(Ramowka);
-
-        podpowiedz.setText("Zmiana koloru podpowiedzi");
-        podpowiedz.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                podpowiedzActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(podpowiedz);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Szachy Magister");
@@ -9423,14 +9349,6 @@ public class SzachowaArena extends javax.swing.JFrame {
             }
         });
         jMenu1.add(Ramowka1);
-
-        podpowiedz1.setText("Zmiana koloru podpowiedzi");
-        podpowiedz1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                podpowiedz1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(podpowiedz1);
 
         jMenuBar1.add(jMenu1);
 
@@ -11973,6 +11891,7 @@ public class SzachowaArena extends javax.swing.JFrame {
             czasgry = -1;
             switch (sztuczny_rywal) {
                 case 1:
+                    jButton2.setEnabled(false);
                     tura_rywala = false;
                     tryb = 0;
                     SI_ON = true;
@@ -11982,6 +11901,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                     glebiaSI = (byte) (byte) suwak_trudnosci.getValue();
                     break;
                 case 2:
+                    jButton2.setEnabled(false);
                     tura_rywala = true;
                     tryb = 0;
                     SI_ON = true;
@@ -12104,20 +12024,6 @@ public class SzachowaArena extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Przycisk_helpActionPerformed
 
-    private void podpowiedzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_podpowiedzActionPerformed
-        pomoc_ruch = JColorChooser.showDialog(rootPane, "kolor podpowiedzi", Color.BLUE);
-        if (pomoc_ruch == null) {
-            pomoc_ruch = Color.BLUE;
-        }
-    }//GEN-LAST:event_podpowiedzActionPerformed
-
-    private void podpowiedz1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_podpowiedz1ActionPerformed
-        pomoc_ruch = JColorChooser.showDialog(rootPane, "kolor podpowiedzi", Color.BLUE);
-        if (pomoc_ruch == null) {
-            pomoc_ruch = Color.BLUE;
-        }
-    }//GEN-LAST:event_podpowiedz1ActionPerformed
-
     private void partia_odlozonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_partia_odlozonaActionPerformed
         JFileChooser wyborP = new JFileChooser();
         wyborP.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -12160,6 +12066,12 @@ public class SzachowaArena extends javax.swing.JFrame {
     private void partia_wznowionaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_partia_wznowionaActionPerformed
         FileDialog plikw = new FileDialog(this, "Wybierz plik", FileDialog.LOAD);
         plikw.setVisible(true);
+        pionB=0;
+        pionC=0;
+        lekkieB=0;
+        lekkieC=0;
+        ciezkieB=0;
+        ciezkieC=0;
         String katalog = plikw.getDirectory();
         String nazwa = plikw.getFile();
         if (plikw.getFile() != null) {
@@ -12232,6 +12144,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                         break;
                     }
                 }
+                pomoc_ruch = ruchB ? Color.BLUE : Color.RED;
                 JOptionPane.showMessageDialog(rootPane, "Ruch mają " + (ruchB ? "białe" : "czarne") + ".");
                 jButton67.setVisible(false);
                 jButton65.setVisible(false);
@@ -12478,8 +12391,6 @@ public class SzachowaArena extends javax.swing.JFrame {
     private javax.swing.JButton partia_wznowiona;
     private javax.swing.JMenu plansza;
     private javax.swing.JMenu plansza1;
-    private javax.swing.JMenuItem podpowiedz;
-    private javax.swing.JMenuItem podpowiedz1;
     private javax.swing.JButton resetgame;
     private javax.swing.JRadioButton ustawBB;
     private javax.swing.JRadioButton ustawBK;
