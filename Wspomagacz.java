@@ -31,7 +31,15 @@ public class Wspomagacz {
                 || (pomocnicza[X + 1][Y + 2] == 'n')
                 || (pomocnicza[X + 1][Y - 2] == 'n')
                 || (pomocnicza[X - 1][Y + 2] == 'n')
-                || (pomocnicza[X - 1][Y - 2] == 'n')))
+                || (pomocnicza[X - 1][Y - 2] == 'n')||
+                (pomocnicza[X + 2][Y - 1] == 'a')
+                || (pomocnicza[X + 2][Y + 1] == 'a')
+                || (pomocnicza[X - 2][Y - 1] == 'a')
+                || (pomocnicza[X - 2][Y + 1] == 'a')
+                || (pomocnicza[X + 1][Y + 2] == 'a')
+                || (pomocnicza[X + 1][Y - 2] == 'a')
+                || (pomocnicza[X - 1][Y + 2] == 'a')
+                || (pomocnicza[X - 1][Y - 2] == 'a')))
                 || (czybiale && ((pomocnicza[X + 2][Y - 1] == 'N')
                 || (pomocnicza[X + 2][Y + 1] == 'N')
                 || (pomocnicza[X - 2][Y - 1] == 'N')
@@ -39,15 +47,24 @@ public class Wspomagacz {
                 || (pomocnicza[X + 1][Y + 2] == 'N')
                 || (pomocnicza[X + 1][Y - 2] == 'N')
                 || (pomocnicza[X - 1][Y + 2] == 'N')
-                || (pomocnicza[X - 1][Y - 2] == 'N')))) {
-            //System.out.prbyteln("skoczek znaleziony");
+                || (pomocnicza[X - 1][Y - 2] == 'N')
+                || (pomocnicza[X + 2][Y - 1] == 'A')
+                || (pomocnicza[X + 2][Y + 1] == 'A')
+                || (pomocnicza[X - 2][Y - 1] == 'A')
+                || (pomocnicza[X - 2][Y + 1] == 'A')
+                || (pomocnicza[X + 1][Y + 2] == 'A')
+                || (pomocnicza[X + 1][Y - 2] == 'A')
+                || (pomocnicza[X - 1][Y + 2] == 'A')
+                || (pomocnicza[X - 1][Y - 2] == 'A')))) {
+            System.out.println("skoczek znaleziony");
             for (byte i = -2; i < 3; i++) {
                 for (byte j = -2; j < 3; j++) {
                     if ((Math.abs(j) != Math.abs(i)) && (i != 0 && j != 0)) {
-                        if ((!czybiale && pomocnicza[X + i][Y + j] == 'n') || (czybiale && pomocnicza[X + i][Y + j] == 'N')) {
+                        if ((!czybiale && (pomocnicza[X + i][Y + j] == 'n'||pomocnicza[X + i][Y + j] == 'a')) 
+                                || (czybiale && (pomocnicza[X + i][Y + j] == 'N'||pomocnicza[X + i][Y + j] == 'A'))) {
                             zaslona[0] = (byte) (X + i - 3);
                             zaslona[1] = (byte) (Y + j - 3);
-                            //System.out.prbyteln(ustawienie[zaslona[0]][zaslona[1]]);
+                            //System.out.println(ustawienie[zaslona[0]][zaslona[1]]);
                             if (czybiale) {
                                 figura = 'N';
                             } else {
@@ -59,14 +76,15 @@ public class Wspomagacz {
                                 for (byte l = 0; l < 8; l++) {
                                     //System.out.prbyte("'" + ustawienie[k][l] + "'");
                                 }
-                                //System.out.prbyteln();
+                                //System.out.println();
                             }
                             akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                             ustawienie[zaslona[0]][zaslona[1]] = figura;
                             ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
-                            //System.out.prbyteln("skoczek: " + akceptacja);
-                            //System.out.prbyteln(akceptacja);
+                            //System.out.println("skoczek: " + akceptacja);
+                            //System.out.println(akceptacja);
                             if (akceptacja) {
+                                System.out.println(zaslona[0]+"|"+zaslona[1]);
                                 return zaslona;
                             }
                         }
@@ -103,15 +121,16 @@ public class Wspomagacz {
             akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
             ustawienie[zaslona[1]][zaslona[0]] = figura;
             ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
-            //System.out.prbyteln(akceptacja);
+            //System.out.println(akceptacja);
             if (akceptacja) {
+                System.out.println(zaslona[0]+"|"+zaslona[1]);
                 return zaslona;
             }
         }
         byte alfa, beta, licz;
         alfa = (byte) (poszukiwanie[0] + 3);
         beta = (byte) (poszukiwanie[1] + 3);
-        //System.out.prbyteln("sprawdzane: " + alfa + "," + beta);
+        //System.out.println("sprawdzane: " + alfa + "," + beta);
         licz = 0;
         for (byte i = (byte) (alfa + 1); i <= 13; i++) {
             licz = (byte) (licz + 1);
@@ -120,22 +139,35 @@ public class Wspomagacz {
             } else {
                 if ((pomocnicza[i][beta + licz] == ' ')) {
                 } else {
-                    if ((!czybiale && (pomocnicza[i][beta + licz] != 'q' && pomocnicza[i][beta + licz] != 'b'))
-                            || (czybiale && (pomocnicza[i][beta + licz] != 'Q' && pomocnicza[i][beta + licz] != 'B'))) {
+                    if ((!czybiale && (pomocnicza[i][beta + licz] != 'a' && pomocnicza[i][beta + licz] != 'q' && pomocnicza[i][beta + licz] != 'b'))
+                            || (czybiale && (pomocnicza[i][beta + licz] != 'A' && pomocnicza[i][beta + licz] != 'Q' && pomocnicza[i][beta + licz] != 'B'))) {
                         zaslona[0] = -1;
                         zaslona[1] = -1;
                     } else {
+                        figura = ' ';
                         if (czybiale) {
-                            if (pomocnicza[i][beta + licz] == 'Q') {
+                            switch (pomocnicza[i][beta + licz]) {
+                                case 'Q':
                                 figura = 'Q';
-                            } else {
+                                break;
+                                case 'B':
                                 figura = 'B';
+                                break;
+                                case 'A':
+                                 figura='A';
+                                 break;
                             }
                         } else {
-                            if (pomocnicza[i][beta + licz] == 'q') {
+                              switch (pomocnicza[i][beta + licz]) {
+                                case 'q':
                                 figura = 'q';
-                            } else {
+                                break;
+                                case 'b':
                                 figura = 'b';
+                                break;
+                                case 'a':
+                                 figura='a';
+                                 break;
                             }
                         }
                         zaslona[1] = (byte) (beta + licz - 3);
@@ -143,15 +175,17 @@ public class Wspomagacz {
 
                         ustawienie[poszukiwanie[0]][poszukiwanie[1]] = figura;
                         ustawienie[zaslona[0]][zaslona[1]] = ' ';
-                        //System.out.prbyteln("1dfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
-                        //System.out.prbyteln("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
-                        //System.out.prbyteln("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
-                        //System.out.prbyteln("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
+                        //System.out.println("1dfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
+                        //System.out.println("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
+                        //System.out.println("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
+                        //System.out.println("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
 
                         akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                         ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
                         ustawienie[zaslona[0]][zaslona[1]] = figura;
                         if (akceptacja) {
+                            
+                            System.out.println(zaslona[0]+"|"+zaslona[1]);
                             return zaslona;
                         } else {
                             zaslona[0] = -1;
@@ -172,22 +206,35 @@ public class Wspomagacz {
             } else {
                 if ((pomocnicza[i][beta + licz] == ' ')) {
                 } else {
-                    if ((!czybiale && (pomocnicza[i][beta + licz] != 'q' && pomocnicza[i][beta + licz] != 'b'))
-                            || (czybiale && (pomocnicza[i][beta + licz] != 'Q' && pomocnicza[i][beta + licz] != 'B'))) {
+                  if ((!czybiale && (pomocnicza[i][beta + licz] != 'a' && pomocnicza[i][beta + licz] != 'q' && pomocnicza[i][beta + licz] != 'b'))
+                            || (czybiale && (pomocnicza[i][beta + licz] != 'A' && pomocnicza[i][beta + licz] != 'Q' && pomocnicza[i][beta + licz] != 'B'))) {
                         zaslona[0] = -1;
                         zaslona[1] = -1;
                     } else {
+                         figura = ' ';
                         if (czybiale) {
-                            if (pomocnicza[i][beta + licz] == 'Q') {
+                            switch (pomocnicza[i][beta + licz]) {
+                                case 'Q':
                                 figura = 'Q';
-                            } else {
+                                break;
+                                case 'B':
                                 figura = 'B';
+                                break;
+                                case 'A':
+                                 figura='A';
+                                 break;
                             }
                         } else {
-                            if (pomocnicza[i][beta + licz] == 'q') {
+                              switch (pomocnicza[i][beta + licz]) {
+                                case 'q':
                                 figura = 'q';
-                            } else {
+                                break;
+                                case 'b':
                                 figura = 'b';
+                                break;
+                                case 'a':
+                                 figura='a';
+                                 break;
                             }
                         }
                         zaslona[1] = (byte) (beta + licz - 3);
@@ -195,15 +242,16 @@ public class Wspomagacz {
 
                         ustawienie[poszukiwanie[0]][poszukiwanie[1]] = figura;
                         ustawienie[zaslona[0]][zaslona[1]] = ' ';
-                        //System.out.prbyteln("2dfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
-                        //System.out.prbyteln("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
-                        //System.out.prbyteln("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
-                        //System.out.prbyteln("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
+                        //System.out.println("2dfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
+                        //System.out.println("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
+                        //System.out.println("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
+                        //System.out.println("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
 
                         akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                         ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
                         ustawienie[zaslona[0]][zaslona[1]] = figura;
                         if (akceptacja) {
+                            System.out.println(zaslona[0]+"|"+zaslona[1]);
                             return zaslona;
                         } else {
                             zaslona[0] = -1;
@@ -226,38 +274,52 @@ public class Wspomagacz {
                     zaslona[0] = -1;
                     zaslona[1] = -1;
                 } else {
-                    if ((!czybiale && (pomocnicza[i][beta + licz] != 'q' && pomocnicza[i][beta + licz] != 'b'))
-                            || (czybiale && (pomocnicza[i][beta + licz] != 'Q' && pomocnicza[i][beta + licz] != 'B'))) {
-                        zaslona[0] = -1;
+                     if ((!czybiale && (pomocnicza[i][beta + licz] != 'a' && pomocnicza[i][beta + licz] != 'q' && pomocnicza[i][beta + licz] != 'b'))
+                            || (czybiale && (pomocnicza[i][beta + licz] != 'A' && pomocnicza[i][beta + licz] != 'Q' && pomocnicza[i][beta + licz] != 'B'))) {
+                       zaslona[0] = -1;
                         zaslona[1] = -1;
                     } else {
+                        figura = ' ';
                         if (czybiale) {
-                            if (pomocnicza[i][beta + licz] == 'Q') {
+                            switch (pomocnicza[i][beta + licz]) {
+                                case 'Q':
                                 figura = 'Q';
-                            } else {
+                                break;
+                                case 'B':
                                 figura = 'B';
+                                break;
+                                case 'A':
+                                 figura='A';
+                                 break;
                             }
                         } else {
-                            if (pomocnicza[i][beta + licz] == 'q') {
+                              switch (pomocnicza[i][beta + licz]) {
+                                case 'q':
                                 figura = 'q';
-                            } else {
+                                break;
+                                case 'b':
                                 figura = 'b';
+                                break;
+                                case 'a':
+                                 figura='a';
+                                 break;
                             }
                         }
                         zaslona[1] = (byte) (beta + licz - 3);
                         zaslona[0] = (byte) (i - 3);
                         ustawienie[poszukiwanie[0]][poszukiwanie[1]] = figura;
                         ustawienie[zaslona[0]][zaslona[1]] = ' ';
-                        //System.out.prbyteln("3dfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
-                        //System.out.prbyteln("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
-                        //System.out.prbyteln("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
-                        //System.out.prbyteln("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
+                        //System.out.println("3dfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
+                        //System.out.println("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
+                        //System.out.println("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
+                        //System.out.println("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
 
                         akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                         ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
                         ustawienie[zaslona[0]][zaslona[1]] = figura;
                         if (akceptacja) {
 
+                            System.out.println(zaslona[0]+"|"+zaslona[1]);
                             return zaslona;
                         } else {
                             zaslona[0] = -1;
@@ -281,38 +343,52 @@ public class Wspomagacz {
                     zaslona[0] = -1;
                     zaslona[1] = -1;
                 } else {
-                    if ((!czybiale && (pomocnicza[i][beta + licz] != 'q' && pomocnicza[i][beta + licz] != 'b'))
-                            || (czybiale && (pomocnicza[i][beta + licz] != 'Q' && pomocnicza[i][beta + licz] != 'B'))) {
+                  if ((!czybiale && (pomocnicza[i][beta + licz] != 'a' && pomocnicza[i][beta + licz] != 'q' && pomocnicza[i][beta + licz] != 'b'))
+                            || (czybiale && (pomocnicza[i][beta + licz] != 'A' && pomocnicza[i][beta + licz] != 'Q' && pomocnicza[i][beta + licz] != 'B'))) {
                         zaslona[0] = -1;
                         zaslona[1] = -1;
                     } else {
+                         figura = ' ';
                         if (czybiale) {
-                            if (pomocnicza[i][beta + licz] == 'Q') {
+                            switch (pomocnicza[i][beta + licz]) {
+                                case 'Q':
                                 figura = 'Q';
-                            } else {
+                                break;
+                                case 'B':
                                 figura = 'B';
+                                break;
+                                case 'A':
+                                 figura='A';
+                                 break;
                             }
                         } else {
-                            if (pomocnicza[i][beta + licz] == 'q') {
+                              switch (pomocnicza[i][beta + licz]) {
+                                case 'q':
                                 figura = 'q';
-                            } else {
+                                break;
+                                case 'b':
                                 figura = 'b';
+                                break;
+                                case 'a':
+                                 figura='a';
+                                 break;
                             }
                         }
                         zaslona[1] = (byte) (beta + licz - 3);
                         zaslona[0] = (byte) (i - 3);
                         ustawienie[poszukiwanie[0]][poszukiwanie[1]] = figura;
                         ustawienie[zaslona[0]][zaslona[1]] = ' ';
-                        //System.out.prbyteln("4dfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
-                        //System.out.prbyteln("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
-                        //System.out.prbyteln("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
-                        //System.out.prbyteln("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
+                        //System.out.println("4dfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
+                        //System.out.println("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
+                        //System.out.println("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
+                        //System.out.println("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
 
                         akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                         ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
                         ustawienie[zaslona[0]][zaslona[1]] = figura;
                         if (akceptacja) {
 
+                            System.out.println(zaslona[0]+"|"+zaslona[1]);
                             return zaslona;
                         } else {
                             zaslona[0] = -1;
@@ -329,38 +405,52 @@ public class Wspomagacz {
                 zaslona[0] = -1;
                 zaslona[1] = -1;
             } else {
-                if ((!czybiale && (pomocnicza[i][beta] != 'q' && pomocnicza[i][beta] != 'r'))
-                        || (czybiale && (pomocnicza[i][beta] != 'Q' && pomocnicza[i][beta] != 'R'))) {
-                    zaslona[0] = -1;
+                if ((!czybiale && (pomocnicza[i][beta] != 'a' && pomocnicza[i][beta] != 'q' && pomocnicza[i][beta] != 'r'))
+                            || (czybiale && (pomocnicza[i][beta] != 'A' && pomocnicza[i][beta] != 'Q' && pomocnicza[i][beta] != 'R'))) {
+                        zaslona[0] = -1;
                     zaslona[1] = -1;
                 } else {
-                    if (czybiale) {
-                        if (pomocnicza[i][beta] == 'Q') {
-                            figura = 'Q';
+                    figura = ' ';
+                        if (czybiale) {
+                            switch (pomocnicza[i][beta]) {
+                                case 'Q':
+                                figura = 'Q';
+                                break;
+                                case 'R':
+                                figura = 'R';
+                                break;
+                                case 'A':
+                                 figura='A';
+                                 break;
+                            }
                         } else {
-                            figura = 'R';
+                              switch (pomocnicza[i][beta]) {
+                                case 'q':
+                                figura = 'q';
+                                break;
+                                case 'r':
+                                figura = 'r';
+                                break;
+                                case 'a':
+                                 figura='a';
+                                 break;
+                            }
                         }
-                    } else {
-                        if (pomocnicza[i][beta] == 'q') {
-                            figura = 'q';
-                        } else {
-                            figura = 'r';
-                        }
-                    }
                     zaslona[1] = (byte) (Y - 3);
                     zaslona[0] = (byte) (i - 3);
                     ustawienie[poszukiwanie[0]][poszukiwanie[1]] = figura;
                     ustawienie[zaslona[0]][zaslona[1]] = ' ';
-                    //System.out.prbyteln("1lfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
-                    //System.out.prbyteln("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
-                    //System.out.prbyteln("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
-                    //System.out.prbyteln("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
+                    //System.out.println("1lfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
+                    //System.out.println("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
+                    //System.out.println("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
+                    //System.out.println("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
 
                     akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                     ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
                     ustawienie[zaslona[0]][zaslona[1]] = figura;
                     if (akceptacja) {
 
+                        System.out.println(zaslona[0]+"|"+zaslona[1]);
                         return zaslona;
                     } else {
                         zaslona[0] = -1;
@@ -376,38 +466,52 @@ public class Wspomagacz {
                 zaslona[0] = -1;
                 zaslona[1] = -1;
             } else {
-                if ((!czybiale && (pomocnicza[i][beta] != 'q' && pomocnicza[i][beta] != 'r'))
-                        || (czybiale && (pomocnicza[i][beta] != 'Q' && pomocnicza[i][beta] != 'R'))) {
+                if ((!czybiale && (pomocnicza[i][beta] != 'a' && pomocnicza[i][beta] != 'q' && pomocnicza[i][beta] != 'r'))
+                        || (czybiale && (pomocnicza[i][beta] != 'A' && pomocnicza[i][beta] != 'Q' && pomocnicza[i][beta] != 'R'))) {
                     zaslona[0] = -1;
                     zaslona[1] = -1;
                 } else {
-                    if (czybiale) {
-                        if (pomocnicza[i][beta] == 'Q') {
-                            figura = 'Q';
+                    figura = ' ';
+                        if (czybiale) {
+                            switch (pomocnicza[i][beta]) {
+                                case 'Q':
+                                figura = 'Q';
+                                break;
+                                case 'R':
+                                figura = 'R';
+                                break;
+                                case 'A':
+                                 figura='A';
+                                 break;
+                            }
                         } else {
-                            figura = 'R';
+                              switch (pomocnicza[i][beta]) {
+                                case 'q':
+                                figura = 'q';
+                                break;
+                                case 'r':
+                                figura = 'r';
+                                break;
+                                case 'a':
+                                 figura='a';
+                                 break;
+                            }
                         }
-                    } else {
-                        if (pomocnicza[i][beta] == 'q') {
-                            figura = 'q';
-                        } else {
-                            figura = 'r';
-                        }
-                    }
                     zaslona[1] = (byte) (Y - 3);
                     zaslona[0] = (byte) (i - 3);
                     ustawienie[poszukiwanie[0]][poszukiwanie[1]] = figura;
                     ustawienie[zaslona[0]][zaslona[1]] = ' ';
-                    //System.out.prbyteln("2lfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
-                    //System.out.prbyteln("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
-                    //System.out.prbyteln("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
-                    //System.out.prbyteln("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
+                    //System.out.println("2lfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
+                    //System.out.println("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
+                    //System.out.println("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
+                    //System.out.println("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
 
                     akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                     ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
                     ustawienie[zaslona[0]][zaslona[1]] = figura;
                     if (akceptacja) {
 
+                        System.out.println(zaslona[0]+"|"+zaslona[1]);
                         return zaslona;
                     } else {
                         zaslona[0] = -1;
@@ -423,38 +527,52 @@ public class Wspomagacz {
                 zaslona[0] = -1;
                 zaslona[1] = -1;
             } else {
-                if ((!czybiale && (pomocnicza[alfa][i] != 'q' && pomocnicza[alfa][i] != 'r'))
-                        || (czybiale && (pomocnicza[alfa][i] != 'Q' && pomocnicza[alfa][i] != 'R'))) {
+                if ((!czybiale && (pomocnicza[alfa][i] != 'a' && pomocnicza[alfa][i] != 'q' && pomocnicza[alfa][i] != 'r'))
+                        || (czybiale && (pomocnicza[alfa][i] != 'A' && pomocnicza[alfa][i] != 'Q' && pomocnicza[alfa][i] != 'R'))) {
                     zaslona[0] = -1;
                     zaslona[1] = -1;
                 } else {
-                    if (czybiale) {
-                        if (pomocnicza[alfa][i] == 'Q') {
-                            figura = 'Q';
+                    figura = ' ';
+                        if (czybiale) {
+                            switch (pomocnicza[alfa][i]) {
+                                case 'Q':
+                                figura = 'Q';
+                                break;
+                                case 'R':
+                                figura = 'R';
+                                break;
+                                case 'A':
+                                 figura='A';
+                                 break;
+                            }
                         } else {
-                            figura = 'R';
+                              switch (pomocnicza[alfa][i]) {
+                                case 'q':
+                                figura = 'q';
+                                break;
+                                case 'r':
+                                figura = 'r';
+                                break;
+                                case 'a':
+                                 figura='a';
+                                 break;
+                            }
                         }
-                    } else {
-                        if (pomocnicza[alfa][i] == 'q') {
-                            figura = 'q';
-                        } else {
-                            figura = 'r';
-                        }
-                    }
                     zaslona[1] = (byte) (i - 3);
                     zaslona[0] = (byte) (alfa - 3);
                     ustawienie[poszukiwanie[0]][poszukiwanie[1]] = figura;
                     ustawienie[zaslona[0]][zaslona[1]] = ' ';
-                    //System.out.prbyteln("3lfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
-                    //System.out.prbyteln("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
-                    //System.out.prbyteln("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
-                    //System.out.prbyteln("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
+                    //System.out.println("3lfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
+                    //System.out.println("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
+                    //System.out.println("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
+                    //System.out.println("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
 
                     akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                     ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
                     ustawienie[zaslona[0]][zaslona[1]] = figura;
                     if (akceptacja) {
 
+                        System.out.println(zaslona[0]+"|"+zaslona[1]);
                         return zaslona;
                     } else {
                         zaslona[0] = -1;
@@ -470,37 +588,51 @@ public class Wspomagacz {
                 zaslona[0] = -1;
                 zaslona[1] = -1;
             } else {
-                if ((!czybiale && (pomocnicza[alfa][i] != 'q' && pomocnicza[alfa][i] != 'r'))
-                        || (czybiale && (pomocnicza[alfa][i] != 'Q' && pomocnicza[alfa][i] != 'R'))) {
+                if ((!czybiale && (pomocnicza[alfa][i] != 'q' && pomocnicza[alfa][i] != 'q' && pomocnicza[alfa][i] != 'r'))
+                        || (czybiale && (pomocnicza[alfa][i] != 'A' && pomocnicza[alfa][i] != 'Q' && pomocnicza[alfa][i] != 'R'))) {
                     zaslona[0] = -1;
                     zaslona[1] = -1;
                 } else {
-                    if (czybiale) {
-                        if (pomocnicza[alfa][i] == 'Q') {
-                            figura = 'Q';
+                    figura = ' ';
+                        if (czybiale) {
+                            switch (pomocnicza[alfa][i]) {
+                                case 'Q':
+                                figura = 'Q';
+                                break;
+                                case 'R':
+                                figura = 'R';
+                                break;
+                                case 'A':
+                                 figura='A';
+                                 break;
+                            }
                         } else {
-                            figura = 'R';
+                              switch (pomocnicza[alfa][i]) {
+                                case 'q':
+                                figura = 'q';
+                                break;
+                                case 'r':
+                                figura = 'r';
+                                break;
+                                case 'a':
+                                 figura='a';
+                                 break;
+                            }
                         }
-                    } else {
-                        if (pomocnicza[alfa][i] == 'q') {
-                            figura = 'q';
-                        } else {
-                            figura = 'r';
-                        }
-                    }
                     zaslona[1] = (byte) (i - 3);
                     zaslona[0] = (byte) (alfa - 3);
                     ustawienie[poszukiwanie[0]][poszukiwanie[1]] = figura;
                     ustawienie[zaslona[0]][zaslona[1]] = ' ';
-                    //System.out.prbyteln("4lfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
-                    //System.out.prbyteln("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
-                    //System.out.prbyteln("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
-                    //System.out.prbyteln("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
+                    //System.out.println("4lfunkcjaZASTAW:" + poza_odsieczy[zaslona[0]][zaslona[1]]);
+                    //System.out.println("kordy odsiecz x:" + (zaslona[1]) + " y:" + (zaslona[0]));
+                    //System.out.println("bij cel:" + poza_odsieczy[poszukiwanie[0]][poszukiwanie[1]]);
+                    //System.out.println("kordy cel x:" + (poszukiwanie[1]) + " y:" + (poszukiwanie[0]));
                     akceptacja = !RuchZagrozenie_kontrola.szach(ustawienie, czybiale);
                     ustawienie[poszukiwanie[0]][poszukiwanie[1]] = ' ';
                     ustawienie[zaslona[0]][zaslona[1]] = figura;
                     if (akceptacja) {
 
+                        System.out.println(zaslona[0]+"|"+zaslona[1]);
                         return zaslona;
                     } else {
                         zaslona[0] = -1;
@@ -510,6 +642,7 @@ public class Wspomagacz {
                 break;
             }
         }
+        System.out.println(zaslona[0]+"|"+zaslona[1]);
         return zaslona;
     }
 
@@ -527,7 +660,7 @@ public class Wspomagacz {
                 }
             }
         }
-        //System.out.prbyteln(krolY + " " + krolX);
+        //System.out.println(krolY + " " + krolX);
         if ((czybiale && ((pomocnicza[krolX + 2][krolY - 1] == 'n')
                 || (pomocnicza[krolX + 2][krolY + 1] == 'n')
                 || (pomocnicza[krolX - 2][krolY - 1] == 'n')

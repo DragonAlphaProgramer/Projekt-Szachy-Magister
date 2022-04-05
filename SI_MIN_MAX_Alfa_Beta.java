@@ -13,7 +13,8 @@ import java.util.Observable;
  * @author Patryk
  */
 public class SI_MIN_MAX_Alfa_Beta extends Observable {
-
+    
+    ArrayList<Ruch> kombinacja = new ArrayList<>();
     int pozycje = 0;
     int all_position = 0;
     int licznik, maxglebia;
@@ -28,7 +29,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
     int najlepszy;
     private final boolean wyjsciowa_tura;
     private final Kalkulator wynikowa;
-
+    
     synchronized private boolean kontrola_pat(char[][] ustawienie, boolean strona, boolean przelotcan) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -45,29 +46,29 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                         poza_krolewska[1] = j;
                         //  System.out.println(ustawienie[poza_krolewska[0]][poza_krolewska[1]]);
                         if (SzachMatPatKontrola.uciekaj(ustawienie, strona, poza_krolewska) == true) {
-
+                            
                             return false;
                         }
                     }
-
+                    
                 } else {
-
+                    
                     if (SzachMatPatKontrola.znajdz_ruch(ustawienie, strona, ustawienie[i][j], poza_krolewska, przelotcan) == true) {
-
+                        
                         return false;
                     }
-
+                    
                 }
             }
         }
         return true;
     }
-
+    
     public enum figury {
         BKrol, BHetman, BWieza, BGoniec, BSkoczek, BPion,
         CKrol, CHetman, CWieza, CGoniec, CSkoczek, CPion, pustka;
     }
-
+    
     public synchronized static char[][] konwert(figury[][] pozycja) {
         char[][] wynik = new char[8][8];
         for (int i = 0; i < 8; i++) {
@@ -117,7 +118,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
         }
         return wynik;
     }
-
+    
     public SI_MIN_MAX_Alfa_Beta(char[][] ustawienie, boolean tura_rywala, boolean przelotcan,
             boolean bleft, boolean bright, boolean wleft, boolean wright,
             boolean kingrochB, boolean kingrochC, boolean dokonano_RB, boolean dokonano_RC,
@@ -184,7 +185,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
         this.maxglebia = glebina;
         wynikowa = KalkulatorPozycji.get();
     }
-
+    
     synchronized public int wykonaj(int glebia, Ruch move, int najwieksza, int najmniejsza) {
         int biezaca_ogolna;
         all_position = all_position + 1;
@@ -197,11 +198,12 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             this.przelotcan = false;
         }
         try {
-
+            
             if (RuchZagrozenie_kontrola.szach(konwert(move.chessboard_after), this.tura_rywala) == false
                     && obecnosc(this.pozycja) == true) {
                 aktualizacja_parametrow(move);
                 this.tura_rywala = this.tura_rywala != true;
+                kombinacja.add(move);
                 biezaca_ogolna = (wyjsciowa_tura == true)
                         ? minimum((glebia - 1), Nkolumna, najwieksza, najmniejsza, move.chessboard_after)
                         : maximum((glebia - 1), Nkolumna, najwieksza, najmniejsza, move.chessboard_after);
@@ -211,48 +213,59 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                 } else {
                     setPrzerwa(kontrola_mat(konwert(move.chessboard_after), true, Nkolumna, przelotcan));
                 }
-
+                
                 przywroc_parametry(move);
                 setZakaz(false);
-                System.out.println("biezaca ogolna: " + biezaca_ogolna);
-                System.out.println("licznik After " + licznik);
                 return biezaca_ogolna;
             } else {
                 setZakaz(true);
                 System.out.println("err2");
                 przywroc_parametry(move);
-                return wyjsciowa_tura == true ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+                return wyjsciowa_tura == false ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
         } catch (Exception e) {
             System.out.println("ERROR POSITION");
             for (int i = 7; i > -1; i--) {
                 for (int j = 0; j < 8; j++) {
-
+                    
                     System.out.print("[" + konwert(this.pozycja)[i][j] + "]");
                 }
                 System.out.println("");
             }
             System.out.println(e);
             e.printStackTrace();
-            return wyjsciowa_tura == true ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            return wyjsciowa_tura == false ? Integer.MAX_VALUE : Integer.MIN_VALUE;
         }
-
+        
     }
-
+    
     synchronized public boolean isZakaz() {
         return zakaz;
     }
-
+    
     synchronized public void setZakaz(boolean zakaz) {
         this.zakaz = zakaz;
     }
-
+    
     synchronized private int maximum(final int glebia, byte kolumna, int biggest, int samllest, figury[][] chessboard) {
         int[] temp1 = {0, 0};
         if (glebia == 0 || koniec(konwert(chessboard), this.tura_rywala, this.przelotcan, kolumna) == true
                 || Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
                         this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false).isEmpty()) {
             pozycje = pozycje + 1;
+            /*for (Ruch r : kombinacja) {
+                System.out.print(r.toString() + ",");
+            }
+            System.out.println("");
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    System.out.print("[" + konwert(chessboard)[i][j] + "]");
+                }
+                System.out.println();
+            }
+            
+               System.out.println("|"+this.wynikowa.zliczacz(chessboard, tura_rywala, przelotcan,
+                    bleft, bright, wleft, wright, kingrochB, kingrochC, didRochB, didRochC, glebia, kolumna));*/
             return this.wynikowa.zliczacz(chessboard, tura_rywala, przelotcan,
                     bleft, bright, wleft, wright, kingrochB, kingrochC, didRochB, didRochC, glebia, kolumna);
         }
@@ -263,7 +276,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                 this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false)) {
             if (RuchZagrozenie_kontrola.szach(konwert(move.chessboard_after), this.tura_rywala) == false
                     && obecnosc(move.chessboard_after) == true) {
-                 //System.out.println(move.toString()+ "|"+glebia);
+                //System.out.println(move.toString()+ "|"+glebia);
                 byte Nkolumna;
                 if (move.kolejnosc == Ruch.figura.Pion && (Math.abs(pozyskajkordkolumna(move.koniec2) - pozyskajkordkolumna(move.start2)) == 2)) {
                     Nkolumna = (byte) (pozyskajkordrzad(move.start1));
@@ -274,19 +287,20 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                 }
                 aktualizacja_parametrow(move);
                 this.tura_rywala = this.tura_rywala != true;
+                kombinacja.add(move);
                 temp = Math.max(temp, minimum(((glebia - 1)), Nkolumna,
                         temp, samllest, move.chessboard_after));
                 przywroc_parametry(move);
                 this.tura_rywala = this.tura_rywala == false;
-                
+                kombinacja.remove(kombinacja.size() - 1);
                 if (samllest <= temp) {
-                   break;
+                    break;
                 }
             }
         }
         return temp;
     }
-
+    
     synchronized private int minimum(final int glebia, byte kolumna, int biggest, int smallest, figury[][] chessboard) {
         int[] temp1 = new int[2];
         if (glebia == 0 || koniec(konwert(chessboard),
@@ -294,19 +308,32 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                 || Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
                         this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false).isEmpty()) {
             pozycje = pozycje + 1;
+            /*for (Ruch r : kombinacja) {
+                System.out.print(r.toString() + ",");
+            }
+            
+            System.out.println("");
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    System.out.print("[" + konwert(chessboard)[i][j] + "]");
+                }
+                System.out.println();
+            }
+             System.out.println("|"+this.wynikowa.zliczacz(chessboard, tura_rywala, przelotcan,
+                    bleft, bright, wleft, wright, kingrochB, kingrochC, didRochB, didRochC, glebia, kolumna));*/
             return this.wynikowa.zliczacz(chessboard, tura_rywala, przelotcan,
                     bleft, bright, wleft, wright, kingrochB, kingrochC, didRochB, didRochC, glebia, kolumna);
         }
         int temp = smallest;
         all_position = all_position + Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
                 this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false).size();
-         for (Ruch move : Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
+        for (Ruch move : Generator.generuj_posuniecia(chessboard, this.tura_rywala, this.przelotcan,
                 this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false)) {
             if (RuchZagrozenie_kontrola.szach(konwert(move.chessboard_after), this.tura_rywala) == false
                     && obecnosc(move.chessboard_after) == true) {
                 byte Nkolumna;
-               // System.out.println(move.toString()+ "|"+glebia); 
-                 if (move.kolejnosc == Ruch.figura.Pion && (Math.abs(pozyskajkordkolumna(move.koniec2) - pozyskajkordkolumna(move.start2)) == 2)) {
+                // System.out.println(move.toString()+ "|"+glebia); 
+                if (move.kolejnosc == Ruch.figura.Pion && (Math.abs(pozyskajkordkolumna(move.koniec2) - pozyskajkordkolumna(move.start2)) == 2)) {
                     Nkolumna = (byte) (pozyskajkordrzad(move.start1));
                     this.przelotcan = true;
                 } else {
@@ -315,9 +342,11 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                 }
                 aktualizacja_parametrow(move);
                 this.tura_rywala = this.tura_rywala != true;
+                kombinacja.add(move);
                 temp = Math.min(temp, maximum(((glebia - 1)),
                         Nkolumna, biggest, temp, move.chessboard_after));
                 przywroc_parametry(move);
+                kombinacja.remove(kombinacja.size() - 1);
                 this.tura_rywala = this.tura_rywala == false;
                 if (temp <= biggest) {
                     break;
@@ -326,7 +355,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
         }
         return temp;
     }
-
+    
     synchronized private boolean obecnosc(figury[][] ustawienie13) {
         byte KB = 0, KC = 0;
         for (int x = 0; x < 8; x++) {
@@ -341,7 +370,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
         }
         return KB == 1 && KC == 1;
     }
-
+    
     synchronized private boolean koniec(char[][] ustawienie, boolean strona, boolean przelotcan, int kol) {
         int pionB = 0, pionC = 0, lekkieB = 0, lekkieC = 0, ciezkieB = 0, ciezkieC = 0;
         for (int i = 0; i < 8; i++) {
@@ -378,22 +407,22 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                         ciezkieC++;
                         break;
                 }
-
+                
             }
         }
         if (pionB < 1 && pionC < 1 && lekkieB < 2 && lekkieC < 2 && ciezkieB < 1 && ciezkieC < 1) {
             return true;
         } else {
-
+            
             if (RuchZagrozenie_kontrola.szach(ustawienie, strona) == true) {
                 return kontrola_mat(ustawienie, strona, (byte) kol, przelotcan);
             } else {
-
+                
                 return kontrola_pat(ustawienie, strona, przelotcan);
             }
         }
     }
-
+    
     synchronized private boolean kontrola_mat(char[][] ustawienie, boolean strona, byte kol, boolean przelotcan) {
         int[] krol = new int[2];
         if (RuchZagrozenie_kontrola.szach((ustawienie), strona) == true) {
@@ -414,17 +443,17 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                     }
                 }
             }
-
+            
             return SzachMatPatKontrola.uciekaj(backup1, strona, krol) == false
                     && SzachMatPatKontrola.zastaw(backup2, strona, Wspomagacz.znajdzklopot(backup, strona), krol, przelotcan) == false
                     && SzachMatPatKontrola.znajdzodsiecz(backup3, strona, Wspomagacz.znajdzklopot(backup, strona), kol, przelotcan) == false;
-
+            
         } else {
             return false;
         }
-
+        
     }
-
+    
     synchronized private void aktualizacja_parametrow(Ruch move) {
         if (move.roszada == true && move.dlugaroszada == false) {
             if (this.tura_rywala == true) {
@@ -480,7 +509,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             }
         }
     }
-
+    
     synchronized private void przywroc_parametry(Ruch move) {
         if (move.roszada == true && move.dlugaroszada == false) {
             if (this.tura_rywala == true) {
@@ -536,7 +565,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             }
         }
     }
-
+    
     synchronized private void wykonajruch(Ruch move) {
         /*  for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -544,20 +573,20 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             }System.out.println("");
             }*/
         if (move.roszada == true) {
-
+            
             if (move.roszada == true && move.dlugaroszada == false) {
                 if (move.czybialy == true) {
                     this.pozycja[0][4] = figury.pustka;
                     this.pozycja[0][7] = figury.pustka;
                     this.pozycja[0][5] = figury.BWieza;
                     this.pozycja[0][6] = figury.BKrol;
-
+                    
                 } else {
                     this.pozycja[7][4] = figury.pustka;
                     this.pozycja[7][7] = figury.pustka;
                     this.pozycja[7][5] = figury.CWieza;
                     this.pozycja[7][6] = figury.CKrol;
-
+                    
                 }
             } else if (move.roszada == true && move.dlugaroszada == true) {
                 if (move.czybialy == true) {
@@ -565,28 +594,28 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                     this.pozycja[0][0] = figury.pustka;
                     this.pozycja[0][3] = figury.BWieza;
                     this.pozycja[0][2] = figury.BKrol;
-
+                    
                 } else {
                     this.pozycja[7][4] = figury.pustka;
                     this.pozycja[7][0] = figury.pustka;
                     this.pozycja[7][3] = figury.CWieza;
                     this.pozycja[7][2] = figury.CKrol;
-
+                    
                 }
             }
-
+            
         } else {
-
+            
             if (move.kolejnosc == Ruch.figura.Pion) {
                 if (move.przelot == true) {
                     this.pozycja[move.czybialy == false ? 3 : 4][pozyskajkordrzad(move.koniec1) - 1] = figury.pustka;
-
+                    
                 }
             }
             this.pozycja[pozyskajkordkolumna(move.start2) - 1][pozyskajkordrzad(move.start1) - 1] = figury.pustka;
             if (move.przelot == true) {
                 this.pozycja[move.czybialy == false ? 3 : 4][pozyskajkordrzad(move.koniec1) - 1] = figury.pustka;
-
+                
             } else if (move.promocja == true) {
                 this.pozycja[pozyskajkordkolumna(move.koniec2) - 1][pozyskajkordrzad(move.koniec1) - 1] = pozyskaj_figure(move.promowana, move.czybialy);
             } else {
@@ -599,7 +628,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             }System.out.println("");
             }*/
     }
-
+    
     synchronized private figury[][] wykonajruch1(Ruch move) {
         figury[][] poza = new figury[8][8];
         for (int i = 0; i < 8; i++) {
@@ -607,20 +636,20 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             //  System.out.println("");
         }
         if (move.roszada == true) {
-
+            
             if (move.roszada == true && move.dlugaroszada == false) {
                 if (move.czybialy == true) {
                     poza[0][4] = figury.pustka;
                     poza[0][7] = figury.pustka;
                     poza[0][5] = figury.BWieza;
                     poza[0][6] = figury.BKrol;
-
+                    
                 } else {
                     poza[7][4] = figury.pustka;
                     poza[7][7] = figury.pustka;
                     poza[7][5] = figury.CWieza;
                     poza[7][6] = figury.CKrol;
-
+                    
                 }
             } else if (move.roszada == true && move.dlugaroszada == true) {
                 if (move.czybialy == true) {
@@ -628,28 +657,28 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                     poza[0][0] = figury.pustka;
                     poza[0][3] = figury.BWieza;
                     poza[0][2] = figury.BKrol;
-
+                    
                 } else {
                     poza[7][4] = figury.pustka;
                     poza[7][0] = figury.pustka;
                     poza[7][3] = figury.CWieza;
                     poza[7][2] = figury.CKrol;
-
+                    
                 }
             }
-
+            
         } else {
-
+            
             if (move.kolejnosc == Ruch.figura.Pion) {
                 if (move.przelot == true) {
                     poza[move.czybialy == false ? 3 : 4][pozyskajkordrzad(move.koniec1) - 1] = figury.pustka;
-
+                    
                 }
             }
             poza[pozyskajkordkolumna(move.start2) - 1][pozyskajkordrzad(move.start1) - 1] = figury.pustka;
             if (move.przelot == true) {
                 poza[move.czybialy == false ? 3 : 4][pozyskajkordrzad(move.koniec1) - 1] = figury.pustka;
-
+                
             } else if (move.promocja == true) {
                 poza[pozyskajkordkolumna(move.koniec2) - 1][pozyskajkordrzad(move.koniec1) - 1] = pozyskaj_figure(move.promowana, move.czybialy);
             } else {
@@ -663,24 +692,24 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             }*/
         return poza;
     }
-
+    
     synchronized private figury[][] wykonajruch1(Ruch move, figury[][] poza) {
-
+        
         if (move.roszada == true) {
-
+            
             if (move.roszada == true && move.dlugaroszada == false) {
                 if (move.czybialy == true) {
                     poza[0][4] = figury.pustka;
                     poza[0][7] = figury.pustka;
                     poza[0][5] = figury.BWieza;
                     poza[0][6] = figury.BKrol;
-
+                    
                 } else {
                     poza[7][4] = figury.pustka;
                     poza[7][7] = figury.pustka;
                     poza[7][5] = figury.CWieza;
                     poza[7][6] = figury.CKrol;
-
+                    
                 }
             } else if (move.roszada == true && move.dlugaroszada == true) {
                 if (move.czybialy == true) {
@@ -688,28 +717,28 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                     poza[0][0] = figury.pustka;
                     poza[0][3] = figury.BWieza;
                     poza[0][2] = figury.BKrol;
-
+                    
                 } else {
                     poza[7][4] = figury.pustka;
                     poza[7][0] = figury.pustka;
                     poza[7][3] = figury.CWieza;
                     poza[7][2] = figury.CKrol;
-
+                    
                 }
             }
-
+            
         } else {
-
+            
             if (move.kolejnosc == Ruch.figura.Pion) {
                 if (move.przelot == true) {
                     poza[move.czybialy == false ? 3 : 4][pozyskajkordrzad(move.koniec1) - 1] = figury.pustka;
-
+                    
                 }
             }
             poza[pozyskajkordkolumna(move.start2) - 1][pozyskajkordrzad(move.start1) - 1] = figury.pustka;
             if (move.przelot == true) {
                 poza[move.czybialy == false ? 3 : 4][pozyskajkordrzad(move.koniec1) - 1] = figury.pustka;
-
+                
             } else if (move.promocja == true) {
                 poza[pozyskajkordkolumna(move.koniec2) - 1][pozyskajkordrzad(move.koniec1) - 1] = pozyskaj_figure(move.promowana, move.czybialy);
             } else {
@@ -723,7 +752,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             }*/
         return poza;
     }
-
+    
     synchronized private figury[][] cofnij_ruch(Ruch move, figury[][] poza) {
 
         /*for (int i = 0; i < 8; i++) {
@@ -732,20 +761,20 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             }System.out.println("");
             } System.out.println(move.toString());*/
         if (move.roszada == true) {
-
+            
             if (move.roszada == true && move.dlugaroszada == false) {
                 if (move.czybialy == true) {
                     poza[0][4] = figury.BKrol;
                     poza[0][7] = figury.BWieza;
                     poza[0][5] = figury.pustka;
                     poza[0][6] = figury.pustka;
-
+                    
                 } else {
                     poza[7][4] = figury.CKrol;
                     poza[7][7] = figury.CWieza;
                     poza[7][5] = figury.pustka;
                     poza[7][6] = figury.pustka;
-
+                    
                 }
             } else if (move.roszada == true && move.dlugaroszada == true) {
                 if (move.czybialy == true) {
@@ -753,18 +782,18 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                     poza[0][0] = figury.BWieza;
                     poza[0][3] = figury.pustka;
                     poza[0][2] = figury.pustka;
-
+                    
                 } else {
                     poza[7][4] = figury.CKrol;
                     poza[7][0] = figury.CWieza;
                     poza[7][3] = figury.pustka;
                     poza[7][2] = figury.pustka;
-
+                    
                 }
             }
-
+            
         } else {
-
+            
             if (move.kolejnosc == Ruch.figura.Pion) {
                 if (move.przelot == true) {
                     poza[move.czybialy == false ? 3 : 4][pozyskajkordrzad(move.koniec1) - 1]
@@ -775,14 +804,14 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             if (move.przelot == true) {
                 poza[move.czybialy == false ? 3 : 4][pozyskajkordrzad(move.koniec1) - 1]
                         = move.czybialy == false ? figury.BPion : figury.CPion;
-
+                
             } else if (move.promocja == true) {
                 poza[pozyskajkordkolumna(move.koniec2) - 1][pozyskajkordrzad(move.koniec1) - 1]
                         = pozyskaj_figure(move.korzystnosc_bicia, !move.czybialy);
             }
             poza[pozyskajkordkolumna(move.koniec2) - 1][pozyskajkordrzad(move.koniec1) - 1]
                     = pozyskaj_figure(move.korzystnosc_bicia, !move.czybialy);
-
+            
         }
         /* for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -792,7 +821,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
         //  System.out.println(pozyskaj_figure(move.kolejnosc, move.czybialy)+"("+pozyskaj_figure(move.korzystnosc_bicia, !move.czybialy)+")");
         return poza;
     }
-
+    
     synchronized private int pozyskajkordkolumna(Ruch.rzad kord) {
         switch (kord) {
             case r1:
@@ -814,7 +843,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
         }
         return 0;
     }
-
+    
     synchronized private int pozyskajkordrzad(Ruch.kolumna kord) {
         switch (kord) {
             case k1:
@@ -835,9 +864,9 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                 return 8;
         }
         return 0;
-
+        
     }
-
+    
     synchronized private figury pozyskaj_figure(Ruch.figura ruch, boolean czybialy) {
         switch (ruch) {
             case Pion:
@@ -880,26 +909,25 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                 return figury.pustka;
         }
     }
-
+    
     synchronized public void setPrzerwa(boolean przerwa) {
         this.przerwa = przerwa;
     }
-
+    
     synchronized public int getPozycje() {
         return pozycje;
     }
-
+    
     synchronized public int getAll_position() {
         return all_position;
     }
-
+    
     synchronized public boolean isPrzerwa() {
         return przerwa;
     }
-
+    
     synchronized private int zrekalkuluj_glebie(final int glebia) {
-     
-
+        
         return glebia - 1;
     }
 }

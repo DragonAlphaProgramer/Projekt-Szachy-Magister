@@ -1,167 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package szachy;
 
 /**
  *
- * @author Patryk klasa przechowująca parametry ruchów
+ * @author PatrykK
  */
-public class Ruch implements Comparable<Ruch> {
-
-     private Integer zwroc_pole(Ruch.rzad r, Ruch.kolumna k) {
-      int x = 0;
-      int y = 0;
-      switch(r) {
-      case RR:
-         x = 1;
-         break;
-      case r1:
-         x = 1;
-         break;
-      case r2:
-         x = 2;
-         break;
-      case r3:
-         x = 3;
-         break;
-      case r4:
-         x = 4;
-         break;
-      case r5:
-         x = 5;
-         break;
-      case r6:
-         x = 6;
-         break;
-      case r7:
-         x = 7;
-         break;
-      case r8:
-         x = 8;
-      }
-
-      switch(k) {
-      case KR:
-         x = 5;
-         break;
-      case k1:
-         x = 1;
-         break;
-      case k2:
-         x = 2;
-         break;
-      case k3:
-         x = 3;
-         break;
-      case k4:
-         x = 4;
-         break;
-      case k5:
-         x = 5;
-         break;
-      case k6:
-         x = 6;
-         break;
-      case k7:
-         x = 7;
-         break;
-      case k8:
-         x = 8;
-      }
-
-      return x * 8 + y;
-   }
-    
-    private SI_MIN_MAX_Alfa_Beta.figury[][] zmiana(SI_MIN_MAX_Alfa_Beta.figury[][] szachownica, String lista) {
-        SI_MIN_MAX_Alfa_Beta.figury[][] wynik = new SI_MIN_MAX_Alfa_Beta.figury[8][8];
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                wynik[i][j] = szachownica[i][j];
-                wynik[i][j] = szachownica[i][j];
-            }
-        }
-        if (this.roszada == true) {
-
-            if (this.roszada == true && this.dlugaroszada == false) {
-                if (this.czybialy == true) {
-                    wynik[0][4] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-                    wynik[0][7] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-                    wynik[0][5] = SI_MIN_MAX_Alfa_Beta.figury.BWieza;
-                    wynik[0][6] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
-
-                } else {
-                    wynik[7][4] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-                    wynik[7][7] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-                    wynik[7][5] = SI_MIN_MAX_Alfa_Beta.figury.CWieza;
-                    wynik[7][6] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
-
-                }
-            } else if (this.roszada == true && this.dlugaroszada == true) {
-                if (this.czybialy == true) {
-                    wynik[0][4] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-                    wynik[0][0] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-                    wynik[0][3] = SI_MIN_MAX_Alfa_Beta.figury.BWieza;
-                    wynik[0][2] = SI_MIN_MAX_Alfa_Beta.figury.BKrol;
-
-                } else {
-                    wynik[7][4] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-                    wynik[7][0] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-                    wynik[7][3] = SI_MIN_MAX_Alfa_Beta.figury.CWieza;
-                    wynik[7][2] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
-
-                }
-            }
-
-        } else {
-            wynik[(int) (lista.charAt(2) - '1')][(int) (lista.charAt(1) - 'A')] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-            if (this.przelot == true && kolejnosc == figura.Pion) {
-                wynik[this.czybialy == false ? 3 : 4][(int) (lista.charAt(4) - 'A')] = SI_MIN_MAX_Alfa_Beta.figury.pustka;
-
-            } else if (this.promocja == true) {
-                wynik[(int) (lista.charAt(5) - '1')][(int) (lista.charAt(4) - 'A')] = pozyskaj_figure(lista.charAt(7));
-            } else {
-                wynik[(int) (lista.charAt(5) - '1')][(int) (lista.charAt(4) - 'A')] = pozyskaj_figure(lista.charAt(0));
-            }
-        }
-        return wynik;
-    }
-
-    private SI_MIN_MAX_Alfa_Beta.figury pozyskaj_figure(char znak) {
-        switch (znak) {
-            case 'p':
-                return SI_MIN_MAX_Alfa_Beta.figury.CPion;
-            case 'P':
-                return SI_MIN_MAX_Alfa_Beta.figury.BPion;
-            case 'n':
-                return SI_MIN_MAX_Alfa_Beta.figury.CSkoczek;
-            case 'N':
-                return SI_MIN_MAX_Alfa_Beta.figury.BSkoczek;
-            case 'b':
-                return SI_MIN_MAX_Alfa_Beta.figury.CGoniec;
-            case 'B':
-                return SI_MIN_MAX_Alfa_Beta.figury.BGoniec;
-            case 'r':
-                return SI_MIN_MAX_Alfa_Beta.figury.CWieza;
-            case 'R':
-                return SI_MIN_MAX_Alfa_Beta.figury.BWieza;
-            case 'q':
-                return SI_MIN_MAX_Alfa_Beta.figury.CHetman;
-            case 'Q':
-                return SI_MIN_MAX_Alfa_Beta.figury.BHetman;
-            case 'k':
-                return SI_MIN_MAX_Alfa_Beta.figury.CKrol;
-            case 'K':
-                return SI_MIN_MAX_Alfa_Beta.figury.BKrol;
-
-        }
-        return SI_MIN_MAX_Alfa_Beta.figury.pustka;
-    }
+public class RuchA {
 
     enum figura {
-        Pion, Skoczek, Goniec, Wieza, Hetman, Krol, Pustka;
+        Pion, Skoczek, Goniec, Wieza, Hetman, Amazonka, Krol, Pustka;
     };
 
     enum rzad {
@@ -175,96 +21,47 @@ public class Ruch implements Comparable<Ruch> {
     enum sortowanie {
         pierwszy_szach, pierwsze_bicie, zaden
     };
-    SI_MIN_MAX_Alfa_Beta.figury[][] chessboard_before = new SI_MIN_MAX_Alfa_Beta.figury[8][8];
-    SI_MIN_MAX_Alfa_Beta.figury[][] chessboard_after = new SI_MIN_MAX_Alfa_Beta.figury[8][8];
     Boolean szach, czy_szach, roszada, czybialy, przelot, dlugaroszada, promocja, atak;
     kolumna start1, koniec1;
     rzad start2, koniec2;
     figura kolejnosc, promowana = null;
-    final sortowanie sposob;
     Integer wspolczynnik_ruchu, wspolczynnik_bitki;
     int wartosc_promocji = 0;
     figura korzystnosc_bicia;
 
-    private int wartosc(figura f) {
-        switch (f) {
-            case Goniec:
-                return 350;
-            case Hetman:
-                return 900;
-            case Krol:
-                return 10000;
-            case Pion:
-                return 100;
-            case Pustka:
-                return 0;
-            case Skoczek:
-                return 300;
-            case Wieza:
-                return 500;
-            default:
-                return 0;
-        }
-
-    }
-
-    private int wartosc(SI_MIN_MAX_Alfa_Beta.figury f) {
-        switch (f) {
-            case BGoniec:
-            case CGoniec:
-                return 350;
-            case BHetman:
-            case CHetman:
-                return 900;
-            case BPion:
-            case CPion:
-                return 100;
-            case pustka:
-                return 0;
-            case CSkoczek:
-            case BSkoczek:
-                return 300;
-            case CWieza:
-            case BWieza:
-                return 500;
-            default:
-                return 0;
-        }
-
-    }
-
-    Ruch(String lista, int sposob, SI_MIN_MAX_Alfa_Beta.figury bity, SI_MIN_MAX_Alfa_Beta.figury[][] szachownica) {
+    RuchA(String lista, int sposob, SzachowaArena.figury bity, SzachowaArena.figury[][] szachownica) {
 
         switch (bity) {
             case BPion:
             case CPion:
-                korzystnosc_bicia = figura.Pion;
+                korzystnosc_bicia = RuchA.figura.Pion;
                 atak = true;
                 break;
             case BSkoczek:
             case CSkoczek:
-                korzystnosc_bicia = figura.Skoczek;
+                korzystnosc_bicia = RuchA.figura.Skoczek;
                 atak = true;
                 break;
             case BGoniec:
             case CGoniec:
-                korzystnosc_bicia = figura.Goniec;
+                korzystnosc_bicia = RuchA.figura.Goniec;
                 atak = true;
                 break;
             case BWieza:
             case CWieza:
-                korzystnosc_bicia = figura.Wieza;
+                korzystnosc_bicia = RuchA.figura.Wieza;
                 atak = true;
                 break;
             case BHetman:
             case CHetman:
-                korzystnosc_bicia = figura.Hetman;
+                korzystnosc_bicia = RuchA.figura.Hetman;
                 atak = true;
                 break;
             default:
-                korzystnosc_bicia = figura.Pustka;
+                korzystnosc_bicia = RuchA.figura.Pustka;
                 atak = false;
         }
+        czy_szach = lista.endsWith("+");
         roszada = lista.substring(1, 4).equals("O-O");
         dlugaroszada = lista.substring(1, 6).equals("O-O-O");
         przelot = lista.charAt(6) == ('E');
@@ -273,150 +70,150 @@ public class Ruch implements Comparable<Ruch> {
         if (lista.charAt(6) == '=') {
             switch (lista.charAt(7)) {
                 case 'n':
-                    promowana = figura.Skoczek;
+                    promowana = RuchA.figura.Skoczek;
                     wartosc_promocji = 1;
                     break;
                 case 'N':
-                    promowana = figura.Skoczek;
+                    promowana = RuchA.figura.Skoczek;
                     wartosc_promocji = 1;
                     break;
                 case 'b':
-                    promowana = figura.Goniec;
+                    promowana = RuchA.figura.Goniec;
                     wartosc_promocji = 2;
                     break;
                 case 'B':
-                    promowana = figura.Goniec;
+                    promowana = RuchA.figura.Goniec;
                     wartosc_promocji = 2;
                     break;
                 case 'r':
-                    promowana = figura.Wieza;
+                    promowana = RuchA.figura.Wieza;
                     wartosc_promocji = 3;
                     break;
                 case 'R':
-                    promowana = figura.Wieza;
+                    promowana = RuchA.figura.Wieza;
                     wartosc_promocji = 3;
                     break;
                 case 'q':
-                    promowana = figura.Hetman;
+                    promowana = RuchA.figura.Hetman;
                     wartosc_promocji = 4;
                     break;
                 case 'Q':
-                    promowana = figura.Hetman;
+                    promowana = RuchA.figura.Hetman;
                     wartosc_promocji = 4;
                     break;
                 default:
-                    promowana = figura.Pustka;
+                    promowana = RuchA.figura.Pustka;
                     break;
             }
         }
         if (lista.substring(1, 4).equals("O-O")) {
-            start1 = kolumna.KR;
-            start2 = rzad.RR;
-            koniec1 = kolumna.KR;
-            koniec2 = rzad.RR;
+            start1 = RuchA.kolumna.KR;
+            start2 = RuchA.rzad.RR;
+            koniec1 = RuchA.kolumna.KR;
+            koniec2 = RuchA.rzad.RR;
         } else {
             switch (lista.charAt(1)) {
                 case 'A':
-                    start1 = kolumna.k1;
+                    start1 = RuchA.kolumna.k1;
                     break;
                 case 'B':
-                    start1 = kolumna.k2;
+                    start1 = RuchA.kolumna.k2;
                     break;
                 case 'C':
-                    start1 = kolumna.k3;
+                    start1 = RuchA.kolumna.k3;
                     break;
                 case 'D':
-                    start1 = kolumna.k4;
+                    start1 = RuchA.kolumna.k4;
                     break;
                 case 'E':
-                    start1 = kolumna.k5;
+                    start1 = RuchA.kolumna.k5;
                     break;
                 case 'F':
-                    start1 = kolumna.k6;
+                    start1 = RuchA.kolumna.k6;
                     break;
                 case 'G':
-                    start1 = kolumna.k7;
+                    start1 = RuchA.kolumna.k7;
                     break;
                 case 'H':
-                    start1 = kolumna.k8;
+                    start1 = RuchA.kolumna.k8;
                     break;
             }
             switch (lista.charAt(4)) {
                 case 'A':
-                    koniec1 = kolumna.k1;
+                    koniec1 = RuchA.kolumna.k1;
                     break;
                 case 'B':
-                    koniec1 = kolumna.k2;
+                    koniec1 = RuchA.kolumna.k2;
                     break;
                 case 'C':
-                    koniec1 = kolumna.k3;
+                    koniec1 = RuchA.kolumna.k3;
                     break;
                 case 'D':
-                    koniec1 = kolumna.k4;
+                    koniec1 = RuchA.kolumna.k4;
                     break;
                 case 'E':
-                    koniec1 = kolumna.k5;
+                    koniec1 = RuchA.kolumna.k5;
                     break;
                 case 'F':
-                    koniec1 = kolumna.k6;
+                    koniec1 = RuchA.kolumna.k6;
                     break;
                 case 'G':
-                    koniec1 = kolumna.k7;
+                    koniec1 = RuchA.kolumna.k7;
                     break;
                 case 'H':
-                    koniec1 = kolumna.k8;
+                    koniec1 = RuchA.kolumna.k8;
                     break;
             }
             switch (lista.charAt(2)) {
                 case '1':
-                    start2 = rzad.r1;
+                    start2 = RuchA.rzad.r1;
                     break;
                 case '2':
-                    start2 = rzad.r2;
+                    start2 = RuchA.rzad.r2;
                     break;
                 case '3':
-                    start2 = rzad.r3;
+                    start2 = RuchA.rzad.r3;
                     break;
                 case '4':
-                    start2 = rzad.r4;
+                    start2 = RuchA.rzad.r4;
                     break;
                 case '5':
-                    start2 = rzad.r5;
+                    start2 = RuchA.rzad.r5;
                     break;
                 case '6':
-                    start2 = rzad.r6;
+                    start2 = RuchA.rzad.r6;
                     break;
                 case '7':
-                    start2 = rzad.r7;
+                    start2 = RuchA.rzad.r7;
                     break;
                 case '8':
-                    start2 = rzad.r8;
+                    start2 = RuchA.rzad.r8;
                     break;
             }
             switch (lista.charAt(5)) {
                 case '1':
-                    koniec2 = rzad.r1;
+                    koniec2 = RuchA.rzad.r1;
                     break;
                 case '2':
-                    koniec2 = rzad.r2;
+                    koniec2 = RuchA.rzad.r2;
                     break;
                 case '3':
-                    koniec2 = rzad.r3;
+                    koniec2 = RuchA.rzad.r3;
                     break;
                 case '4':
-                    koniec2 = rzad.r4;
+                    koniec2 = RuchA.rzad.r4;
                     break;
                 case '5':
-                    koniec2 = rzad.r5;
+                    koniec2 = RuchA.rzad.r5;
                     break;
                 case '6':
-                    koniec2 = rzad.r6;
+                    koniec2 = RuchA.rzad.r6;
                     break;
                 case '7':
-                    koniec2 = rzad.r7;
+                    koniec2 = RuchA.rzad.r7;
                     break;
                 case '8':
-                    koniec2 = rzad.r8;
+                    koniec2 = RuchA.rzad.r8;
                     break;
             }
         }
@@ -424,97 +221,69 @@ public class Ruch implements Comparable<Ruch> {
             switch (lista.charAt(0)) {
                 case 'p':
                     czybialy = false;
-                    kolejnosc = figura.Pion;
+                    kolejnosc = RuchA.figura.Pion;
                     break;
                 case 'P':
                     czybialy = true;
-                    kolejnosc = figura.Pion;
+                    kolejnosc = RuchA.figura.Pion;
                     break;
                 case 'n':
                     czybialy = false;
-                    kolejnosc = figura.Skoczek;
+                    kolejnosc = RuchA.figura.Skoczek;
                     break;
                 case 'N':
                     czybialy = true;
-                    kolejnosc = figura.Skoczek;
+                    kolejnosc = RuchA.figura.Skoczek;
                     break;
                 case 'b':
                     czybialy = false;
-                    kolejnosc = figura.Goniec;
+                    kolejnosc = RuchA.figura.Goniec;
                     break;
                 case 'B':
                     czybialy = true;
-                    kolejnosc = figura.Goniec;
+                    kolejnosc = RuchA.figura.Goniec;
                     break;
                 case 'r':
                     czybialy = false;
-                    kolejnosc = figura.Wieza;
+                    kolejnosc = RuchA.figura.Wieza;
                     break;
                 case 'R':
                     czybialy = true;
-                    kolejnosc = figura.Wieza;
+                    kolejnosc = RuchA.figura.Wieza;
                     break;
                 case 'q':
                     czybialy = false;
-                    kolejnosc = figura.Hetman;
+                    kolejnosc = RuchA.figura.Hetman;
                     break;
                 case 'Q':
                     czybialy = true;
-                    kolejnosc = figura.Hetman;
+                    kolejnosc = RuchA.figura.Hetman;
                     break;
                 case 'k':
                     czybialy = false;
-                    kolejnosc = figura.Krol;
+                    kolejnosc = RuchA.figura.Krol;
                     break;
                 case 'K':
                     czybialy = true;
-                    kolejnosc = figura.Krol;
+                    kolejnosc = RuchA.figura.Krol;
+                    break;
+                case 'a':
+                    czybialy = false;
+                    kolejnosc = RuchA.figura.Amazonka;
+                    break;
+                case 'A':
+                    czybialy = true;
+                    kolejnosc = RuchA.figura.Amazonka;
                     break;
 
             }
         } else {
-            kolejnosc = figura.Krol;
+            kolejnosc = RuchA.figura.Krol;
             czybialy = lista.charAt(0) == 'K';
         }
 
-        wspolczynnik_ruchu = wartosc(kolejnosc);
-        wspolczynnik_bitki= wartosc(bity);
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                chessboard_before[i][j] = szachownica[i][j];
-                chessboard_after[i][j] = zmiana(chessboard_before, lista)[i][j];
-            }
-        }
-        
-        czy_szach = RuchZagrozenie_kontrola.szach(SI_MIN_MAX_Alfa_Beta.konwert(chessboard_after), !czybialy);
-        switch (sposob) {
-            case 1:
-                this.sposob = sortowanie.pierwszy_szach;
-                break;
-            case 2:
-                this.sposob = sortowanie.pierwsze_bicie;
-                break;
-            default:
-                this.sposob = sortowanie.zaden;
-        }
     }
 
-    @Override
-     public int compareTo(Ruch obiekt) {
-      if (Boolean.compare(this.czy_szach, obiekt.czy_szach) == 0) {
-         if (Boolean.compare(this.atak, obiekt.atak) == 0) {
-            if (Boolean.compare(this.roszada, obiekt.roszada) == 0) {
-               return Integer.compare(obiekt.wspolczynnik_ruchu, this.wspolczynnik_ruchu);
-            } else {
-               return Boolean.compare(this.roszada, obiekt.roszada) * -1;
-            }
-         } else {
-            return Boolean.compare(this.atak, obiekt.atak) * -1;
-         }
-     } else {
-         return Boolean.compare(this.czy_szach, obiekt.czy_szach) * -1;
-      }
-   }
     @Override
     public String toString() {
         String wynik = "";
@@ -537,6 +306,9 @@ public class Ruch implements Comparable<Ruch> {
                     break;
                 case Hetman:
                     wynik = wynik.concat(czybialy ? "Q" : "q");
+                    break;
+                case Amazonka:
+                    wynik = wynik.concat(czybialy ? "A" : "a");
                     break;
                 case Krol:
                     wynik = wynik.concat(czybialy ? "K" : "k");
@@ -594,7 +366,7 @@ public class Ruch implements Comparable<Ruch> {
                     wynik = wynik.concat("8");
                     break;
             }
-            wynik = wynik.concat(korzystnosc_bicia == figura.Pustka ? "-" : "x");
+            wynik = wynik.concat(korzystnosc_bicia == RuchA.figura.Pustka ? "-" : "x");
             switch (koniec1) {
                 case k1:
                     wynik = wynik.concat("A");
@@ -663,6 +435,9 @@ public class Ruch implements Comparable<Ruch> {
                         break;
                     case Hetman:
                         wynik = wynik.concat(czybialy ? "Q" : "q");
+                        break;
+                    case Amazonka:
+                        wynik = wynik.concat(czybialy ? "A" : "a");
                         break;
                 }
             } else {

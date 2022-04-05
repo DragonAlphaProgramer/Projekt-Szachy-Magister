@@ -5,6 +5,7 @@
  */
 package szachy;
 
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FileDialog;
@@ -97,6 +98,10 @@ import org.teleal.cling.support.model.PortMapping;*/
  */
 public class SzachowaArena extends javax.swing.JFrame {
 
+    public enum figury {
+        BKrol, BAmazonka, BHetman, BWieza, BGoniec, BSkoczek, BPion,
+        CKrol, CAmazonka, CHetman, CWieza, CGoniec, CSkoczek, CPion, pustka;
+    }
     boolean wlasnykolor = false;
     Thread scanip = null;
     InetAddress[] wybory1;
@@ -171,6 +176,7 @@ public class SzachowaArena extends javax.swing.JFrame {
     InetAddress[] wybory;
     String ostatni_start = "", ostatni_stop = "";
     int opcje_pomoc = 0;
+    private boolean symulacja;
 
     /**
      * Creates new form NewJFrame
@@ -499,11 +505,11 @@ public class SzachowaArena extends javax.swing.JFrame {
                         ustawBR.setSelectedIcon(new ImageIcon(this.getClass().getResource("Brook001.png")));
                         ustawBQ.setSelectedIcon(new ImageIcon(this.getClass().getResource("Bqueen01.png")));
                         ustawBK.setSelectedIcon(new ImageIcon(this.getClass().getResource("Bking001.png")));
-                        b1 = new ImageIcon(this.getClass().getResource("Wqueen01.png"));
+                        b1 = new ImageIcon(this.getClass().getResource(tryb != 4 ? "Wqueen01.png" : "Wamazon1.png"));
                         b2 = new ImageIcon(this.getClass().getResource("Wrook001.png"));
                         b3 = new ImageIcon(this.getClass().getResource("Wbishop1.png"));
                         b4 = new ImageIcon(this.getClass().getResource("Wknight1.png"));
-                        c1 = new ImageIcon(this.getClass().getResource("Bqueen01.png"));
+                        c1 = new ImageIcon(this.getClass().getResource(tryb != 4 ? "Bqueen01.png" : "Bamazon1.png"));
                         c2 = new ImageIcon(this.getClass().getResource("Brook001.png"));
                         c3 = new ImageIcon(this.getClass().getResource("Bbishop1.png"));
                         c4 = new ImageIcon(this.getClass().getResource("Bknight1.png"));
@@ -521,11 +527,11 @@ public class SzachowaArena extends javax.swing.JFrame {
                         ustawBR.setSelectedIcon(new ImageIcon(this.getClass().getResource("Brook004.png")));
                         ustawBQ.setSelectedIcon(new ImageIcon(this.getClass().getResource("Bqueen04.png")));
                         ustawBK.setSelectedIcon(new ImageIcon(this.getClass().getResource("Bking004.png")));
-                        b1 = new ImageIcon(this.getClass().getResource("Wqueen04.png"));
+                        b1 = new ImageIcon(this.getClass().getResource(tryb != 4 ? "Wqueen04.png" : "Wamazon4.png"));
                         b2 = new ImageIcon(this.getClass().getResource("Wrook004.png"));
                         b3 = new ImageIcon(this.getClass().getResource("Wbishop4.png"));
                         b4 = new ImageIcon(this.getClass().getResource("Wknight4.png"));
-                        c1 = new ImageIcon(this.getClass().getResource("Bqueen04.png"));
+                        c1 = new ImageIcon(this.getClass().getResource(tryb != 4 ? "Bqueen04.png" : "Bamazon4.png"));
                         c2 = new ImageIcon(this.getClass().getResource("Brook004.png"));
                         c3 = new ImageIcon(this.getClass().getResource("Bbishop4.png"));
                         c4 = new ImageIcon(this.getClass().getResource("Bknight4.png"));
@@ -547,11 +553,11 @@ public class SzachowaArena extends javax.swing.JFrame {
                         ustawBR.setSelectedIcon(new ImageIcon(this.getClass().getResource("Brook002.png")));
                         ustawBQ.setSelectedIcon(new ImageIcon(this.getClass().getResource("Bqueen02.png")));
                         ustawBK.setSelectedIcon(new ImageIcon(this.getClass().getResource("Bking002.png")));
-                        b1 = new ImageIcon(this.getClass().getResource("Wqueen02.png"));
+                        b1 = new ImageIcon(this.getClass().getResource(tryb != 4 ? "Wqueen02.png" : "Wamazon2.png"));
                         b2 = new ImageIcon(this.getClass().getResource("Wrook002.png"));
                         b3 = new ImageIcon(this.getClass().getResource("Wbishop2.png"));
                         b4 = new ImageIcon(this.getClass().getResource("Wknight2.png"));
-                        c1 = new ImageIcon(this.getClass().getResource("Bqueen02.png"));
+                        c1 = new ImageIcon(this.getClass().getResource(tryb != 4 ? "Bqueen02.png" : "Bamazon2.png"));
                         c2 = new ImageIcon(this.getClass().getResource("Brook002.png"));
                         c3 = new ImageIcon(this.getClass().getResource("Bbishop2.png"));
                         c4 = new ImageIcon(this.getClass().getResource("Bknight2.png"));
@@ -569,11 +575,11 @@ public class SzachowaArena extends javax.swing.JFrame {
                         ustawBR.setSelectedIcon(new ImageIcon(this.getClass().getResource("Brook003.png")));
                         ustawBQ.setSelectedIcon(new ImageIcon(this.getClass().getResource("Bqueen03.png")));
                         ustawBK.setSelectedIcon(new ImageIcon(this.getClass().getResource("Bking003.png")));
-                        b1 = new ImageIcon(this.getClass().getResource("Wqueen03.png"));
+                        b1 = new ImageIcon(this.getClass().getResource(tryb != 4 ? "Wqueen03.png" : "Wamazon3.png"));
                         b2 = new ImageIcon(this.getClass().getResource("Wrook003.png"));
                         b3 = new ImageIcon(this.getClass().getResource("Wbishop3.png"));
                         b4 = new ImageIcon(this.getClass().getResource("Wknight3.png"));
-                        c1 = new ImageIcon(this.getClass().getResource("Bqueen03.png"));
+                        c1 = new ImageIcon(this.getClass().getResource(tryb != 4 ? "Wqueen03.png" : "Wamazon3.png"));
                         c2 = new ImageIcon(this.getClass().getResource("Brook003.png"));
                         c3 = new ImageIcon(this.getClass().getResource("Bbishop3.png"));
                         c4 = new ImageIcon(this.getClass().getResource("Bknight3.png"));
@@ -622,85 +628,101 @@ public class SzachowaArena extends javax.swing.JFrame {
                             case 1:
                                 switch (kolor_zestaw) {
                                     case 1:
-                                        if (ust[j][(int) i - 'A'] == 'K') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking001.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'Q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen01.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'R') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook001.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'B') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop1.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'N') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight1.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'P') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn001.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'k') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking001.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen01.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'r') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook001.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'b') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop1.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'n') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight1.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'p') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn001.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == ' ') {
-                                            przycisk.setIcon(null);
+                                        switch (ust[j][(int) i - 'A']) {
+                                            case 'K':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking001.png")));
+                                                break;
+                                            case 'A':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wamazon1.png")));
+                                                break;
+                                            case 'Q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen01.png")));
+                                                break;
+                                            case 'R':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook001.png")));
+                                                break;
+                                            case 'B':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop1.png")));
+                                                break;
+                                            case 'N':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight1.png")));
+                                                break;
+                                            case 'P':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn001.png")));
+                                                break;
+                                            case 'k':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking001.png")));
+                                                break;
+                                            case 'a':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bamazon1.png")));
+                                                break;
+                                            case 'q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen01.png")));
+                                                break;
+                                            case 'r':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook001.png")));
+                                                break;
+                                            case 'b':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop1.png")));
+                                                break;
+                                            case 'n':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight1.png")));
+                                                break;
+                                            case 'p':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn001.png")));
+                                                break;
+                                            case ' ':
+                                                przycisk.setIcon(null);
+                                                break;
                                         }
                                         break;
                                     case 2:
-                                        if (ust[j][(int) i - 'A'] == 'K') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking002.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'Q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen02.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'R') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook002.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'B') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop2.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'N') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight2.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'P') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn002.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'k') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking002.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen02.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'r') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook002.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'b') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop2.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'n') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight2.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'p') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn002.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == ' ') {
-                                            przycisk.setIcon(null);
+                                        switch (ust[j][(int) i - 'A']) {
+                                            case 'K':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking002.png")));
+                                                break;
+                                            case 'A':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wamazon2.png")));
+                                                break;
+                                            case 'Q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen02.png")));
+                                                break;
+                                            case 'R':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook002.png")));
+                                                break;
+                                            case 'B':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop2.png")));
+                                                break;
+                                            case 'N':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight2.png")));
+                                                break;
+                                            case 'P':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn002.png")));
+                                                break;
+                                            case 'k':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking002.png")));
+                                                break;
+                                            case 'a':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bamazon2.png")));
+                                                break;
+                                            case 'q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen02.png")));
+                                                break;
+                                            case 'r':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook002.png")));
+                                                break;
+                                            case 'b':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop2.png")));
+                                                break;
+                                            case 'n':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight2.png")));
+                                                break;
+                                            case 'p':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn002.png")));
+                                                break;
+                                            case ' ':
+                                                przycisk.setIcon(null);
+                                                break;
                                         }
                                         break;
                                 }
@@ -708,85 +730,101 @@ public class SzachowaArena extends javax.swing.JFrame {
                             case 2:
                                 switch (kolor_zestaw) {
                                     case 1:
-                                        if (ust[j][(int) i - 'A'] == 'K') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking004.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'Q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen04.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'R') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook004.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'B') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop4.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'N') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight4.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'P') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn004.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'k') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking004.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen04.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'r') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook004.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'b') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop4.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'n') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight4.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'p') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn004.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == ' ') {
-                                            przycisk.setIcon(null);
+                                        switch (ust[j][(int) i - 'A']) {
+                                            case 'K':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking004.png")));
+                                                break;
+                                            case 'A':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wamazon4.png")));
+                                                break;
+                                            case 'Q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen04.png")));
+                                                break;
+                                            case 'R':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook004.png")));
+                                                break;
+                                            case 'B':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop4.png")));
+                                                break;
+                                            case 'N':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight4.png")));
+                                                break;
+                                            case 'P':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn004.png")));
+                                                break;
+                                            case 'k':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking004.png")));
+                                                break;
+                                            case 'a':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bamazon4.png")));
+                                                break;
+                                            case 'q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen04.png")));
+                                                break;
+                                            case 'r':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook004.png")));
+                                                break;
+                                            case 'b':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop4.png")));
+                                                break;
+                                            case 'n':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight4.png")));
+                                                break;
+                                            case 'p':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn004.png")));
+                                                break;
+                                            case ' ':
+                                                przycisk.setIcon(null);
+                                                break;
                                         }
                                         break;
                                     case 2:
-                                        if (ust[j][(int) i - 'A'] == 'K') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking003.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'Q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen03.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'R') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook003.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'B') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop3.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'N') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight3.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'P') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn003.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'k') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking003.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen03.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'r') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook003.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'b') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop3.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'n') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight3.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == 'p') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn003.png")));
-                                        }
-                                        if (ust[j][(int) i - 'A'] == ' ') {
-                                            przycisk.setIcon(null);
+                                        switch (ust[j][(int) i - 'A']) {
+                                            case 'K':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking003.png")));
+                                                break;
+                                            case 'A':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wamazon3.png")));
+                                                break;
+                                            case 'Q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen03.png")));
+                                                break;
+                                            case 'R':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook003.png")));
+                                                break;
+                                            case 'B':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop3.png")));
+                                                break;
+                                            case 'N':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight3.png")));
+                                                break;
+                                            case 'P':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn003.png")));
+                                                break;
+                                            case 'k':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking003.png")));
+                                                break;
+                                            case 'a':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bamazon3.png")));
+                                                break;
+                                            case 'q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen03.png")));
+                                                break;
+                                            case 'r':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook003.png")));
+                                                break;
+                                            case 'b':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop3.png")));
+                                                break;
+                                            case 'n':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight3.png")));
+                                                break;
+                                            case 'p':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn003.png")));
+                                                break;
+                                            case ' ':
+                                                przycisk.setIcon(null);
+                                                break;
                                         }
                                         break;
                                 }
@@ -797,85 +835,101 @@ public class SzachowaArena extends javax.swing.JFrame {
                             case 1:
                                 switch (kolor_zestaw) {
                                     case 1:
-                                        if (odwrotna[j][(int) i - 'A'] == 'K') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking001.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'Q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen01.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'R') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook001.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'B') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop1.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'N') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight1.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'P') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn001.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'k') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking001.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen01.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'r') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook001.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'b') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop1.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'n') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight1.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'p') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn001.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == ' ') {
-                                            przycisk.setIcon(null);
+                                        switch (odwrotna[j][(int) i - 'A']) {
+                                            case 'K':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking001.png")));
+                                                break;
+                                            case 'A':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wamazon1.png")));
+                                                break;
+                                            case 'Q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen01.png")));
+                                                break;
+                                            case 'R':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook001.png")));
+                                                break;
+                                            case 'B':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop1.png")));
+                                                break;
+                                            case 'N':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight1.png")));
+                                                break;
+                                            case 'P':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn001.png")));
+                                                break;
+                                            case 'k':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking001.png")));
+                                                break;
+                                            case 'a':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bamazon1.png")));
+                                                break;
+                                            case 'q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen01.png")));
+                                                break;
+                                            case 'r':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook001.png")));
+                                                break;
+                                            case 'b':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop1.png")));
+                                                break;
+                                            case 'n':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight1.png")));
+                                                break;
+                                            case 'p':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn001.png")));
+                                                break;
+                                            case ' ':
+                                                przycisk.setIcon(null);
+                                                break;
                                         }
                                         break;
                                     case 2:
-                                        if (odwrotna[j][(int) i - 'A'] == 'K') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking002.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'Q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen02.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'R') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook002.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'B') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop2.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'N') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight2.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'P') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn002.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'k') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking002.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen02.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'r') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook002.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'b') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop2.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'n') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight2.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'p') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn002.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == ' ') {
-                                            przycisk.setIcon(null);
+                                        switch (odwrotna[j][(int) i - 'A']) {
+                                            case 'K':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking002.png")));
+                                                break;
+                                            case 'A':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wamazon2.png")));
+                                                break;
+                                            case 'Q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen02.png")));
+                                                break;
+                                            case 'R':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook002.png")));
+                                                break;
+                                            case 'B':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop2.png")));
+                                                break;
+                                            case 'N':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight2.png")));
+                                                break;
+                                            case 'P':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn002.png")));
+                                                break;
+                                            case 'k':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking002.png")));
+                                                break;
+                                            case 'a':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bamazon2.png")));
+                                                break;
+                                            case 'q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen02.png")));
+                                                break;
+                                            case 'r':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook002.png")));
+                                                break;
+                                            case 'b':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop2.png")));
+                                                break;
+                                            case 'n':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight2.png")));
+                                                break;
+                                            case 'p':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn002.png")));
+                                                break;
+                                            case ' ':
+                                                przycisk.setIcon(null);
+                                                break;
                                         }
                                         break;
                                 }
@@ -883,85 +937,101 @@ public class SzachowaArena extends javax.swing.JFrame {
                             case 2:
                                 switch (kolor_zestaw) {
                                     case 1:
-                                        if (odwrotna[j][(int) i - 'A'] == 'K') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking004.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'Q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen04.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'R') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook004.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'B') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop4.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'N') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight4.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'P') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn004.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'k') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking004.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen04.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'r') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook004.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'b') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop4.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'n') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight4.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'p') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn004.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == ' ') {
-                                            przycisk.setIcon(null);
+                                        switch (odwrotna[j][(int) i - 'A']) {
+                                            case 'K':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking004.png")));
+                                                break;
+                                            case 'A':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wamazon4.png")));
+                                                break;
+                                            case 'Q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen04.png")));
+                                                break;
+                                            case 'R':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook004.png")));
+                                                break;
+                                            case 'B':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop4.png")));
+                                                break;
+                                            case 'N':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight4.png")));
+                                                break;
+                                            case 'P':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn004.png")));
+                                                break;
+                                            case 'k':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking004.png")));
+                                                break;
+                                            case 'a':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bamazon4.png")));
+                                                break;
+                                            case 'q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen04.png")));
+                                                break;
+                                            case 'r':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook004.png")));
+                                                break;
+                                            case 'b':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop4.png")));
+                                                break;
+                                            case 'n':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight4.png")));
+                                                break;
+                                            case 'p':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn004.png")));
+                                                break;
+                                            case ' ':
+                                                przycisk.setIcon(null);
+                                                break;
                                         }
                                         break;
                                     case 2:
-                                        if (odwrotna[j][(int) i - 'A'] == 'K') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking003.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'Q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen03.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'R') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook003.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'B') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop3.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'N') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight3.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'P') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn003.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'k') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking003.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'q') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen03.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'r') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook003.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'b') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop3.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'n') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight3.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == 'p') {
-                                            przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn003.png")));
-                                        }
-                                        if (odwrotna[j][(int) i - 'A'] == ' ') {
-                                            przycisk.setIcon(null);
+                                        switch (odwrotna[j][(int) i - 'A']) {
+                                            case 'K':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wking003.png")));
+                                                break;
+                                            case 'A':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wamazon3.png")));
+                                                break;
+                                            case 'Q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wqueen03.png")));
+                                                break;
+                                            case 'R':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wrook003.png")));
+                                                break;
+                                            case 'B':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wbishop3.png")));
+                                                break;
+                                            case 'N':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wknight3.png")));
+                                                break;
+                                            case 'P':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Wpawn003.png")));
+                                                break;
+                                            case 'k':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bking003.png")));
+                                                break;
+                                            case 'a':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bamazon3.png")));
+                                                break;
+                                            case 'q':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bqueen03.png")));
+                                                break;
+                                            case 'r':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Brook003.png")));
+                                                break;
+                                            case 'b':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bbishop3.png")));
+                                                break;
+                                            case 'n':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bknight3.png")));
+                                                break;
+                                            case 'p':
+                                                przycisk.setIcon(new ImageIcon(this.getClass().getResource("Bpawn003.png")));
+                                                break;
+                                            case ' ':
+                                                przycisk.setIcon(null);
+                                                break;
                                         }
                                         break;
                                 }
@@ -1495,7 +1565,7 @@ public class SzachowaArena extends javax.swing.JFrame {
     }
 
     private void dobierz_kursor(char symbole) {
-        
+
         if (tryb == 3) {
             Image ikonka = null;
             switch (symbole) {
@@ -1512,70 +1582,95 @@ public class SzachowaArena extends javax.swing.JFrame {
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage(),
                             new Point(0, 0), "custom cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage();
+                    ;
                     break;
                 case 'B':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage(),
                             new Point(0, 0), "custom cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage();
+                    ;
                     break;
                 case 'R':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage(),
                             new Point(0, 0), "custom cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage();
+                    ;
                     break;
                 case 'Q':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage(),
                             new Point(0, 0), "custom cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage();
+                    ;
                     break;
                 case 'K':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Wking001.png")).getImage(),
                             new Point(0, 0), "custom cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Wking001.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Wking001.png")).getImage();
+                    ;
                     break;
                 case 'p':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage(),
                             new Point(0, 0), "custom Cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage();
+                    ;
                     break;
                 case 'n':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage(),
                             new Point(0, 0), "custom Cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage();
+                    ;
                     break;
                 case 'b':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage(),
                             new Point(0, 0), "custom Cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage();
+                    ;
                     break;
                 case 'r':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Brook001.png")).getImage(),
                             new Point(0, 0), "custom Cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Brook001.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Brook001.png")).getImage();
+                    ;
                     break;
                 case 'q':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage(),
                             new Point(0, 0), "custom Cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage();
+                    ;
                     break;
                 case 'k':
                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                             new ImageIcon(this.getClass().getResource("Bking001.png")).getImage(),
                             new Point(0, 0), "custom Cursor"));
-                    ikonka = new ImageIcon(this.getClass().getResource("Bking001.png")).getImage();;
+                    ikonka = new ImageIcon(this.getClass().getResource("Bking001.png")).getImage();
+                    ;
+                    break;
+                case 'A':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Bamazon1.png")).getImage(),
+                            new Point(0, 0), "custom Cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Bamazon1.png")).getImage();
+                    ;
+                    break;
+                case 'a':
+                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                            new ImageIcon(this.getClass().getResource("Bamazon1.png")).getImage(),
+                            new Point(0, 0), "custom Cursor"));
+                    ikonka = new ImageIcon(this.getClass().getResource("Bamazon1.png")).getImage();
+                    ;
                     break;
             }
-             dobierz_kursor_na_przycisku(symbole, ikonka);
+            dobierz_kursor_na_przycisku(symbole, ikonka);
         } else {
             Image ikonka = null;
             switch (kroj_zestaw) {
@@ -1590,73 +1685,99 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wpawn001.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn001.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn001.png")).getImage();
+                                    ;
                                     break;
                                 case 'N':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight1.png")).getImage();
+                                    ;
                                     break;
                                 case 'B':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop1.png")).getImage();
+                                    ;
                                     break;
                                 case 'R':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook001.png")).getImage();
+                                    ;
                                     break;
                                 case 'Q':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen01.png")).getImage();
+                                    ;
                                     break;
                                 case 'K':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wking001.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wking001.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wking001.png")).getImage();
+                                    ;
                                     break;
                                 case 'p':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn001.png")).getImage();
+                                    ;
                                     break;
                                 case 'n':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight1.png")).getImage();
+                                    ;
                                     break;
                                 case 'b':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop1.png")).getImage();
+                                    ;
                                     break;
                                 case 'r':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Brook001.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Brook001.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Brook001.png")).getImage();
+                                    ;
                                     break;
                                 case 'q':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen01.png")).getImage();
+                                    ;
                                     break;
                                 case 'k':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bking001.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bking001.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bking001.png")).getImage();
+                                    ;
+                                    break;
+                                case 'A':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wamazon1.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wamazon1.png")).getImage();
+                                    ;
+                                    break;
+                                case 'a':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bamazon1.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bamazon1.png")).getImage();
+                                    ;
                                     break;
                             }
                             break;
@@ -1669,73 +1790,99 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wpawn002.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn002.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn002.png")).getImage();
+                                    ;
                                     break;
                                 case 'N':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wknight2.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight2.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight2.png")).getImage();
+                                    ;
                                     break;
                                 case 'B':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wbishop2.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop2.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop2.png")).getImage();
+                                    ;
                                     break;
                                 case 'R':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wrook002.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook002.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook002.png")).getImage();
+                                    ;
                                     break;
                                 case 'Q':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wqueen02.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen02.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen02.png")).getImage();
+                                    ;
                                     break;
                                 case 'K':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wking002.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wking002.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wking002.png")).getImage();
+                                    ;
                                     break;
                                 case 'p':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bpawn002.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn002.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn002.png")).getImage();
+                                    ;
                                     break;
                                 case 'n':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bknight2.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight2.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight2.png")).getImage();
+                                    ;
                                     break;
                                 case 'b':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bbishop2.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop2.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop2.png")).getImage();
+                                    ;
                                     break;
                                 case 'r':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Brook002.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Brook002.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Brook002.png")).getImage();
+                                    ;
                                     break;
                                 case 'q':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bqueen02.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen02.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen02.png")).getImage();
+                                    ;
                                     break;
                                 case 'k':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bking002.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bking002.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bking002.png")).getImage();
+                                    ;
+                                    break;
+                                case 'A':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wamazon2.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wamazon2.png")).getImage();
+                                    ;
+                                    break;
+                                case 'a':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bamazon2.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bamazon2.png")).getImage();
+                                    ;
                                     break;
                             }
                             break;
@@ -1752,73 +1899,99 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wpawn004.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn004.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn004.png")).getImage();
+                                    ;
                                     break;
                                 case 'N':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wknight4.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight4.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight4.png")).getImage();
+                                    ;
                                     break;
                                 case 'B':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wbishop4.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop4.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop4.png")).getImage();
+                                    ;
                                     break;
                                 case 'R':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wrook004.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook004.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook004.png")).getImage();
+                                    ;
                                     break;
                                 case 'Q':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wqueen04.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen04.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen04.png")).getImage();
+                                    ;
                                     break;
                                 case 'K':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wking004.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wking004.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wking004.png")).getImage();
+                                    ;
                                     break;
                                 case 'p':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bpawn004.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn004.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn004.png")).getImage();
+                                    ;
                                     break;
                                 case 'n':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bknight4.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight4.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight4.png")).getImage();
+                                    ;
                                     break;
                                 case 'b':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bbishop4.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop4.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop4.png")).getImage();
+                                    ;
                                     break;
                                 case 'r':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Brook004.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Brook004.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Brook004.png")).getImage();
+                                    ;
                                     break;
                                 case 'q':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bqueen04.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen04.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen04.png")).getImage();
+                                    ;
                                     break;
                                 case 'k':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bking004.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bking004.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bking004.png")).getImage();
+                                    ;
+                                    break;
+                                case 'A':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wamazon4.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wamazon4.png")).getImage();
+                                    ;
+                                    break;
+                                case 'a':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bamazon4.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bamazon4.png")).getImage();
+                                    ;
                                     break;
                             }
                             break;
@@ -1831,67 +2004,78 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wpawn003.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn003.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wpawn003.png")).getImage();
+                                    ;
                                     break;
                                 case 'N':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wknight3.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight3.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wknight3.png")).getImage();
+                                    ;
                                     break;
                                 case 'B':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wbishop3.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop3.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wbishop3.png")).getImage();
+                                    ;
                                     break;
                                 case 'R':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wrook003.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook003.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wrook003.png")).getImage();
+                                    ;
                                     break;
                                 case 'Q':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wqueen03.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen03.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wqueen03.png")).getImage();
+                                    ;
                                     break;
                                 case 'K':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Wking003.png")).getImage(),
                                             new Point(0, 0), "custom cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Wking003.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wking003.png")).getImage();
+                                    ;
                                     break;
                                 case 'p':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bpawn003.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn003.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bpawn003.png")).getImage();
+                                    ;
                                     break;
                                 case 'n':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bknight3.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight3.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bknight3.png")).getImage();
+                                    ;
                                     break;
                                 case 'b':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bbishop3.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop3.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bbishop3.png")).getImage();
+                                    ;
                                     break;
                                 case 'r':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Brook003.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Brook003.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Brook003.png")).getImage();
+                                    ;
                                     break;
                                 case 'q':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                                             new ImageIcon(this.getClass().getResource("Bqueen03.png")).getImage(),
                                             new Point(0, 0), "custom Cursor"));
-                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen03.png")).getImage();;
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bqueen03.png")).getImage();
+                                    ;
                                     break;
                                 case 'k':
                                     setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
@@ -1899,18 +2083,32 @@ public class SzachowaArena extends javax.swing.JFrame {
                                             new Point(0, 0), "custom Cursor"));
                                     ikonka = new ImageIcon(this.getClass().getResource("Bking003.png")).getImage();
                                     break;
+                                case 'A':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Wamazon3.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Wamazon3.png")).getImage();
+                                    ;
+                                    break;
+                                case 'a':
+                                    setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                                            new ImageIcon(this.getClass().getResource("Bamazon3.png")).getImage(),
+                                            new Point(0, 0), "custom Cursor"));
+                                    ikonka = new ImageIcon(this.getClass().getResource("Bamazon3.png")).getImage();
+                                    ;
+                                    break;
                             }
                             break;
                     }
                     break;
             }
-             dobierz_kursor_na_przycisku(symbole, ikonka);
+            dobierz_kursor_na_przycisku(symbole, ikonka);
         }
-       
+
     }
 
     private void dobierz_kursor_na_przycisku(char symbole, Image img) {
-        mysz = symbole != ' ' ? Toolkit.getDefaultToolkit().createCustomCursor(img,new Point(0, 0), "custom Cursor")
+        mysz = symbole != ' ' ? Toolkit.getDefaultToolkit().createCustomCursor(img, new Point(0, 0), "custom Cursor")
                 : Cursor.getDefaultCursor();
         A1.setCursor(mysz);
         A2.setCursor(mysz);
@@ -1985,28 +2183,32 @@ public class SzachowaArena extends javax.swing.JFrame {
     public class Progres_postep extends SwingWorker<Object, Object> {
 
         @Override
-        protected Object doInBackground() {
-            try {
-                String oponet = "";
-                char[][] backup = new char[8][8];
-                jProgressBar1.setMinimum(0);
-                SI_wyk = false;
-                for (int x = 0; x < 8; x++) {
-                    System.arraycopy(ust[x], 0, backup[x], 0, 8);
-                }
-                int elem = 0, dlugosc = Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
-                        bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size();
-                System.out.println(dlugosc + "elem");
-                jProgressBar1.setMaximum(dlugosc);
-                jProgressBar1.setValue(0);
-                int najlepszy = tura_rywala ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-                int najwieksza = Integer.MIN_VALUE;
-                int najmniejsza = Integer.MAX_VALUE;
-                int pula_pozycji = 0;
-                int pula_sprawdzona = 0;
-                String ostatni = "";
-                long czas_start = System.currentTimeMillis();
-                /*ExecutorService exec = Executors.newCachedThreadPool();
+        protected Object doInBackground() throws InterruptedException {
+            do {
+                try {
+                    if (symulacja) {
+                        odwrot = false;
+                    }
+                    String oponet = "";
+                    char[][] backup = new char[8][8];
+                    jProgressBar1.setMinimum(0);
+                    SI_wyk = false;
+                    for (int x = 0; x < 8; x++) {
+                        System.arraycopy(ust[x], 0, backup[x], 0, 8);
+                    }
+                    int elem = 0, dlugosc = Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
+                            bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size();
+                    // System.out.println(dlugosc + "elem");
+                    jProgressBar1.setMaximum(dlugosc);
+                    jProgressBar1.setValue(0);
+                    int najlepszy = tura_rywala ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+                    int najwieksza = Integer.MIN_VALUE;
+                    int najmniejsza = Integer.MAX_VALUE;
+                    int pula_pozycji = 0;
+                    int pula_sprawdzona = 0;
+                    String ostatni = "";
+                    long czas_start = System.currentTimeMillis();
+                    /*ExecutorService exec = Executors.newCachedThreadPool();
             ArrayList<Future<wyniki>> rezultaty = new ArrayList<>();
             wyniki[] w = new wyniki[9];
             
@@ -2048,186 +2250,189 @@ public class SzachowaArena extends javax.swing.JFrame {
                 }
             }*/
 
-                int licznik = 0;
-                for (Ruch move : Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
-                        bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false)) {
-                    if (Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
-                            bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size() > 1) {
+                    int licznik = 0;
+                    for (Ruch move : Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
+                            bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false)) {
+                        if (Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
+                                bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size() > 1) {
 
-                        elem++;
-                        jProgressBar1.setValue(elem);
-                        setProgress((int) (elem * 1f / dlugosc * 100.0f));
-                        SI_MIN_MAX_Alfa_Beta ai = new SI_MIN_MAX_Alfa_Beta(backup.clone(), ruchB, przelotcan,
-                                bleft, bright, wleft, wright, kingrochB, kingrochC, dokonano_RB, dokonano_RC, kol, odwrot, licznik, glebiaSI);
-                        jProgressBar1.setString("Rozpatrywane:" + (move.toString()) + "| bieżacy wybór:" + oponet);
-                        System.out.println((move.toString()) + " mysle");
-                        if (!move.roszada || !RuchZagrozenie_kontrola.szach(backup.clone(), ruchB)) {
-                            System.out.println(najmniejsza + "#" + najwieksza + "   ");
-                            int wynik = ai.wykonaj(glebiaSI, move, najwieksza, najmniejsza);
-                            pula_pozycji = pula_pozycji + ai.all_position;
-                            pula_sprawdzona = pula_sprawdzona + ai.pozycje;
-                            System.out.println(ai.licznik);
-                            licznik = ai.licznik;
-                            System.out.println(najmniejsza + "|" + najwieksza + "   " + wynik);
-                            if (!ai.isZakaz()) {
-                                ostatni = (move.toString());
-                                if (ruchB == true && wynik > najwieksza) {
-                                    najwieksza = wynik;
-                                    oponet = (move.toString());
-                                    najlepszy = wynik;
-                                } else if (ruchB == false && wynik < najmniejsza) {
-                                    najmniejsza = wynik;
-                                    oponet = (move.toString());
-                                    najlepszy = wynik;
+                            elem++;
+                            jProgressBar1.setValue(elem);
+                            setProgress((int) (elem * 1f / dlugosc * 100.0f));
+                            SI_MIN_MAX_Alfa_Beta ai = new SI_MIN_MAX_Alfa_Beta(backup.clone(), ruchB, przelotcan,
+                                    bleft, bright, wleft, wright, kingrochB, kingrochC, dokonano_RB, dokonano_RC, kol, odwrot, licznik, glebiaSI);
+                            jProgressBar1.setString("Rozpatrywane:" + (move.toString()) + "| bieżacy wybór:" + oponet);
+                            System.out.println("        " + (move.toString()) + " mysle");
+                            if (!move.roszada || !RuchZagrozenie_kontrola.szach(backup.clone(), ruchB)) {
+                                //       System.out.println(najmniejsza + "#" + najwieksza + "   ");
+                                int wynik = ai.wykonaj(glebiaSI, move, najwieksza, najmniejsza);
+                                pula_pozycji = pula_pozycji + ai.all_position;
+                                pula_sprawdzona = pula_sprawdzona + ai.pozycje;
+                                // System.out.println(ai.licznik);
+                                licznik = ai.licznik;
+                                if (!ai.isZakaz()) {
+                                    ostatni = (move.toString());
+                                    if (ruchB == true && wynik > najwieksza) {
+                                        najwieksza = wynik;
+                                        oponet = (move.toString());
+                                        najlepszy = wynik;
+                                    } else if (ruchB == false && wynik < najmniejsza) {
+                                        najmniejsza = wynik;
+                                        oponet = (move.toString());
+                                        najlepszy = wynik;
+                                    }
+                                    //System.out.println("wynik "+wynik);
+                                } else {
+                                    System.out.println("cofka");
                                 }
-                                //System.out.println("wynik "+wynik);
-                            } else {
-                                System.out.println("cofka");
-                            }
-                            System.out.println((move.toString()) + " wynik(" + najlepszy + ")");
+                                // System.out.println((move.toString()) + " wynik(" + najlepszy + ")");
 
+                            } else {
+                                System.out.println("error castling");
+                            }
+                            jProgressBar1.setString("Rozpatrywane:" + move.toString() + "| bieżacy wybór:" + oponet);
+                            if (ai.isPrzerwa()) {
+                                System.out.println("przerwa");
+                                break;
+                            }
                         } else {
-                            System.out.println("error castling");
-                        }
-                        jProgressBar1.setString("Rozpatrywane:" + move.toString() + "| bieżacy wybór:" + oponet);
-                        if (ai.isPrzerwa()) {
-                            System.out.println("przerwa");
-                            break;
-                        }
-                    } else {
-                        pula_pozycji = 1;
-                        pula_sprawdzona = 1;
-                        oponet = move.toString();
-                        najlepszy = tura_rywala ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-                    }
-                }
-                long czas_stop = System.currentTimeMillis();
-                long czas = (czas_stop - czas_start) / 1000;
-                System.out.println("wszystkich kombinacji: " + pula_pozycji);
-                System.out.println("zaanalizowano kombinacji: " + pula_sprawdzona);
-                System.out.printf("procent analizowanych kombinacji: %.2f %n", (float) (pula_sprawdzona) / (float) (pula_pozycji) * 100f);
-                if ("".equals(oponet)) {
-                    oponet = ostatni;
-                }
-                System.out.println("Ruch SI:" + oponet + "(" + najlepszy + ")");
-                System.out.println("Czas SI:" + czas + "s");
-                float procent = (Math.round(pula_sprawdzona * 10000.0f / pula_pozycji)) / 100.0f;
-                System.out.println("Czas w min: " + czas / 60 + " min, " + czas % 60 + " s");
-                jTextArea2.setVisible(true);
-                laczny_czas = laczny_czas + czas;
-                jTextArea2.append("Ruch SI:" + oponet + "(" + najlepszy + ") \n");
-                jTextArea2.append("Czas SI:" + czas + "s" + " \n");
-                jTextArea2.append("Czas w min: " + czas / 60 + " min, " + czas % 60 + " s" + " \n");
-                jTextArea2.append("Czas łączny: " + laczny_czas + " \n");
-                jTextArea2.append("wszystkich kombinacji: " + pula_pozycji + " \n");
-                jTextArea2.append("zaanalizowano kombinacji: " + pula_sprawdzona + " \n");
-                jTextArea2.append("procent analizowanych kombinacji:" + procent + " \n \n");
-                jTextArea2.setCaretPosition(jTextArea2.getDocument().getLength());
-                SI_wyk = true;
-                A1.setEnabled(true);
-                A2.setEnabled(true);
-                A3.setEnabled(true);
-                A4.setEnabled(true);
-                A5.setEnabled(true);
-                A6.setEnabled(true);
-                A7.setEnabled(true);
-                A8.setEnabled(true);
-                B1.setEnabled(true);
-                B2.setEnabled(true);
-                B3.setEnabled(true);
-                B4.setEnabled(true);
-                B5.setEnabled(true);
-                B6.setEnabled(true);
-                B7.setEnabled(true);
-                B8.setEnabled(true);
-                C1.setEnabled(true);
-                C2.setEnabled(true);
-                C3.setEnabled(true);
-                C4.setEnabled(true);
-                C5.setEnabled(true);
-                C6.setEnabled(true);
-                C7.setEnabled(true);
-                C8.setEnabled(true);
-                D1.setEnabled(true);
-                D2.setEnabled(true);
-                D3.setEnabled(true);
-                D4.setEnabled(true);
-                D5.setEnabled(true);
-                D6.setEnabled(true);
-                D7.setEnabled(true);
-                D8.setEnabled(true);
-                E1.setEnabled(true);
-                E2.setEnabled(true);
-                E3.setEnabled(true);
-                E4.setEnabled(true);
-                E5.setEnabled(true);
-                E6.setEnabled(true);
-                E7.setEnabled(true);
-                E8.setEnabled(true);
-                F1.setEnabled(true);
-                F2.setEnabled(true);
-                F3.setEnabled(true);
-                F4.setEnabled(true);
-                F5.setEnabled(true);
-                F6.setEnabled(true);
-                F7.setEnabled(true);
-                F8.setEnabled(true);
-                G1.setEnabled(true);
-                G2.setEnabled(true);
-                G3.setEnabled(true);
-                G4.setEnabled(true);
-                G5.setEnabled(true);
-                G6.setEnabled(true);
-                G7.setEnabled(true);
-                G8.setEnabled(true);
-                H1.setEnabled(true);
-                H2.setEnabled(true);
-                H3.setEnabled(true);
-                H4.setEnabled(true);
-                H5.setEnabled(true);
-                H6.setEnabled(true);
-                H7.setEnabled(true);
-                H8.setEnabled(true);
-
-                if (SI_wyk) {
-
-                    if (!"O-O".equals(oponet.substring(0, 3))) {
-                        start = oponet.substring(1, 3);
-                        stop = oponet.substring(4, 6);
-                        if (oponet.charAt(6) == '=') {
-                            znak_promocji = oponet.charAt(7);
-
-                        }
-                        aktywuj(odwrot, start);
-                        aktywuj(odwrot, stop);
-                    } else {
-                        if ("O-O".equals(oponet)) {
-                            if (ruchB) {
-                                aktywuj(odwrot, "E1");
-                                aktywuj(odwrot, "G1");
-                            } else {
-                                aktywuj(odwrot, "E8");
-                                aktywuj(odwrot, "G8");
-                            }
-                        }
-                        if ("O-O-O".equals(oponet)) {
-                            if (ruchB) {
-                                aktywuj(odwrot, "E1");
-                                aktywuj(odwrot, "C1");
-                            } else {
-                                aktywuj(odwrot, "E8");
-                                aktywuj(odwrot, "C8");
-                            }
+                            pula_pozycji = 1;
+                            pula_sprawdzona = 1;
+                            oponet = move.toString();
+                            najlepszy = tura_rywala ? Integer.MAX_VALUE : Integer.MIN_VALUE;
                         }
                     }
+                    long czas_stop = System.currentTimeMillis();
+                    long czas = (czas_stop - czas_start) / 1000;
+                    System.out.println("wszystkich kombinacji: " + pula_pozycji);
+                    System.out.println("zaanalizowano kombinacji: " + pula_sprawdzona);
+                    System.out.printf("procent analizowanych kombinacji: %.2f %n", (float) (pula_sprawdzona) / (float) (pula_pozycji) * 100f);
+                    if ("".equals(oponet)) {
+                        oponet = ostatni;
+                    }
+                    System.out.println("Ruch SI:" + oponet + "(" + najlepszy + ")");
+                    System.out.println("Czas SI:" + czas + "s");
+                    float procent = (Math.round(pula_sprawdzona * 10000.0f / pula_pozycji)) / 100.0f;
+                    System.out.println("Czas w min: " + czas / 60 + " min, " + czas % 60 + " s");
+                    jTextArea2.setVisible(true);
+                    laczny_czas = laczny_czas + czas;
+                    jTextArea2.append("Ruch SI:" + oponet + "(" + najlepszy + ") \n");
+                    jTextArea2.append("Czas SI:" + czas + "s" + " \n");
+                    jTextArea2.append("Czas w min: " + czas / 60 + " min, " + czas % 60 + " s" + " \n");
+                    jTextArea2.append("Czas łączny: " + laczny_czas + " \n");
+                    jTextArea2.append("wszystkich kombinacji: " + pula_pozycji + " \n");
+                    jTextArea2.append("zaanalizowano kombinacji: " + pula_sprawdzona + " \n");
+                    jTextArea2.append("procent analizowanych kombinacji:" + procent + " \n \n");
+                    jTextArea2.setCaretPosition(jTextArea2.getDocument().getLength());
+                    SI_wyk = true;
+                    A1.setEnabled(true);
+                    A2.setEnabled(true);
+                    A3.setEnabled(true);
+                    A4.setEnabled(true);
+                    A5.setEnabled(true);
+                    A6.setEnabled(true);
+                    A7.setEnabled(true);
+                    A8.setEnabled(true);
+                    B1.setEnabled(true);
+                    B2.setEnabled(true);
+                    B3.setEnabled(true);
+                    B4.setEnabled(true);
+                    B5.setEnabled(true);
+                    B6.setEnabled(true);
+                    B7.setEnabled(true);
+                    B8.setEnabled(true);
+                    C1.setEnabled(true);
+                    C2.setEnabled(true);
+                    C3.setEnabled(true);
+                    C4.setEnabled(true);
+                    C5.setEnabled(true);
+                    C6.setEnabled(true);
+                    C7.setEnabled(true);
+                    C8.setEnabled(true);
+                    D1.setEnabled(true);
+                    D2.setEnabled(true);
+                    D3.setEnabled(true);
+                    D4.setEnabled(true);
+                    D5.setEnabled(true);
+                    D6.setEnabled(true);
+                    D7.setEnabled(true);
+                    D8.setEnabled(true);
+                    E1.setEnabled(true);
+                    E2.setEnabled(true);
+                    E3.setEnabled(true);
+                    E4.setEnabled(true);
+                    E5.setEnabled(true);
+                    E6.setEnabled(true);
+                    E7.setEnabled(true);
+                    E8.setEnabled(true);
+                    F1.setEnabled(true);
+                    F2.setEnabled(true);
+                    F3.setEnabled(true);
+                    F4.setEnabled(true);
+                    F5.setEnabled(true);
+                    F6.setEnabled(true);
+                    F7.setEnabled(true);
+                    F8.setEnabled(true);
+                    G1.setEnabled(true);
+                    G2.setEnabled(true);
+                    G3.setEnabled(true);
+                    G4.setEnabled(true);
+                    G5.setEnabled(true);
+                    G6.setEnabled(true);
+                    G7.setEnabled(true);
+                    G8.setEnabled(true);
+                    H1.setEnabled(true);
+                    H2.setEnabled(true);
+                    H3.setEnabled(true);
+                    H4.setEnabled(true);
+                    H5.setEnabled(true);
+                    H6.setEnabled(true);
+                    H7.setEnabled(true);
+                    H8.setEnabled(true);
+
+                    if (SI_wyk) {
+
+                        if (!"O-O".equals(oponet.substring(0, 3))) {
+                            start = oponet.substring(1, 3);
+                            stop = oponet.substring(4, 6);
+                            if (oponet.charAt(6) == '=') {
+                                znak_promocji = oponet.charAt(7);
+
+                            }
+                            aktywuj(odwrot, start);
+                            aktywuj(odwrot, stop);
+                        } else {
+                            if ("O-O".equals(oponet)) {
+                                if (ruchB) {
+                                    aktywuj(odwrot, "E1");
+                                    aktywuj(odwrot, "G1");
+                                } else {
+                                    aktywuj(odwrot, "E8");
+                                    aktywuj(odwrot, "G8");
+                                }
+                            }
+                            if ("O-O-O".equals(oponet)) {
+                                if (ruchB) {
+                                    aktywuj(odwrot, "E1");
+                                    aktywuj(odwrot, "C1");
+                                } else {
+                                    aktywuj(odwrot, "E8");
+                                    aktywuj(odwrot, "C8");
+                                }
+                            }
+                        }
+
+                    }
+                    SI_wyk = false;
+
+                } catch (Exception xg) {
+                    xg.printStackTrace();
 
                 }
-                SI_wyk = false;
-
-            } catch (Exception xg) {
-                xg.printStackTrace();
-
-            }
+                if (symulacja) {
+                    Thread.sleep(1000);
+                }
+            } while (symulacja == true);
             return null;
         }
     }
@@ -2276,6 +2481,63 @@ public class SzachowaArena extends javax.swing.JFrame {
                     case 'k':
                         pozycja[i][j] = SI_MIN_MAX_Alfa_Beta.figury.CKrol;
                         break;
+                }
+            }
+        }
+        return pozycja;
+    }
+
+    private figury[][] konwertA(char[][] ustawienie) {
+        figury[][] pozycja = new SzachowaArena.figury[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                switch (ustawienie[i][j]) {
+                    case ' ':
+                        pozycja[i][j] = SzachowaArena.figury.pustka;
+                        break;
+                    case 'P':
+                        pozycja[i][j] = SzachowaArena.figury.BPion;
+                        break;
+                    case 'p':
+                        pozycja[i][j] = SzachowaArena.figury.CPion;
+                        break;
+                    case 'N':
+                        pozycja[i][j] = SzachowaArena.figury.BSkoczek;
+                        break;
+                    case 'n':
+                        pozycja[i][j] = SzachowaArena.figury.CSkoczek;
+                        break;
+                    case 'B':
+                        pozycja[i][j] = SzachowaArena.figury.BGoniec;
+                        break;
+                    case 'b':
+                        pozycja[i][j] = SzachowaArena.figury.CGoniec;
+                        break;
+                    case 'R':
+                        pozycja[i][j] = SzachowaArena.figury.BWieza;
+                        break;
+                    case 'r':
+                        pozycja[i][j] = SzachowaArena.figury.CWieza;
+                        break;
+                    case 'Q':
+                        pozycja[i][j] = SzachowaArena.figury.BHetman;
+                        break;
+                    case 'q':
+                        pozycja[i][j] = SzachowaArena.figury.CHetman;
+                        break;
+                    case 'K':
+                        pozycja[i][j] = SzachowaArena.figury.BKrol;
+                        break;
+                    case 'k':
+                        pozycja[i][j] = SzachowaArena.figury.CKrol;
+                        break;
+                    case 'A':
+                        pozycja[i][j] = SzachowaArena.figury.BAmazonka;
+                        break;
+                    case 'a':
+                        pozycja[i][j] = SzachowaArena.figury.CAmazonka;
+                        break;
+
                 }
             }
         }
@@ -2428,10 +2690,17 @@ public class SzachowaArena extends javax.swing.JFrame {
         styl(kolor_zestaw, kroj_zestaw, kolor_plansza);
         boolean zawrot = odwrot;
         if (!"".equals(ostatni_start) && !"".equals(ostatni_stop)) {
-            JButton poczatek = dobierzprzycisk(ostatni_start, ((!SI_ON && !siec && zawrot) || ((tura_rywala && SI_ON) || (odwrot || siec))));
-            JButton koniec = dobierzprzycisk(ostatni_stop, ((!SI_ON && !siec && zawrot) || ((tura_rywala && SI_ON) || (odwrot || siec))));
-            poczatek.setBorder(new LineBorder(rama, 4));
-            koniec.setBorder(new LineBorder(rama, 4));
+            if (!symulacja) {
+                JButton poczatek = dobierzprzycisk(ostatni_start, ((!SI_ON && !siec && zawrot) || ((tura_rywala && SI_ON) || (odwrot || siec))));
+                JButton koniec = dobierzprzycisk(ostatni_stop, ((!SI_ON && !siec && zawrot) || ((tura_rywala && SI_ON) || (odwrot || siec))));
+                poczatek.setBorder(new LineBorder(rama, 4));
+                koniec.setBorder(new LineBorder(rama, 4));
+            } else {
+                JButton poczatek = dobierzprzycisk(ostatni_start, false);
+                JButton koniec = dobierzprzycisk(ostatni_stop, false);
+                poczatek.setBorder(new LineBorder(rama, 4));
+                koniec.setBorder(new LineBorder(rama, 4));
+            }
         }
     }
 
@@ -4906,7 +5175,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                 lokalS[1] = pomocy;
 
                                 symbol = ust[pomocy - 1][pomocx - 1];
-                                if (symbol == 'K' || symbol == 'Q' || symbol == 'R' || symbol == 'B' || symbol == 'N' || symbol == 'P') {
+                                if (symbol == 'K' || symbol == 'Q' || symbol == 'R' || symbol == 'B' || symbol == 'N' || symbol == 'P' || symbol == 'A') {
                                     pomoci1 = 'W';
                                 } else {
                                     pomoci1 = 'B';
@@ -5052,30 +5321,55 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     temp2[0] = lokalS[1] - 1;
                                     temp2[1] = lokalS[0] - 1;
                                     if (opcje_pomoc == 1 || opcje_pomoc == 2) {
-                                        for (Ruch move : Generator.generuj_posuniecia(konwert(temp1), ruchB, przelotcan,
-                                                bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, true, symbol, temp2, false)) {
-                                            if (!move.toString().substring(0, 3).equals("O-O")) {
-                                                JButton cel = dobierzprzycisk(move.toString().substring(4, 6), odwrot);
-                                                cel.setBorder(new LineBorder(pomoc_ruch, 4));
-                                            } else {
-                                                if (ruchB) {
-                                                    if (move.toString().equals("O-O")) {
-                                                        dobierzprzycisk("G1", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
-                                                    } else {
-                                                        dobierzprzycisk("C1", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
-                                                    }
+                                        System.out.println("opcja" + tryb);
+                                        if (tryb != 4) {
+                                            for (Ruch move : Generator.generuj_posuniecia(konwert(temp1), ruchB, przelotcan,
+                                                    bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, true, symbol, temp2, false)) {
+                                                if (!move.toString().substring(0, 3).equals("O-O")) {
+                                                    JButton cel = dobierzprzycisk(move.toString().substring(4, 6), odwrot);
+                                                    cel.setBorder(new LineBorder(pomoc_ruch, 4));
                                                 } else {
-                                                    if (move.toString().equals("O-O")) {
-                                                        dobierzprzycisk("G8", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                    if (ruchB) {
+                                                        if (move.toString().equals("O-O")) {
+                                                            dobierzprzycisk("G1", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        } else {
+                                                            dobierzprzycisk("C1", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        }
                                                     } else {
-                                                        dobierzprzycisk("C8", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        if (move.toString().equals("O-O")) {
+                                                            dobierzprzycisk("G8", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        } else {
+                                                            dobierzprzycisk("C8", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            for (RuchA moveA : Generator.generuj_posunieciaA(konwertA(temp1), ruchB, przelotcan,
+                                                    bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, true, symbol, temp2, false)) {
+                                                if (!moveA.toString().substring(0, 3).equals("O-O")) {
+                                                    JButton cel = dobierzprzycisk(moveA.toString().substring(4, 6), odwrot);
+                                                    cel.setBorder(new LineBorder(pomoc_ruch, 4));
+                                                } else {
+                                                    if (ruchB) {
+                                                        if (moveA.toString().equals("O-O")) {
+                                                            dobierzprzycisk("G1", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        } else {
+                                                            dobierzprzycisk("C1", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        }
+                                                    } else {
+                                                        if (moveA.toString().equals("O-O")) {
+                                                            dobierzprzycisk("G8", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        } else {
+                                                            dobierzprzycisk("C8", odwrot).setBorder(new LineBorder(pomoc_ruch, 4));
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 } else {
-                                    if (siec == false) {
+                                    if (siec == false && symulacja == false) {
                                         if (czasgry == -1 && siec == false && (opcje_pomoc == 0 || opcje_pomoc == 2)) {
                                             if (ruchB == true) {
                                                 JOptionPane.showMessageDialog(rootPane, "BŁĄD! AKTUALNY RUCH MAJĄ BIAŁE", "bład koloru",
@@ -5247,8 +5541,8 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                 kingrochB = false;
                                             }
                                         }
-                                        System.out.println(wright+ " "+wleft);
-                                        System.out.println(bright+ " "+bleft);
+                                        System.out.println(wright + " " + wleft);
+                                        System.out.println(bright + " " + bleft);
                                         atak = krolS;
                                         if ((symbol == 'K' || symbol == 'k') && atak == false && ((ruchB == true && kingrochB == true && (((lokalS[0] - lokalK[0]) == -2 && ust[0][5] == ' ' && ust[0][6] == ' ' && wright == true) || (lokalS[0] - lokalK[0] == 2 && ust[0][3] == ' ' && ust[0][2] == ' ' && ust[0][1] == ' ' && wleft == true)))
                                                 || (ruchB == false && kingrochC == true && (((lokalS[0] - lokalK[0]) == -2 && ust[7][5] == ' ' && ust[7][6] == ' ' && bright == true) || (lokalS[0] - lokalK[0] == 2 && ust[7][3] == ' ' && ust[7][2] == ' ' && ust[7][1] == ' ' && bleft == true))))) {
@@ -5412,7 +5706,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                 }
                                                 if (krolS == true) {
                                                     char[][] backup = ust;
-                                                    if (siec == false) {
+                                                    if (siec == false && symulacja == false) {
                                                         JOptionPane.showMessageDialog(rootPane, "SZACH! KROL JEST ATAKOWANY", "Ostrzeżenie",
                                                                 JOptionPane.WARNING_MESSAGE);
                                                     }
@@ -5451,7 +5745,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                     move = false;
                                                     for (int i = 0; i < 8; i++) {
                                                         for (int j = 0; j < 8; j++) {
-                                                            System.out.print("[" + ust[i][j] + "]");
+                                                            System.out.print("(" + ust[i][j] + ")");
                                                         }
                                                         System.out.println();
                                                     }
@@ -5612,7 +5906,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                             }
                                                             if (krolS == true) {
                                                                 char[][] backup = ust;
-                                                                if (siec == false) {
+                                                                if (siec == false && symulacja == false) {
                                                                     JOptionPane.showMessageDialog(rootPane, "SZACH! KROL JEST ATAKOWANY", "Ostrzeżenie",
                                                                             JOptionPane.WARNING_MESSAGE);
                                                                 }
@@ -6165,7 +6459,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         }
                                                         if (krolS == true) {
                                                             char[][] backup = ust;
-                                                            if (siec == false) {
+                                                            if (siec == false && symulacja == false) {
                                                                 JOptionPane.showMessageDialog(rootPane, "SZACH! KROL JEST ATAKOWANY", "Ostrzeżenie",
                                                                         JOptionPane.WARNING_MESSAGE);
                                                             }
@@ -6384,12 +6678,17 @@ public class SzachowaArena extends javax.swing.JFrame {
                                             czysc_rame();
                                             ustawrame();
                                         } else {
-                                            kon = RuchZagrozenie_kontrola.ruch(lokalS, lokalK, symbol, ust.clone(), ruchB, przelotcan, kol);
-                                            char[][] tymczas = ust.clone();
+                                            kon = RuchZagrozenie_kontrola.ruch(lokalS, lokalK, symbol, ust, ruchB, przelotcan, kol);
+                                            char[][] tymczas = new char[8][8];
+                                            for(int i = 0;i<8;i++){
+                                             for(int j = 0;j<8;j++){
+                                                tymczas[i][j]=ust[i][j];
+                                            }   
+                                            }
                                             tymczas[lokalS[1] - 1][lokalS[0] - 1] = ' ';
                                             char przech = tymczas[lokalK[1] - 1][lokalK[0] - 1];
                                             tymczas[lokalK[1] - 1][lokalK[0] - 1] = symbol;
-                                            pakc = RuchZagrozenie_kontrola.szach(tymczas.clone(), ruchB);
+                                            pakc = RuchZagrozenie_kontrola.szach(tymczas, ruchB);
                                             if (kon == true && pakc == false) {
                                                 krolS = false;
                                                 bicie = true;
@@ -6425,9 +6724,9 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         ciezkieC = (byte) (ciezkieC - 1);
                                                         break;
                                                 }
-                                               
+
                                                 zmien = true;
-                                                
+
                                                 if ((symbol == 'P' && lokalK[1] == 8) || (symbol == 'p' && lokalK[1] == 1)) {
                                                     promocja = true;
                                                     Object[] opcjeB = {b1, b2, b3, b4};
@@ -6656,7 +6955,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                     }
                                                     if (krolS == true) {
                                                         char[][] backup;
-                                                        if (siec == false) {
+                                                        if (siec == false && symulacja == false) {
                                                             JOptionPane.showMessageDialog(rootPane, "SZACH! KROL JEST ATAKOWANY", "Ostrzeżenie",
                                                                     JOptionPane.WARNING_MESSAGE);
                                                         }
@@ -6694,11 +6993,14 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                     } else {
                                                         krolS = false;
                                                         move = false;
+                                                        char[][] temp = new char[8][8];
+                                                        // System.out.println("wy");
                                                         for (int i = 0; i < 8; i++) {
                                                             for (int j = 0; j < 8; j++) {
-                                                                System.out.print("[" + ust[i][j] + "]");
+                                                                temp[i][j]=ust[i][j];
+                                                                //System.out.print("[" + ust[i][j] + "]");
                                                             }
-                                                            System.out.println();
+                                                           // System.out.println();
                                                         }
                                                         for (int i = 0; i < 8; i++) {
                                                             for (int j = 0; j < 8; j++) {
@@ -6709,10 +7011,10 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                         if ((ruchB == true && ust[i][j] == 'K') || (ruchB == false && ust[i][j] == 'k')) {
                                                                             pole_baza[0] = i;
                                                                             pole_baza[1] = j;
-                                                                            hodu = SzachMatPatKontrola.uciekaj(ust, ruchB, pole_baza);
+                                                                            hodu = SzachMatPatKontrola.uciekaj(temp, ruchB, pole_baza);
                                                                         }
                                                                     } else {
-                                                                        move = SzachMatPatKontrola.znajdz_ruch(ust, ruchB, ust[i][j], pole_baza, przelotcan);
+                                                                        move = SzachMatPatKontrola.znajdz_ruch(temp, ruchB, temp[i][j], pole_baza, przelotcan);
                                                                         if (move == true) {
                                                                             break;
                                                                         }
@@ -6723,7 +7025,6 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                                 break;
                                                             }
                                                         }
-
                                                     }
                                                 } else {
                                                     koniecanimacji = true;
@@ -7113,14 +7414,14 @@ public class SzachowaArena extends javax.swing.JFrame {
                                             }
                                             if (symbol == 'K') {
                                                 kingrochB = false;
-                                                dokonano_RB = Math.abs(lokalS[0]-lokalS[1])==2;
+                                                dokonano_RB = Math.abs(lokalS[0] - lokalS[1]) == 2;
                                             }
                                             if (symbol == 'k') {
                                                 kingrochC = false;
-                                                dokonano_RC = Math.abs(lokalS[0]-lokalS[1])==2;
+                                                dokonano_RC = Math.abs(lokalS[0] - lokalS[1]) == 2;
                                             }
-                                            if(symbol=='r'||symbol=='R'){
-                                                switch (start) {
+                                            if (bicie == true) {
+                                                switch (stop) {
                                                     case "A1":
                                                         wleft = false;
                                                         if (!wright && !wleft) {
@@ -7129,14 +7430,14 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         break;
                                                     case "A8":
                                                         bleft = false;
-                                                        if (!wright && !wleft) {
-                                                            kingrochB = false;
+                                                        if (!bright && !bleft) {
+                                                            kingrochC = false;
                                                         }
                                                         break;
                                                     case "H1":
                                                         wright = false;
-                                                        if (!bright && !bleft) {
-                                                            kingrochC = false;
+                                                        if (!wright && !wleft) {
+                                                            kingrochB = false;
                                                         }
                                                         break;
                                                     case "H8":
@@ -7146,8 +7447,37 @@ public class SzachowaArena extends javax.swing.JFrame {
                                                         }
                                                         break;
                                                 }
+                                            }
+                                            if (symbol == 'r' || symbol == 'R') {
+                                                switch (start) {
+                                                    case "A1":
+                                                        wleft = false;
+                                                        if (!wright && !wleft) {
+                                                            kingrochB = false;
+                                                        }
+                                                        break;
+                                                    case "A8":
+                                                        bleft = false;
+                                                        if (!bright && !bleft) {
+                                                            kingrochC = false;
+                                                        }
+                                                        break;
+                                                    case "H1":
+                                                        wright = false;
+                                                        if (!wright && !wleft) {
+                                                            kingrochB = false;
+                                                        }
+                                                        break;
+                                                    case "H8":
+                                                        bright = false;
+                                                        if (!bright && !bleft) {
+                                                            kingrochC = false;
+                                                        }
+                                                        break;
+                                                }
+                                            }
                                         }
-                                        }
+                                        jTextArea3.setCaretPosition(jTextArea3.getDocument().getLength());
                                         if (siec == true) {
                                             try {
                                                 msgwy = ruch;
@@ -7206,8 +7536,9 @@ public class SzachowaArena extends javax.swing.JFrame {
                                 roch = false;
                                 dokonanoEP = false;
                                 dobierz_kursor_na_przycisku(' ', null);
-                                setCursor(Cursor.DEFAULT_CURSOR);
+                                setCursor(Cursor.getDefaultCursor());
                                 dobierz_kursor_na_przycisku(' ', null);
+
                             }
                         }
                     }
@@ -7768,7 +8099,7 @@ public class SzachowaArena extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         obrotowy = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        SIOnOff = new javax.swing.JButton();
         resetgame = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         Przycisk_help = new javax.swing.JButton();
@@ -9214,10 +9545,10 @@ public class SzachowaArena extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("SI_włącz");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        SIOnOff.setText("SI_włącz");
+        SIOnOff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                SIOnOffActionPerformed(evt);
             }
         });
 
@@ -9610,7 +9941,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(Przycisk_help, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(SIOnOff, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -9817,7 +10148,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
+                            .addComponent(SIOnOff)
                             .addComponent(Przycisk_help))
                         .addGap(1, 1, 1)
                         .addComponent(jLabel9)
@@ -10385,7 +10716,7 @@ public class SzachowaArena extends javax.swing.JFrame {
 
     private void jButton67ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton67ActionPerformed
         Object[] opcje_czasu = {"60", "30", "15+10", "10", "5+5", "5", "3+2", "3", "2+1", "1", "inny system"};
-        Object[] opcje_trybu = {"klasyczny bez limitu", "klasyczny na czas", "SzachMaty", "Paco Sako"};
+        Object[] opcje_trybu = {"klasyczny bez limitu", "klasyczny na czas", "SzachMaty", "Paco Sako", "Amazonka"};
         Object[] opcje_rywala = {"Graj z innym graczem", "Graj z SI jako białe", "Graj z SI jako czarne"};
         sztuczny_rywal = (byte) JOptionPane.showOptionDialog(rootPane, "Gra z SI?", "opcje SI", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcje_rywala, null);
         JSlider suwak_trudnosci = new JSlider(1, 14, 1);
@@ -10441,76 +10772,90 @@ public class SzachowaArena extends javax.swing.JFrame {
         if (SI_ON == false) {
             tryb = (byte) JOptionPane.showOptionDialog(rootPane, "wybierz opcje gry", "opcje gry", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcje_trybu, null);
         }
-        if (tryb == 1) {
-            czasgry = JOptionPane.showOptionDialog(rootPane, "wybierz opcje czasowe", "opcje czasu", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcje_czasu, null);
-        }
-        if (tryb == 2) {
-            boolean prawidlowosc;
-            do {
-                try {
-                    sek = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "podaj na ruch w sekundach", "parametry gry", JOptionPane.INFORMATION_MESSAGE));
-                    prawidlowosc = sek > 0;
-                    if (prawidlowosc == true) {
-                        seksyg = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "podaj dlugosc sygnału(mniejszy niż czas na ruch)", "parametry gry", JOptionPane.INFORMATION_MESSAGE));
-                        prawidlowosc = sek > seksyg && seksyg > 0;
+        switch (tryb) {
+            case 1:
+                czasgry = JOptionPane.showOptionDialog(rootPane, "wybierz opcje czasowe", "opcje czasu", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcje_czasu, null);
+                break;
+            case 2:
+                boolean prawidlowosc;
+                do {
+                    try {
+                        sek = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "podaj na ruch w sekundach", "parametry gry", JOptionPane.INFORMATION_MESSAGE));
+                        prawidlowosc = sek > 0;
                         if (prawidlowosc == true) {
-                            sekbaza = sek;
-                            blokada = new ReentrantLock();
-                            warunek = blokada.newCondition();
-                            czasB = (new zegar(sek * 1000, zegarbiale, blokada, warunek, true, tryb, seksyg));
-                            czasC = (new zegar(sek * 1000, zegarczarne, blokada, warunek, false, tryb, seksyg));
-                            zegarbiale.setText(String.valueOf(sek));
-                            zegarczarne.setText(String.valueOf(sek));
+                            seksyg = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "podaj dlugosc sygnału(mniejszy niż czas na ruch)", "parametry gry", JOptionPane.INFORMATION_MESSAGE));
+                            prawidlowosc = sek > seksyg && seksyg > 0;
+                            if (prawidlowosc == true) {
+                                sekbaza = sek;
+                                blokada = new ReentrantLock();
+                                warunek = blokada.newCondition();
+                                czasB = (new zegar(sek * 1000, zegarbiale, blokada, warunek, true, tryb, seksyg));
+                                czasC = (new zegar(sek * 1000, zegarczarne, blokada, warunek, false, tryb, seksyg));
+                                zegarbiale.setText(String.valueOf(sek));
+                                zegarczarne.setText(String.valueOf(sek));
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "musisz podać liczbę całkowitą \n bez wartosci po przecinku");
+                            }
                         } else {
                             JOptionPane.showMessageDialog(rootPane, "musisz podać liczbę całkowitą \n bez wartosci po przecinku");
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "musisz podać liczbę całkowitą \n bez wartosci po przecinku");
+                    } catch (HeadlessException | NumberFormatException e) {
+                        JOptionPane.showMessageDialog(rootPane, "musisz podać liczbę całkowitą większą od 0 \n bez wartosci po przecinku");
+                        prawidlowosc = false;
                     }
-                } catch (HeadlessException | NumberFormatException e) {
-                    JOptionPane.showMessageDialog(rootPane, "musisz podać liczbę całkowitą większą od 0 \n bez wartosci po przecinku");
-                    prawidlowosc = false;
-                }
-            } while (prawidlowosc != true);
-        }
-        if (tryb == 3) {
-            obrotowy.setText("Obrót WYŁ");
-            jMenu1.setEnabled(false);
-            jPopupMenu1.setEnabled(false);
-            kroj_zestaw = 1;
-            kolor_zestaw = 1;
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    switch (ust[i][j]) {
-                        case 'K':
-                        case 'Q':
-                        case 'R':
-                        case 'B':
-                        case 'N':
-                        case 'P':
-                            szachownica_pokoj[i][j][0] = ust[i][j];
-                            szachownica_pokoj[i][j][1] = ' ';
-                            break;
-                        case 'k':
-                        case 'q':
-                        case 'r':
-                        case 'b':
-                        case 'n':
-                        case 'p':
-                            szachownica_pokoj[i][j][1] = ust[i][j];
-                            szachownica_pokoj[i][j][0] = ' ';
-                            break;
-                        default:
-                            szachownica_pokoj[i][j][0] = ' ';
-                            szachownica_pokoj[i][j][1] = ' ';
-                            break;
+                } while (prawidlowosc != true);
+                SIOnOff.setEnabled(false);
+                break;
+            case 3:
+                SIOnOff.setEnabled(false);
+                obrotowy.setText("Obrót WYŁ");
+                jMenu1.setEnabled(false);
+                jPopupMenu1.setEnabled(false);
+                kroj_zestaw = 1;
+                kolor_zestaw = 1;
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        switch (ust[i][j]) {
+                            case 'K':
+                            case 'Q':
+                            case 'R':
+                            case 'B':
+                            case 'N':
+                            case 'P':
+                                szachownica_pokoj[i][j][0] = ust[i][j];
+                                szachownica_pokoj[i][j][1] = ' ';
+                                break;
+                            case 'k':
+                            case 'q':
+                            case 'r':
+                            case 'b':
+                            case 'n':
+                            case 'p':
+                                szachownica_pokoj[i][j][1] = ust[i][j];
+                                szachownica_pokoj[i][j][0] = ' ';
+                                break;
+                            default:
+                                szachownica_pokoj[i][j][0] = ' ';
+                                szachownica_pokoj[i][j][1] = ' ';
+                                break;
+                        }
                     }
                 }
-            }
+                break;
+            case 4:
+                ust[0][3] = 'A';
+                ust[7][3] = 'a';
+                SIOnOff.setEnabled(false);
+                styl(kolor_zestaw, kroj_zestaw, kolor_plansza);
+                JOptionPane.showMessageDialog(rootPane, "W tym trybie nie masz hetmana.\n Zamiast tego masz amazonkę.\n"
+                        + "Amazonka posiada właściwości hetmana i skoczka.\n"
+                        + "Amazonka jest przedstawiona jako hetman na skoczku, tak jak w ikonce tej wiadomości", "Właściwości amazonki", JOptionPane.INFORMATION_MESSAGE, b1);
+                break;
         }
         blokada = new ReentrantLock();
         warunek = blokada.newCondition();
         if (tryb == 1) {
+            SIOnOff.setEnabled(false);
             switch (czasgry) {
                 case 0:
                     czasB = (new zegar(60 * 60 * 1000, zegarbiale, blokada, warunek, true, tryb));
@@ -10982,6 +11327,7 @@ public class SzachowaArena extends javax.swing.JFrame {
             if (!in3.readUTF().equals("TEST")) {
                 in = new DataInputStream(socket.getInputStream());
                 out = new DataOutputStream(socket.getOutputStream());
+                SIOnOff.setEnabled(false);
                 polacz(bazamin);
             } else {
                 in3.close();
@@ -11236,6 +11582,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                     SI_ON = false;
                                     break;
                             }
+                            SIOnOff.setEnabled(true);
                             obrotowy.setVisible(!(SI_ON || siec));
                             System.out.println(glebiaSI);
                             if (SI_ON && ((tura_rywala && bialeRuch.isSelected()) || (!tura_rywala && czarneRuch.isSelected()))) {
@@ -11246,7 +11593,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                                             odwrotna[i][j] = ust[7 - i][7 - j];
                                         }
                                         // backup1[i][j] = ust[i][j];
-                                        System.out.print("[" + backup1[i][j] + "]");
+                                        System.out.print("(" + backup1[i][j] + ")");
                                     }
                                     System.out.println();
                                 }
@@ -11346,6 +11693,7 @@ public class SzachowaArena extends javax.swing.JFrame {
     }//GEN-LAST:event_czarneRuchActionPerformed
 
     private void jButton71ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton71ActionPerformed
+        SIOnOff.setEnabled(false);
         jButton67.setVisible(false);
         jButton65.setVisible(false);
         jButton82.setVisible(false);
@@ -11633,6 +11981,7 @@ public class SzachowaArena extends javax.swing.JFrame {
             out = new DataOutputStream(socket.getOutputStream());
             out.writeUTF("");
             jTextArea2.setText(jTextArea2.getText().trim() + "polaczono z innym graczem" + "\n");
+            SIOnOff.setEnabled(false);
             zegarbiale.setText("--:--");
             zegarczarne.setText("--:--");
             polaczenie_net = new lacze();
@@ -11857,21 +12206,21 @@ public class SzachowaArena extends javax.swing.JFrame {
             }
         } else {
             obrotowy.setText("Obrót WŁ");
-            if(!ruchB){
-                odwrot=true;
-                 styl(kolor_zestaw, kroj_zestaw, kolor_plansza);
+            if (!ruchB) {
+                odwrot = true;
+                styl(kolor_zestaw, kroj_zestaw, kolor_plansza);
                 try {
-                ustawrame();
-            } catch (NullPointerException ignored) {
+                    ustawrame();
+                } catch (NullPointerException ignored) {
 
-            }
+                }
             }
         }
     }//GEN-LAST:event_obrotowyActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jButton2.getText().equals("SI_włącz")) {
-            Object[] opcje_rywala = {"Anuluj", "Graj z SI jako białe", "Graj z SI jako czarne"};
+    private void SIOnOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SIOnOffActionPerformed
+        if (SIOnOff.getText().equals("SI_włącz")) {
+            Object[] opcje_rywala = {"Anuluj", "Graj z SI jako białe", "Graj z SI jako czarne", "symulacja"};
             sztuczny_rywal = (byte) JOptionPane.showOptionDialog(rootPane, "Gra z SI?", "opcje SI", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcje_rywala, null);
             JSlider suwak_trudnosci = new JSlider(1, 14, 1);
             Hashtable Opisy = new Hashtable();
@@ -11890,8 +12239,19 @@ public class SzachowaArena extends javax.swing.JFrame {
             suwak_trudnosci.setPaintLabels(true);
             czasgry = -1;
             switch (sztuczny_rywal) {
+                case 3:
+                    SIOnOff.setEnabled(false);
+                    tura_rywala = true;
+                    tryb = 0;
+                    symulacja = true;
+                    SI_ON = true;
+                    odwrot = false;
+                    obrotowy.setText("Obrót WYŁ");
+                    JOptionPane.showMessageDialog(null, suwak_trudnosci, "wybierz stopień trudności", JOptionPane.INFORMATION_MESSAGE);
+                    glebiaSI = (byte) (byte) suwak_trudnosci.getValue();
+                    break;
                 case 1:
-                    jButton2.setEnabled(false);
+                    SIOnOff.setEnabled(false);
                     tura_rywala = false;
                     tryb = 0;
                     SI_ON = true;
@@ -11901,7 +12261,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                     glebiaSI = (byte) (byte) suwak_trudnosci.getValue();
                     break;
                 case 2:
-                    jButton2.setEnabled(false);
+                    SIOnOff.setEnabled(false);
                     tura_rywala = true;
                     tryb = 0;
                     SI_ON = true;
@@ -11919,7 +12279,8 @@ public class SzachowaArena extends javax.swing.JFrame {
                     obrotowy.setText("Obrót WŁ");
                     break;
             }
-            if (SI_ON && tura_rywala == ruchB) {
+            SIOnOff.setEnabled(false);
+            if ((SI_ON && tura_rywala == ruchB) || symulacja == true) {
                 char[][] backup1 = new char[8][8];
                 for (int i = 0; i < 8; i++) {
                     System.arraycopy(ust[i], 0, backup1[i], 0, 8);
@@ -11937,7 +12298,7 @@ public class SzachowaArena extends javax.swing.JFrame {
             SI_ON = false;
             obrotowy.setVisible(true);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_SIOnOffActionPerformed
 
     private void resetgameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetgameActionPerformed
         try {
@@ -12045,7 +12406,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                     fileWriter.write("\n");
                 }
                 fileWriter.print(ruchB + "|" + przelotcan + "|" + kingrochB + "|" + kingrochC + "|" + dokonano_RB + "|" + dokonano_RC
-                        + "|" + dolicz + "|");
+                        + "|" + dolicz + "|" + wright + "|" + wleft + "|" + bright + "|" + bleft + "|");
                 fileWriter.println();
                 fileWriter.print(zasada50 + "+" + kol + "+" + movenr);
                 fileWriter.println();
@@ -12066,12 +12427,12 @@ public class SzachowaArena extends javax.swing.JFrame {
     private void partia_wznowionaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_partia_wznowionaActionPerformed
         FileDialog plikw = new FileDialog(this, "Wybierz plik", FileDialog.LOAD);
         plikw.setVisible(true);
-        pionB=0;
-        pionC=0;
-        lekkieB=0;
-        lekkieC=0;
-        ciezkieB=0;
-        ciezkieC=0;
+        pionB = 0;
+        pionC = 0;
+        lekkieB = 0;
+        lekkieC = 0;
+        ciezkieB = 0;
+        ciezkieC = 0;
         String katalog = plikw.getDirectory();
         String nazwa = plikw.getFile();
         if (plikw.getFile() != null) {
@@ -12084,7 +12445,6 @@ public class SzachowaArena extends javax.swing.JFrame {
                 Scanner inP;
                 inP = new Scanner(plik);
                 for (int i = 0; i < 8; i++) {
-
                     String zdanie = inP.nextLine();
                     for (int j = 0; j < 8; j++) {
                         ust[i][j] = zdanie.charAt(j);
@@ -12124,6 +12484,10 @@ public class SzachowaArena extends javax.swing.JFrame {
                 dokonano_RB = Boolean.valueOf(st.nextToken());
                 dokonano_RC = Boolean.valueOf(st.nextToken());
                 dolicz = Boolean.valueOf(st.nextToken());
+                wright = Boolean.valueOf(st.nextToken());
+                wleft = Boolean.valueOf(st.nextToken());
+                bright = Boolean.valueOf(st.nextToken());
+                bleft = Boolean.valueOf(st.nextToken());
                 zdanie = inP.nextLine();
                 st = new StringTokenizer(zdanie);
                 zasada50 = Byte.parseByte(st.nextToken("+"));
@@ -12320,6 +12684,7 @@ public class SzachowaArena extends javax.swing.JFrame {
     private javax.swing.JButton Przycisk_help;
     private javax.swing.JMenuItem Ramowka;
     private javax.swing.JMenuItem Ramowka1;
+    private javax.swing.JButton SIOnOff;
     private javax.swing.JMenuItem Wlasne_kolor_ciemne;
     private javax.swing.JMenuItem Wlasne_kolor_ciemne1;
     private javax.swing.JMenuItem Wlasne_kolor_jasne;
@@ -12340,7 +12705,6 @@ public class SzachowaArena extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JRadioButton czarneRuch;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton65;
     private javax.swing.JButton jButton66;
     private javax.swing.JButton jButton67;

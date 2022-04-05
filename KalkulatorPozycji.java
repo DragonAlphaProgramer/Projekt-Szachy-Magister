@@ -51,23 +51,23 @@ implements Kalkulator {
 
     private final int[][] BONUS_CZARNY_SKOCZEK = {
         {-50, -40, -30, -30, -30, -30, -40, -50},
-        {-40, -20, 0, 0, 0, 0, -20, -40},
-        {-30, 0, 10, 15, 15, 10, 0, -30},
-        {-30, 5, 15, 20, 20, 15, 5, -30},
-        {-30, 0, 15, 20, 20, 15, 0, -30},
-        {-30, 5, 10, 15, 15, 10, 5, -30},
         {-40, -20, 0, 5, 5, 0, -20, -40},
+        {-30, 5, 10, 15, 15, 10, 5, -30},
+        {-30, 0, 15, 20, 20, 15, 0, -30},
+        {-30, 5, 15, 20, 20, 15, 5, -30},
+        {-30, 0, 10, 15, 15, 10, 0, -30},
+        {-40, -20, 0, 0, 0, 0, -20, -40},
         {-50, -40, -30, -30, -30, -30, -40, -50}
     };
 
     private final int[][] BONUS_BIALY_SKOCZEK = {
         {-50, -40, -30, -30, -30, -30, -40, -50},
-        {-40, -20, 0, 5, 5, 0, -20, -40},
-        {-30, 5, 10, 15, 15, 10, 5, -30},
-        {-30, 0, 15, 20, 20, 15, 0, -30},
-        {-30, 5, 15, 20, 20, 15, 5, -30},
-        {-30, 0, 10, 15, 15, 10, 0, -30},
         {-40, -20, 0, 0, 0, 0, -20, -40},
+        {-30, 0, 10, 15, 15, 10, 0, -30},
+        {-30, 5, 15, 20, 20, 15, 5, -30},
+        {-30, 0, 15, 20, 20, 15, 0, -30},
+        {-30, 5, 10, 15, 15, 10, 5, -30},
+        {-40, -20, 0, 5, 5, 0, -20, -40},
         {-50, -40, -30, -30, -30, -30, -40, -50}};
 
     private final int[][] BONUS_CZARNY_GONIEC = {
@@ -116,8 +116,8 @@ implements Kalkulator {
         {-20, -10, -10, -5, -5, -10, -10, -20},
         {-10, 0, 0, 0, 0, 0, 0, -10},
         {-10, 0, 5, 5, 5, 5, 0, -10},
-        {-5, 0, 5, 5, 5, 5, 0, -5},
-        {-5, 0, 5, 5, 5, 5, 0, -5},
+        {0, 0, 5, 5, 5, 5, 0, -5},
+        {0, 0, 5, 5, 5, 5, 0, -5},
         {-10, 5, 5, 5, 5, 5, 0, -10},
         {-10, 0, 5, 0, 0, 0, 0, -10},
         {-20, -10, -10, -5, -5, -10, -10, -20}
@@ -127,7 +127,7 @@ implements Kalkulator {
         {-20, -10, -10, -5, -5, -10, -10, -20},
         {-10, 0, 5, 0, 0, 0, 0, -10},
         {-10, 5, 5, 5, 5, 5, 0, -10},
-        {-5, 0, 5, 5, 5, 5, 0, -5},
+        {0, 0, 5, 5, 5, 5, 0, -5},
         {-5, 0, 5, 5, 5, 5, 0, -5},
         {-10, 0, 5, 5, 5, 5, 0, -10},
         {-10, 0, 0, 0, 0, 0, 0, -10},
@@ -181,7 +181,8 @@ implements Kalkulator {
             boolean bleft, boolean bright, boolean wleft, boolean wright,
             boolean roszadaB, boolean roszadaC, boolean wykonanaRochB, boolean wykonanaRochC,
             int glebia, int kol) {
-            /*System.out.println(("White Mobility : " + mobilnosc(ustawienie,true,przelotcan,bleft,bright,wleft,wright,roszadaB,roszadaC,kol)
+          /*  System.out.println("");
+            System.out.println(("White Mobility : " + mobilnosc(ustawienie,true,przelotcan,bleft,bright,wleft,wright,roszadaB,roszadaC,kol)
                  + "\n") +
                 "White kingThreats : " + szachmat(true,ustawienie,glebia,przelotcan,kol) + "\n" +
                 "White attacks : " + ruchy_zbijajace(ustawienie,true,przelotcan,bleft,bright,wleft,wright,roszadaB,roszadaC,kol) + "\n" +
@@ -232,7 +233,7 @@ implements Kalkulator {
                             break;
                         case CGoniec:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_CZARNY_GONIEC[x][y] + "]");
-                            wartosc = wartosc + (350 + BONUS_CZARNY_GONIEC[x][y]);
+                            wartosc = wartosc + (330 + BONUS_CZARNY_GONIEC[x][y]);
                             gonce=gonce+1;
                             break;
                         case CWieza:
@@ -263,7 +264,7 @@ implements Kalkulator {
                             break;
                         case BGoniec:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_BIALY_GONIEC[x][y] + "]");
-                            wartosc = wartosc + (350 + BONUS_BIALY_GONIEC[x][y]);
+                            wartosc = wartosc + (330 + BONUS_BIALY_GONIEC[x][y]);
                             gonce=gonce+1;
                             break;
                         case BWieza:
@@ -294,13 +295,16 @@ implements Kalkulator {
         boolean zagrozone;
         if (RuchZagrozenie_kontrola.szach(SI_MIN_MAX_Alfa_Beta.konwert(ustawienie), strona) == true) {
             zagrozone = true;
-            char[][] backup = SI_MIN_MAX_Alfa_Beta.konwert(ustawienie);
-            char[][] backup1 = SI_MIN_MAX_Alfa_Beta.konwert(ustawienie);
-            char[][] backup2 = SI_MIN_MAX_Alfa_Beta.konwert(ustawienie);
-            char[][] backup3 = SI_MIN_MAX_Alfa_Beta.konwert(ustawienie);
+            char[][] backup = new char[8][8];
+            char[][] backup1 = new char[8][8];
+            char[][] backup2 = new char[8][8];
+            char[][] backup3 = new char[8][8];
             for (byte i = 0; i < 8; i++) {
                 for (byte j = 0; j < 8; j++) {
-
+                    backup[i][j] = SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[i][j];
+                    backup[i][j] = SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[i][j];
+                    backup2[i][j] = SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[i][j];
+                    backup3[i][j] = SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[i][j];
                     if ((ustawienie[i][j] == SI_MIN_MAX_Alfa_Beta.figury.BKrol && strona == true)
                             || (ustawienie[i][j] == SI_MIN_MAX_Alfa_Beta.figury.CKrol && strona == false)) {
                         krol[0] = i;
@@ -309,8 +313,8 @@ implements Kalkulator {
                 }
             }
             return SzachMatPatKontrola.uciekaj(backup1, strona, krol) == false
-                    && SzachMatPatKontrola.zastaw(backup2, strona, Wspomagacz.znajdzklopot(backup, strona), krol, przelotcan) == false
-                    && SzachMatPatKontrola.znajdzodsiecz(backup3, strona, Wspomagacz.znajdzklopot(backup, strona), kol, przelotcan) == false
+                    && SzachMatPatKontrola.zastaw(backup2, strona, Wspomagacz.znajdzklopot(backup2, strona), krol, przelotcan) == false
+                    && SzachMatPatKontrola.znajdzodsiecz(backup3, strona, Wspomagacz.znajdzklopot(backup3, strona), kol, przelotcan) == false
                     ? (glebia != 0 ? -MAT * glebia : -MAT) : zagrozone == true ? -SZACH : 0;
 
         }
@@ -356,13 +360,11 @@ implements Kalkulator {
 
     private int stosunek(SI_MIN_MAX_Alfa_Beta.figury[][] ustawienie,boolean b,boolean przelotcan,
             boolean bleft,boolean bright,boolean wleft,boolean wright,boolean roszadaB,boolean roszadaC,int kol) {
-        float swoje = (Generator.generuj_posuniecia(ustawienie, b, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol, false, ' ', TEMP1, true).size() * 10.0f);
-        float wrogie = Generator.generuj_posuniecia(ustawienie, !b, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol, false, ' ', TEMP1, true).size();
-        if(wrogie!=0){
-        return (int) (swoje / wrogie);
-        }else{
-            return (int) swoje;
-        }
+        int swoje = (Generator.generuj_posuniecia(ustawienie, b, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol, false, true).size());
+        int wrogie = Generator.generuj_posuniecia(ustawienie, !b, przelotcan, bleft, bright, wleft, wright, roszadaB, roszadaC, 0, kol, false,true).size();
+        
+        return (int) ((swoje*10.0f) / wrogie);
+        
     }
 
     private int save_king(char[][] ustawienie, boolean strona, boolean przelotcan,
