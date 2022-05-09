@@ -2254,8 +2254,7 @@ public class SzachowaArena extends javax.swing.JFrame {
                     for (Ruch move : Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
                             bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false)) {
                         if (Generator.generuj_posuniecia(konwert(backup.clone()), ruchB, przelotcan,
-                                bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size() > 1) {
-
+                                bleft, bright, wleft, wright, kingrochB, kingrochC, 1, kol, false, ' ', new int[2], false).size() > 1) {                            
                             elem++;
                             jProgressBar1.setValue(elem);
                             setProgress((int) (elem * 1f / dlugosc * 100.0f));

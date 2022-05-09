@@ -735,9 +735,10 @@ public class RuchZagrozenie_kontrola {
                     krolX = (byte) (i + 4);
                     krolY = (byte) (j + 4);
                 }
+                
             }
         }
-        
+      //  System.out.println(krolX+" "+krolY);
         if ((czybiale && ((pomocnicze[krolX + 2][krolY - 1] == 'n')
                 || (pomocnicze[krolX + 2][krolY + 1] == 'n')
                 || (pomocnicze[krolX - 2][krolY - 1] == 'n')

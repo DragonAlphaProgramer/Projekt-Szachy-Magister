@@ -276,7 +276,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
                 this.bleft, this.bright, this.wleft, this.wright, this.kingrochB, this.kingrochC, 2, kolumna, false, ' ', temp1, false)) {
             if (RuchZagrozenie_kontrola.szach(konwert(move.chessboard_after), this.tura_rywala) == false
                     && obecnosc(move.chessboard_after) == true) {
-                //System.out.println(move.toString()+ "|"+glebia);
+            //    System.out.println(move.toString()+ "|"+move.wspolczynnik_bitki);
                 byte Nkolumna;
                 if (move.kolejnosc == Ruch.figura.Pion && (Math.abs(pozyskajkordkolumna(move.koniec2) - pozyskajkordkolumna(move.start2)) == 2)) {
                     Nkolumna = (byte) (pozyskajkordrzad(move.start1));
@@ -332,7 +332,7 @@ public class SI_MIN_MAX_Alfa_Beta extends Observable {
             if (RuchZagrozenie_kontrola.szach(konwert(move.chessboard_after), this.tura_rywala) == false
                     && obecnosc(move.chessboard_after) == true) {
                 byte Nkolumna;
-                // System.out.println(move.toString()+ "|"+glebia); 
+               // System.out.println(move.toString()+ "|"+move.wspolczynnik_bitki); 
                 if (move.kolejnosc == Ruch.figura.Pion && (Math.abs(pozyskajkordkolumna(move.koniec2) - pozyskajkordkolumna(move.start2)) == 2)) {
                     Nkolumna = (byte) (pozyskajkordrzad(move.start1));
                     this.przelotcan = true;

@@ -119,7 +119,7 @@ public class SzachMatPatKontrola {
         
         pozycjapodstawna = poza_odsieczy;
         for (int p = -1; p < 2; p++) {
-            if (p != 0 && (klopot[1] + p > -1 && klopot[1] + p < 8)) {
+            if (p != 0 && (klopot[0] + p > -1 && klopot[0] + p < 8)) {
                 if ((!czybiale && przelotcan
                         && (((poza_odsieczy[2][klopot[0]] == ' ' && (poza_odsieczy[3][klopot[0] + p] == 'p')))))
                         || (czybiale && przelotcan
@@ -150,7 +150,6 @@ public class SzachMatPatKontrola {
                     przechowalnia = poza_odsieczy[klopot[1]][klopot[0]];
                     poza_odsieczy[odsiecz[0]][odsiecz[1]] = ' ';
                     poza_odsieczy[klopot[1]][klopot[0]] = ' ';
-            
                     dozwolony = !RuchZagrozenie_kontrola.szach(poza_odsieczy, czybiale);
                     System.out.println(dozwolony);
                     poza_odsieczy[klopot[1]][klopot[0]] = przechowalnia;
@@ -814,7 +813,10 @@ public class SzachMatPatKontrola {
                         przechowalnie = kontrolamat[baza_konca[1]][baza_konca[0]];
                         kontrolamat[baza_konca[1]][baza_konca[0]] = symbol;
                         kontrolamat[pole_start[1]][pole_start[0]] = ' ';
-
+                       /*  for (byte i = 0; i < 8; i++) {
+                            for (byte j = 0; j < 8; j++) {
+                        System.out.print(kontrolamat[i][j]);
+                            }System.out.println("");}*/
                         wynik = !RuchZagrozenie_kontrola.szach(kontrolamat, czybiale);
                         kontrolamat[pole_start[1]][pole_start[0]] = symbol;
                         kontrolamat[baza_konca[1]][baza_konca[0]] = przechowalnie;

@@ -200,7 +200,8 @@ implements Kalkulator {
         return punktacja(ustawienie,true,przelotcan,bleft,bright,wleft,wright,roszadaB,roszadaC,
                 wykonanaRochB,wykonanaRochC,glebia,kol) - 
                 punktacja(ustawienie,false,przelotcan,bleft,bright,wleft,wright,roszadaB,roszadaC,
-                wykonanaRochB,wykonanaRochC,glebia,kol);
+                wykonanaRochB,wykonanaRochC,glebia,kol)
+                + wartosc_bierek(ustawienie);
     }
 
     private int punktacja(SI_MIN_MAX_Alfa_Beta.figury[][] ustawienie, boolean strona, boolean przelotcan,
@@ -211,49 +212,42 @@ implements Kalkulator {
                 + dokonano_roszady(strona,wykonanaRochB,wykonanaRochC)
                 + mobilnosc(ustawienie,strona,przelotcan,bleft,bright,wleft,wright,roszadaB,roszadaC,kol)
                 + pionkiS(strona,ustawienie)
-                + wartosc_bierek(strona,ustawienie)
                 + ruchy_zbijajace(ustawienie,strona,przelotcan,bleft,bright,wleft,wright,roszadaB,roszadaC,kol);
     }
 
-    private int wartosc_bierek(boolean strona,SI_MIN_MAX_Alfa_Beta.figury[][] ustawienie) {
+    private int wartosc_bierek(SI_MIN_MAX_Alfa_Beta.figury[][] ustawienie) {
         int wartosc = 0;
-        int gonce=0;
+        int gonceB=0;
+        int gonceC=0;
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 //System.out.print(SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y]);
-                if (strona == false) {
                     switch (ustawienie[x][y]) {
                         case CPion:
-                            wartosc = wartosc + (100 + BONUS_CZARNY_PION[x][y]);
+                            wartosc = wartosc - (100 + BONUS_CZARNY_PION[x][y]);
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_CZARNY_PION[x][y] + "]");
                             break;
                         case CSkoczek:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_CZARNY_SKOCZEK[x][y] + "]");
-                            wartosc = wartosc + (300 + BONUS_CZARNY_SKOCZEK[x][y]);
+                            wartosc = wartosc - (300 + BONUS_CZARNY_SKOCZEK[x][y]);
                             break;
                         case CGoniec:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_CZARNY_GONIEC[x][y] + "]");
-                            wartosc = wartosc + (330 + BONUS_CZARNY_GONIEC[x][y]);
-                            gonce=gonce+1;
+                            wartosc = wartosc - (330 + BONUS_CZARNY_GONIEC[x][y]);
+                            gonceC=gonceC+1;
                             break;
                         case CWieza:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_CZARNA_WIEZA[x][y] + "]");
-                            wartosc = wartosc + (500 + BONUS_CZARNA_WIEZA[x][y]);
+                            wartosc = wartosc - (500 + BONUS_CZARNA_WIEZA[x][y]);
                             break;
                         case CHetman:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_CZARNY_HETMAN[x][y] + "]");
-                            wartosc = wartosc + (900 + BONUS_CZARNY_HETMAN[x][y]);
+                            wartosc = wartosc - (900 + BONUS_CZARNY_HETMAN[x][y]);
                             break;
                         case CKrol:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_CZARNY_KROL[x][y] + "]");
-                            wartosc = wartosc + (10000 + BONUS_CZARNY_KROL[x][y]);
+                            wartosc = wartosc - (10000 + BONUS_CZARNY_KROL[x][y]);
                             break;
-                        default:
-                              // //System.out.print("[" + 0 + "]");
-                            break;
-                    }
-                } else {
-                    switch (ustawienie[x][y]) {
                         case BPion:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_BIALY_PION[x][y] + "]");
                             wartosc = wartosc + (100 + BONUS_BIALY_PION[x][y]);
@@ -265,7 +259,7 @@ implements Kalkulator {
                         case BGoniec:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_BIALY_GONIEC[x][y] + "]");
                             wartosc = wartosc + (330 + BONUS_BIALY_GONIEC[x][y]);
-                            gonce=gonce+1;
+                            gonceB=gonceB+1;
                             break;
                         case BWieza:
                             //System.out.print("[" + (x + 1) + "|" + (char) ('A' + y) + " " + SI_MIN_MAX_Alfa_Beta.konwert(ustawienie)[x][y] + BONUS_BIALA_WIEZA[x][y] + "]");
@@ -283,11 +277,10 @@ implements Kalkulator {
                             //////System.out.println("[" + 0 + "]");
                             break;
                     }
-                }
             }//System.out.println();
         }
         //System.out.println("-----------------");
-        return wartosc+(gonce==2?25:0);
+        return wartosc+(gonceB>=2?25:0)-(gonceC>=2?25:0);
     }
 
     private int szachmat(boolean strona,SI_MIN_MAX_Alfa_Beta.figury[][] ustawienie,int glebia,boolean przelotcan,int kol) {

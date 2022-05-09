@@ -56,7 +56,7 @@ public class Wspomagacz {
                 || (pomocnicza[X + 1][Y - 2] == 'A')
                 || (pomocnicza[X - 1][Y + 2] == 'A')
                 || (pomocnicza[X - 1][Y - 2] == 'A')))) {
-            System.out.println("skoczek znaleziony");
+          //  System.out.println("skoczek znaleziony");
             for (byte i = -2; i < 3; i++) {
                 for (byte j = -2; j < 3; j++) {
                     if ((Math.abs(j) != Math.abs(i)) && (i != 0 && j != 0)) {
@@ -84,7 +84,7 @@ public class Wspomagacz {
                             //System.out.println("skoczek: " + akceptacja);
                             //System.out.println(akceptacja);
                             if (akceptacja) {
-                                System.out.println(zaslona[0]+"|"+zaslona[1]);
+                             //   System.out.println(zaslona[0]+"|"+zaslona[1]);
                                 return zaslona;
                             }
                         }
