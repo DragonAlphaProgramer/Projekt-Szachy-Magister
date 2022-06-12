@@ -837,4 +837,7 @@ public class Wspomagacz {
         }
         return klopocik;
     }
+    public static int[] znajdzklopot(char[][] ust,char[][] nakladka, boolean czybiale) {
+    return null;
+}
 }

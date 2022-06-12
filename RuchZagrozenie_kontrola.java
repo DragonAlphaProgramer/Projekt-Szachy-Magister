@@ -12,6 +12,210 @@ package szachy;
  */
 public class RuchZagrozenie_kontrola {
 
+    static boolean szach(char[][] pozycja, char[][] nakladki, boolean czybiale) {
+    byte krolX = 0, krolY = 0, alfa, beta;
+        boolean zagrozenie = false;
+        char[][] pomocnicze = new char[16][16];
+        char[][] pomocniczeN = new char[16][16];
+        for (byte i = 0; i < 8; i++) {
+            for (byte j = 0; j < 8; j++) {
+                pomocnicze[i + 4][j + 4] = pozycja[i][j];
+                if(nakladki[i][j]!=' '){
+                    if((czybiale==true&&(nakladki[i][j]=='q'||nakladki[i][j]=='r'
+                            ||nakladki[i][j]=='b'||nakladki[i][j]=='n'||nakladki[i][j]=='p'))||
+                            (czybiale==false&&(nakladki[i][j]=='Q'||nakladki[i][j]=='R'
+                            ||nakladki[i][j]=='B'||nakladki[i][j]=='N'||nakladki[i][j]=='P'))){
+                        pomocniczeN[i+4][j+4]=nakladki[i][j];
+                    }
+                }else{
+                    pomocniczeN[i+4][j+4]=pozycja[i][j];
+                }
+                if ((czybiale && pozycja[i][j] == 'K') || (!czybiale && pozycja[i][j] == 'k')) {
+                    krolX = (byte) (i + 4);
+                    krolY = (byte) (j + 4);
+                }
+                
+            }
+        }
+        if ((czybiale && ((pomocniczeN[krolX + 2][krolY - 1] == 'n')
+                || (pomocniczeN[krolX + 2][krolY + 1] == 'n')
+                || (pomocniczeN[krolX - 2][krolY - 1] == 'n')
+                || (pomocniczeN[krolX - 2][krolY + 1] == 'n')
+                || (pomocniczeN[krolX + 1][krolY + 2] == 'n')
+                || (pomocniczeN[krolX + 1][krolY - 2] == 'n')
+                || (pomocniczeN[krolX - 1][krolY + 2] == 'n')
+                || (pomocniczeN[krolX - 1][krolY - 2] == 'n'))||
+                ((pomocniczeN[krolX + 2][krolY - 1] == 'N')
+                || (pomocniczeN[krolX + 2][krolY + 1] == 'N')
+                || (pomocniczeN[krolX - 2][krolY - 1] == 'N')
+                || (pomocniczeN[krolX - 2][krolY + 1] == 'N')
+                || (pomocniczeN[krolX + 1][krolY + 2] == 'N')
+                || (pomocniczeN[krolX + 1][krolY - 2] == 'N')
+                || (pomocniczeN[krolX - 1][krolY + 2] == 'N')
+                || (pomocniczeN[krolX - 1][krolY - 2] == 'N')))
+               ) {
+            zagrozenie = true;
+            return zagrozenie;
+        }
+        if ((czybiale && ((pomocniczeN[krolX + 1][krolY + 1] == 'p') || (pomocniczeN[krolX + 1][krolY - 1] == 'p')))
+                || (!czybiale && ((pomocniczeN[krolX - 1][krolY + 1] == 'P') || (pomocniczeN[krolX - 1][krolY - 1] == 'P')))) {
+            zagrozenie = true;
+            return zagrozenie;
+        }
+        if ((czybiale && ((pomocniczeN[krolX + 1][krolY + 1] == 'k')
+                || (pomocniczeN[krolX + 1][krolY] == 'k')
+                || (pomocniczeN[krolX + 1][krolY - 1] == 'k')
+                || (pomocniczeN[krolX][krolY - 1] == 'k')
+                || (pomocniczeN[krolX - 1][krolY - 1] == 'k')
+                || (pomocniczeN[krolX - 1][krolY] == 'k')
+                || (pomocniczeN[krolX - 1][krolY + 1] == 'k')
+                || (pomocniczeN[krolX][krolY + 1] == 'k')))
+                || (!czybiale && ((pomocniczeN[krolX + 1][krolY + 1] == 'K')
+                || (pomocniczeN[krolX + 1][krolY] == 'K')
+                || (pomocniczeN[krolX + 1][krolY - 1] == 'K')
+                || (pomocniczeN[krolX][krolY - 1] == 'K')
+                || (pomocniczeN[krolX - 1][krolY - 1] == 'K')
+                || (pomocniczeN[krolX - 1][krolY] == 'K')
+                || (pomocniczeN[krolX - 1][krolY + 1] == 'K')
+                || (pomocniczeN[krolX][krolY + 1] == 'K')))) {
+            zagrozenie = true;
+            return zagrozenie;
+        }
+        alfa = krolX;
+        beta = krolY;
+        byte licz = 0;
+        for (byte i = (byte) (alfa + 1); i <= 11; i++) {
+            licz = (byte) (licz + 1);
+            if (beta + licz >= 12) {
+                break;
+            } else {
+                if ((pomocniczeN[i][beta + licz] == ' ')) {
+                } else {
+                    if ((czybiale && (pomocniczeN[i][beta + licz] != 'q' && pomocniczeN[i][beta + licz] != 'b' && pomocniczeN[i][beta + licz] != 'a'))
+                            || (!czybiale && (pomocniczeN[i][beta + licz] != 'Q' && pomocniczeN[i][beta + licz] != 'B' && pomocniczeN[i][beta + licz] != 'A'))) {
+                        zagrozenie = false;
+                    } else {
+                        zagrozenie = true;
+                        return zagrozenie;
+                    }
+                    break;
+                }
+            }
+        }
+        licz = 0;
+        for (byte i = (byte) (alfa - 1); i >= 4; i--) {
+            licz = (byte) (licz + 1);
+            if (beta + licz >= 12) {
+                break;
+            } else {
+                if ((pomocniczeN[i][beta + licz] == ' ')) {
+                } else {
+                   if ((czybiale && (pomocniczeN[i][beta + licz] != 'q' && pomocniczeN[i][beta + licz] != 'b' && pomocniczeN[i][beta + licz] != 'a'))
+                            || (!czybiale && (pomocniczeN[i][beta + licz] != 'Q' && pomocniczeN[i][beta + licz] != 'B' && pomocniczeN[i][beta + licz] != 'A'))) {
+                         zagrozenie = false;
+                    } else {
+                        zagrozenie = true;
+                        return zagrozenie;
+                    }
+                    break;
+                }
+            }
+        }
+        licz = 0;
+        for (byte i = (byte) (alfa + 1); i <= 11; i++) {
+            licz = (byte) (licz - 1);
+            if (beta + licz <= 3) {
+                break;
+            } else {
+                if ((pomocniczeN[i][beta + licz] == ' ')) {
+                } else {
+                   if ((czybiale && (pomocniczeN[i][beta + licz] != 'q' && pomocniczeN[i][beta + licz] != 'b' && pomocniczeN[i][beta + licz] != 'a'))
+                            || (!czybiale && (pomocniczeN[i][beta + licz] != 'Q' && pomocniczeN[i][beta + licz] != 'B' && pomocniczeN[i][beta + licz] != 'A'))) {
+                       zagrozenie = false;
+                    } else {
+                        zagrozenie = true;
+                        return zagrozenie;
+                    }
+                    break;
+                }
+            }
+        }
+        licz = 0;
+        for (byte i = (byte) (alfa - 1); i >= 4; i--) {
+            licz = (byte) (licz - 1);
+            if (beta + licz <= 3) {
+                break;
+            } else {
+                if ((pomocniczeN[i][beta + licz] == ' ')) {
+                } else {
+                   if ((czybiale && (pomocniczeN[i][beta + licz] != 'q' && pomocniczeN[i][beta + licz] != 'b' && pomocniczeN[i][beta + licz] != 'a'))
+                            || (!czybiale && (pomocniczeN[i][beta + licz] != 'Q' && pomocniczeN[i][beta + licz] != 'B' && pomocniczeN[i][beta + licz] != 'A'))) {
+                       zagrozenie = false;
+                    } else {
+                        zagrozenie = true;
+                        return zagrozenie;
+                    }
+                    break;
+                }
+            }
+        }
+        alfa = krolX;
+        beta = krolY;
+        for (byte i = (byte) (alfa + 1); i <= 11; i++) {
+            if (pomocniczeN[i][beta] == ' ') {
+            } else {
+                if ((czybiale && (pomocniczeN[i][beta] != 'q' && pomocniczeN[i][beta] != 'r'&&pomocniczeN[i][beta]!='a'))
+                        || (!czybiale && (pomocniczeN[i][beta] != 'Q' && pomocniczeN[i][beta] != 'R'&&pomocniczeN[i][beta]!='A'))) {
+                    zagrozenie = false;
+                } else {
+                    zagrozenie = true;
+                    return zagrozenie;
+                }
+                break;
+            }
+        }
+        for (byte i = (byte) (alfa - 1); i >= 4; i--) {
+            if (pomocniczeN[i][beta] == ' ') {
+            } else {
+               if ((czybiale && (pomocniczeN[i][beta] != 'q' && pomocniczeN[i][beta] != 'r'&&pomocniczeN[i][beta]!='a'))
+                        || (!czybiale && (pomocniczeN[i][beta] != 'Q' && pomocniczeN[i][beta] != 'R'&&pomocniczeN[i][beta]!='A'))) {
+                       zagrozenie = false;
+                } else {
+                    zagrozenie = true;
+                    return zagrozenie;
+                }
+                break;
+            }
+        }
+        for (byte i = (byte) (beta + 1); i <= 11; i++) {
+            if (pomocniczeN[alfa][i] == ' ') {
+            } else {
+                if ((czybiale && (pomocniczeN[alfa][i] != 'q' && pomocniczeN[alfa][i] != 'r' && pomocniczeN[alfa][i] != 'a'))
+                        || (!czybiale && (pomocniczeN[alfa][i] != 'Q' && pomocniczeN[alfa][i] != 'R' && pomocniczeN[alfa][i] != 'A'))) {
+                    zagrozenie = false;
+                } else {
+                    zagrozenie = true;
+                    return zagrozenie;
+                }
+                break;
+            }
+        }
+        for (byte i = (byte) (beta - 1); i >= 4; i--) {
+            if (pomocniczeN[alfa][i] == ' ') {
+            } else {
+                if ((czybiale && (pomocniczeN[alfa][i] != 'q' && pomocniczeN[alfa][i] != 'r' && pomocniczeN[alfa][i] != 'a'))
+                        || (!czybiale && (pomocniczeN[alfa][i] != 'Q' && pomocniczeN[alfa][i] != 'R' && pomocniczeN[alfa][i] != 'A'))) {
+                      zagrozenie = false;
+                } else {
+                    zagrozenie = true;
+                    return zagrozenie;
+                }
+                break;
+            }
+        }
+        return zagrozenie;
+    }
+
     private RuchZagrozenie_kontrola() {
     }
 /**
@@ -738,7 +942,6 @@ public class RuchZagrozenie_kontrola {
                 
             }
         }
-      //  System.out.println(krolX+" "+krolY);
         if ((czybiale && ((pomocnicze[krolX + 2][krolY - 1] == 'n')
                 || (pomocnicze[krolX + 2][krolY + 1] == 'n')
                 || (pomocnicze[krolX - 2][krolY - 1] == 'n')
